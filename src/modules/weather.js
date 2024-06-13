@@ -21,7 +21,7 @@ export default async function getLocationData(location) {
     const params = {
         latitude: locationCoords.latitude,
         longitude: locationCoords.longitude,
-        current: ['temperature_2m', 'relative_humidity_2m', 'apparent_temperature', 'precipitation', 'weather_code'],
+        current: ['temperature_2m', 'relative_humidity_2m', 'apparent_temperature', 'precipitation', 'weather_code', 'is_day'],
         hourly: ['temperature_2m', 'precipitation', 'weather_code', 'uv_index'],
         daily: ['weather_code', 'temperature_2m_max', 'temperature_2m_min', 'sunset', 'uv_index_max'],
         forecast_days: 14,
@@ -53,6 +53,7 @@ export default async function getLocationData(location) {
             apparentTemperature: current.variables(2).value(),
             precipitation: current.variables(3).value(),
             weatherCode: current.variables(4).value(),
+            isDay: current.variables(5).value(),
         },
         hourly: {
             time: range(Number(hourly.time()), Number(hourly.timeEnd()), hourly.interval()).map(
