@@ -1,0 +1,46 @@
+* {
+    --very-cold: rgba(0, 123, 252, 1) 0%;
+    --cold: rgba(61, 219, 192, 1) 20%;
+    --mild: rgba(102, 203, 151, 1) 40%;
+    --warm: rgba(153, 184, 101, 1) 60%;
+    --hot: rgba(204, 165, 51, 1) 80%;
+    --very-hot: rgba(255, 0, 0, 1) 100%;
+
+    --left-progress: 0%;
+    --right-progress: 0%;
+}
+
+.card.daily-forecast .card-content {
+    gap: 10px;
+}
+
+.card.daily-forecast .card-content .js-daily-item {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    box-sizing: border-box;
+}
+
+.js-day-name {
+    min-width: 50px;
+}
+
+.slider {
+    width: 30%;
+    height: 5px;
+    position: relative;
+    border-radius: 5px;
+    background: #ddd;
+}
+
+.slider .progress {
+    height: 100%;
+    left: 25%;
+    right: 0%;
+    position: absolute;
+    border-radius: 5px;
+    background: rgb(0, 243, 252);
+    background: linear-gradient(90deg, var(--mild), var(--warm));
+}

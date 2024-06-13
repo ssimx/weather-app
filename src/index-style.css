@@ -86,15 +86,21 @@ main {
     min-height: 12vh;
     border-radius: var(--radius);
     border: 1px solid black;
-    padding: 10px;
+    padding: 15px;
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
 
-.card .card-title {
-    padding-bottom: 10px;
-    border-bottom: 1px solid black;
+hr {
+    border: none;
+    height: 1px;
+    width: 100%;
+    /* Set the hr color */
+    color: #ddd;
+    /* old IE */
+    background-color: #ddd;
+    /* Modern Browsers */
 }
 
 .card.hourly-forecast {
@@ -111,9 +117,17 @@ main {
     scrollbar-width: none
 }
 
-.card.ten-day-forecast {
+.card.daily-forecast {
     grid-column: span 2;
     grid-row: span 3;
+}
+
+.card.daily-forecast .card-content {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
 }
 
 .card.precipitation {
@@ -142,7 +156,6 @@ main {
         grid-template-columns: 1fr 1fr 1fr 1fr;
         grid-auto-rows: 1fr;
         gap: 1vh;
-
         position: relative;
     }
     
@@ -150,12 +163,10 @@ main {
         min-height: 17vh;
         border-radius: var(--radius);
         border: 1px solid black;
-        padding: 5px;
-    }
-
-    .card .card-title {
-        padding-bottom: 5px;
-        border-bottom: 1px solid black;
+        padding: 15px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
     }
 
     .card.hourly-forecast {
@@ -163,7 +174,7 @@ main {
         order: 0;
     }
 
-    .card.ten-day-forecast {
+    .card.daily-forecast {
         grid-column: span 2;
         order: 1;
     }
@@ -206,7 +217,6 @@ main {
         grid-template-columns: repeat(6, 1fr);
         grid-auto-rows: 1fr;
         gap: 1vh;
-
         position: relative;
     }
 
@@ -214,12 +224,10 @@ main {
         min-height: 17vh;
         border-radius: var(--radius);
         border: 1px solid black;
-        padding: 5px;
-    }
-
-    .card .card-title {
-        padding-bottom: 5px;
-        border-bottom: 1px solid black;
+        padding: 15px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
     }
 
     .card.hourly-forecast {
@@ -233,7 +241,7 @@ main {
         order: 1;
     }
 
-    .card.ten-day-forecast {
+    .card.daily-forecast {
         grid-column: span 2;
         grid-row: span 3;
         order: 2;
