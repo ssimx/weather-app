@@ -83,19 +83,32 @@ main {
 }
 
 .location-info-cards .card {
-    min-height: 17vh;
+    min-height: 12vh;
     border-radius: var(--radius);
     border: 1px solid black;
-    padding: 5px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
 .card .card-title {
-    padding-bottom: 5px;
+    padding-bottom: 10px;
     border-bottom: 1px solid black;
 }
 
 .card.hourly-forecast {
     grid-column: span 2;
+}
+
+.card.hourly-forecast .card-content {
+    height: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 20px;
+    overflow-x: scroll;
+    scrollbar-width: none
 }
 
 .card.ten-day-forecast {

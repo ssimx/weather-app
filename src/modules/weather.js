@@ -22,10 +22,10 @@ export default async function getLocationData(location) {
         latitude: locationCoords.latitude,
         longitude: locationCoords.longitude,
         current: ['temperature_2m', 'relative_humidity_2m', 'apparent_temperature', 'precipitation', 'weather_code', 'is_day'],
-        hourly: ['temperature_2m', 'precipitation', 'weather_code', 'uv_index'],
-        daily: ['weather_code', 'temperature_2m_max', 'temperature_2m_min', 'sunset', 'uv_index_max'],
+        hourly: ['temperature_2m', 'precipitation', 'weather_code', 'uv_index', 'is_day'],
+        daily: ['weather_code', 'temperature_2m_max', 'temperature_2m_min', 'uv_index_max', 'sunset', 'sunrise'],
         forecast_days: 14,
-        forecast_hours: 6,
+        forecast_hours: 24,
     };
 
     const url = 'https://api.open-meteo.com/v1/forecast';
@@ -63,6 +63,7 @@ export default async function getLocationData(location) {
             precipitation: hourly.variables(1).valuesArray(),
             weatherCode: hourly.variables(2).valuesArray(),
             uvIndex: hourly.variables(3).valuesArray(),
+            isDay: hourly.variables(4).valuesArray(),
         },
         daily: {
             time: range(Number(daily.time()), Number(daily.timeEnd()), daily.interval()).map(
@@ -71,8 +72,9 @@ export default async function getLocationData(location) {
             weatherCode: daily.variables(0).valuesArray(),
             temperature2mMax: daily.variables(1).valuesArray(),
             temperature2mMin: daily.variables(2).valuesArray(),
-            sunset: daily.variables(3).valuesArray(),
-            uvIndexMax: daily.variables(4).valuesArray(),
+            uvIndexMax: daily.variables(3).valuesArray(),
+            sunset: daily.variables(4).valuesArray(),
+            sunrise: daily.variables(5).valuesArray(),
         },
 
     };

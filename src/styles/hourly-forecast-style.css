@@ -1,0 +1,8 @@
+.card.hourly-forecast .card-content .js-hour-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.card.hourly-forecast .card-content .hour-item .hour-temp {}
