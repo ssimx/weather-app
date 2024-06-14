@@ -1,13 +1,16 @@
-* {
-    --very-cold: rgba(0, 123, 252, 1) 0%;
-    --cold: rgba(61, 219, 192, 1) 20%;
-    --mild: rgba(102, 203, 151, 1) 40%;
-    --warm: rgba(153, 184, 101, 1) 60%;
-    --hot: rgba(204, 165, 51, 1) 80%;
-    --very-hot: rgba(255, 0, 0, 1) 100%;
 
-    --left-progress: 0%;
-    --right-progress: 0%;
+:root {
+    --0-perc: rgba(0, 123, 252, 1);
+    --10-perc: rgba(34, 176, 219, 1);
+    --20-perc: rgba(61, 219, 192, 1);
+    --30-perc: rgba(84, 210, 169, 1);
+    --40-perc: rgba(102, 203, 151, 1);
+    --50-perc: rgba(128, 194, 126, 1);
+    --60-perc: rgba(153, 184, 101, 1);
+    --70-perc: rgba(179, 175, 76, 1);
+    --80-perc: rgba(204, 165, 51, 1);
+    --90-perc: rgba(232, 74, 23, 1);
+    --100-perc: rgba(255, 0, 0, 1);
 }
 
 .card.daily-forecast .card-content {
@@ -27,7 +30,7 @@
     min-width: 50px;
 }
 
-.slider {
+.js-temp-bar {
     width: 30%;
     height: 5px;
     position: relative;
@@ -35,9 +38,9 @@
     background: #ddd;
 }
 
-.slider .progress {
+.js-temp-bar .js-bar {
     height: 100%;
-    left: 25%;
+    left: 0%;
     right: 0%;
     position: absolute;
     border-radius: 5px;

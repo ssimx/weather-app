@@ -2,6 +2,7 @@
 import weatherCodes from '../assets/json/weatherCodes.json';
 import '../styles/hourly-forecast-style.css';
 import '../styles/daily-forecast-style.css';
+import createTempBarElement from './tempBar';
 
 const degreeIcon = '\u{000B0}';
 
@@ -87,56 +88,39 @@ const updateDailyForecast = (locationData, tempType) => {
         const item = document.createElement('div');
         item.classList.add('js-daily-item');
 
-        const dayName = document.createElement('p');
-        dayName.classList.add('js-day-name');
+        const dayNameElement = document.createElement('p');
+        dayNameElement.classList.add('js-day-name');
         const day = new Date(locationData.daily.time[i]).getDay();
-        dayName.textContent = i === 8 ? 'Today' : weekday[day];
-        const dailyWeatherType = document.createElement('img');
-        dailyWeatherType.classList.add('js-hour-weather-type');
-        dailyWeatherType.setAttribute('alt', 'Weather type icon');
-        dailyWeatherType.setAttribute('height', '24');
+        dayNameElement.textContent = i === 8 ? 'Today' : weekday[day];
+        const dailyWeatherTypeElement = document.createElement('img');
+        dailyWeatherTypeElement.classList.add('js-hour-weather-type');
+        dailyWeatherTypeElement.setAttribute('alt', 'Weather type icon');
+        dailyWeatherTypeElement.setAttribute('height', '24');
         const weatherType = getWeatherType(
             locationData.daily.weatherCode[i],
             1,
         );
-        dailyWeatherType.src = weatherType.image;
-        const minTemp = document.createElement('p');
-        const maxTemp = document.createElement('p');
-        minTemp.classList.add('js-daily-temp-min');
-        maxTemp.classList.add('js-daily-temp-max');
+        dailyWeatherTypeElement.src = weatherType.image;
+        const minTempElement = document.createElement('p');
+        const maxTempElement = document.createElement('p');
+        minTempElement.classList.add('js-daily-temp-min');
+        maxTempElement.classList.add('js-daily-temp-max');
 
-        const minPastSevenDays = Array(locationData.daily.temperature2mMin.slice(i - 8, i));
-        const maxPastSevenDays = locationData.daily.temperature2mMax.slice(i - 8, i);
+        const minTemp = tempType === 'C' ? Math.round(locationData.daily.temperature2mMin[i]) : Math.round((locationData.daily.temperature2mMin[i] * (9 / 5)) + 32);
+        minTempElement.textContent = `${minTemp}${degreeIcon}`;
 
-        // calculate daily min and max average for the past 7 days
-        const avgMinTemp = minPastSevenDays.reduce((acc, curr) => {
-            if (tempType === 'C') {
-                return acc + Math.round(curr);
-            }
+        const maxTemp = tempType === 'C' ? Math.round(locationData.daily.temperature2mMax[i]) : Math.round((locationData.daily.temperature2mMax[i] * (9 / 5)) + 32);
+        maxTempElement.textContent = `${maxTemp}${degreeIcon}`;
 
-            return acc + Math.round((curr * (9 / 5)) + 32);
-        });
+        const barElement = createTempBarElement(minTemp, maxTemp);
 
-        const avgMaxTemp = maxPastSevenDays.reduce((acc, curr) => {
-            if (tempType === 'C') {
-                return acc + Math.round(curr);
-            }
-
-            return acc + Math.round((curr * (9 / 5)) + 32);
-        });
-
-        let temp = tempType === 'C' ? Math.round(locationData.daily.temperature2mMin[i]) : Math.round((locationData.daily.temperature2mMin[i] * (9 / 5)) + 32);
-        minTemp.textContent = `${temp}${degreeIcon}`;
-
-        temp = tempType === 'C' ? Math.round(locationData.daily.temperature2mMax[i]) : Math.round((locationData.daily.temperature2mMax[i] * (9 / 5)) + 32);
-        maxTemp.textContent = `${temp}${degreeIcon}`;
-        const slider = document.createElement('div');
-        slider.classList.add('slider');
-        const progress = document.createElement('div');
-        progress.classList.add('progress');
-
-        slider.append(progress);
-        item.append(dayName, dailyWeatherType, minTemp, slider, maxTemp);
+        item.append(
+            dayNameElement,
+            dailyWeatherTypeElement,
+            minTempElement,
+            barElement,
+            maxTempElement,
+        );
 
         if (i < 17) {
             card.append(item, hr);
