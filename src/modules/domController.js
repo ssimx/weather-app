@@ -83,7 +83,7 @@ const updateDailyForecast = (locationData, tempType) => {
     // create 9 elements for following days
     // total 10 elements
     const weekday = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-    for (let i = 8; i < 18; i++) {
+    for (let i = 7; i < 18; i++) {
         const hr = document.createElement('hr');
         const item = document.createElement('div');
         item.classList.add('js-daily-item');
@@ -91,7 +91,7 @@ const updateDailyForecast = (locationData, tempType) => {
         const dayNameElement = document.createElement('p');
         dayNameElement.classList.add('js-day-name');
         const day = new Date(locationData.daily.time[i]).getDay();
-        dayNameElement.textContent = i === 8 ? 'Today' : weekday[day];
+        dayNameElement.textContent = i === 7 ? 'Today' : weekday[day];
         const dailyWeatherTypeElement = document.createElement('img');
         dailyWeatherTypeElement.classList.add('js-hour-weather-type');
         dailyWeatherTypeElement.setAttribute('alt', 'Weather type icon');
@@ -160,7 +160,7 @@ const updateFeelsLike = (locationData, tempType) => {
 const updateUvIndex = (locationData) => {
     const uvIndex = document.querySelector('.uv-index');
     const card = uvIndex.querySelector('.card-content');
-    const index = Math.round(locationData.daily.uvIndexMax[0]);
+    const index = Math.round(locationData.hourly.uvIndex[0]);
 
     const indexDiv = document.createElement('div');
     indexDiv.classList.add('js-uv-index');
@@ -174,7 +174,7 @@ const updateUvIndex = (locationData) => {
     indexDesc.classList.add('js-uv-desc');
     if (index >= 0 && index <= 2) {
         indexScale.textContent = 'Normal';
-        indexDesc.textContent = 'You can safely enjoy being outside.';
+        indexDesc.textContent = 'You can safely stay outside.';
     } else if (index >= 3 && index <= 5) {
         indexScale.textContent = 'Moderate';
         indexDesc.textContent = 'Use sun protection.';

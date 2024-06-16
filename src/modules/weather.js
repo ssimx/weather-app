@@ -15,6 +15,17 @@ const getCoords = async (location) => {
     }
 };
 
+const getSunriseSunset = async (location) => {
+    try {
+        const response = await fetch(`https://api.sunrise-sunset.org/json?lat=${location.latitude}&lng=${location.longitude}&date=today`, { mode: 'cors' });
+
+        const data = await response.json();
+        return data.results;
+    } catch (err) {
+        return err;
+    }
+};
+
 export default async function getLocationData(location) {
     const locationCoords = await getCoords(location);
 
@@ -24,6 +35,7 @@ export default async function getLocationData(location) {
         current: ['temperature_2m', 'relative_humidity_2m', 'apparent_temperature', 'precipitation', 'weather_code', 'is_day'],
         hourly: ['temperature_2m', 'precipitation', 'weather_code', 'uv_index', 'is_day'],
         daily: ['weather_code', 'temperature_2m_max', 'temperature_2m_min', 'uv_index_max', 'sunset', 'sunrise'],
+        timezone: 'auto',
         past_days: 7,
         forecast_days: 14,
         forecast_hours: 24,
@@ -36,11 +48,24 @@ export default async function getLocationData(location) {
     const response = responses[0];
 
     // Attributes for timezone and location
-    const utcOffsetSeconds = response.utcOffsetSeconds();
-
+    const timezone = response.timezone();
     const current = response.current();
     const hourly = response.hourly();
     const daily = response.daily();
+
+    // Get sunrise and sunset data
+    const sunriseSunset = getSunriseSunset(locationCoords);
+
+    const options = {
+        timeZone: timezone,
+        year: 'numeric',
+        month: 'numeric',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: 'numeric',
+        hour12: false,
+    };
+    const formatter = new Intl.DateTimeFormat([], options);
 
     // Note: The order of weather variables in the URL query and the indices below need to match!
     const weatherData = {
@@ -48,7 +73,7 @@ export default async function getLocationData(location) {
             name: locationCoords.name,
         },
         current: {
-            time: new Date((Number(current.time()) + utcOffsetSeconds) * 1000),
+            time: new Date(Date.parse(formatter.format(new Date()))),
             temperature2m: current.variables(0).value(),
             relativeHumidity2m: current.variables(1).value(),
             apparentTemperature: current.variables(2).value(),
@@ -58,7 +83,7 @@ export default async function getLocationData(location) {
         },
         hourly: {
             time: range(Number(hourly.time()), Number(hourly.timeEnd()), hourly.interval()).map(
-                (t) => new Date((t + utcOffsetSeconds) * 1000),
+                (t) => new Date(Date.parse(formatter.format(new Date(t * 1000)))),
             ),
             temperature2m: hourly.variables(0).valuesArray(),
             precipitation: hourly.variables(1).valuesArray(),
@@ -68,7 +93,7 @@ export default async function getLocationData(location) {
         },
         daily: {
             time: range(Number(daily.time()), Number(daily.timeEnd()), daily.interval()).map(
-                (t) => new Date((t + utcOffsetSeconds) * 1000),
+                (t) => new Date(Date.parse(formatter.format(new Date(t * 1000)))),
             ),
             weatherCode: daily.variables(0).valuesArray(),
             temperature2mMax: daily.variables(1).valuesArray(),
