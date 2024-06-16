@@ -1,0 +1,15 @@
+.card.sunrise-sunset .card-content {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.js-sunrise-sunset-main-time {
+    font-size: 2.5rem;
+}
+
+.js-sunrise-sunset-next-time {
+    margin-top: auto;
+    font-size: 0.95rem;
+}

@@ -1,6 +1,7 @@
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable no-plusplus */
 import { fetchWeatherApi } from 'openmeteo';
+import formatDateTimezone from './timezoneFormatter';
 
 const range = require('lodash.range');
 
@@ -15,12 +16,20 @@ const getCoords = async (location) => {
     }
 };
 
-const getSunriseSunset = async (location) => {
+const getSunriseSunset = async (location, timezone) => {
     try {
-        const response = await fetch(`https://api.sunrise-sunset.org/json?lat=${location.latitude}&lng=${location.longitude}&date=today`, { mode: 'cors' });
+        let tomorrow = new Date();
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        tomorrow = new Date(tomorrow.toLocaleString('en', { timeZone: timezone }));
+        console.log(tomorrow)
 
-        const data = await response.json();
-        return data.results;
+        const responseToday = await fetch(`https://api.sunrise-sunset.org/json?lat=${location.latitude}&lng=${location.longitude}&date=today&tzid=${timezone}&formatted=0`, { mode: 'cors' });
+        const responseTomorrow = await fetch(`https://api.sunrise-sunset.org/json?lat=${location.latitude}&lng=${location.longitude}&date=${tomorrow.getFullYear()}-${tomorrow.getMonth()}-${tomorrow.getDate()}&tzid=${timezone}&formatted=0`, { mode: 'cors' });
+
+        const dataToday = await responseToday.json();
+        const dataTomorrow = await responseTomorrow.json();
+
+        return [dataToday.results, dataTomorrow.results];
     } catch (err) {
         return err;
     }
@@ -34,7 +43,7 @@ export default async function getLocationData(location) {
         longitude: locationCoords.longitude,
         current: ['temperature_2m', 'relative_humidity_2m', 'apparent_temperature', 'precipitation', 'weather_code', 'is_day'],
         hourly: ['temperature_2m', 'precipitation', 'weather_code', 'uv_index', 'is_day'],
-        daily: ['weather_code', 'temperature_2m_max', 'temperature_2m_min', 'uv_index_max', 'sunset', 'sunrise'],
+        daily: ['weather_code', 'temperature_2m_max', 'temperature_2m_min', 'uv_index_max'],
         timezone: 'auto',
         past_days: 7,
         forecast_days: 14,
@@ -54,26 +63,16 @@ export default async function getLocationData(location) {
     const daily = response.daily();
 
     // Get sunrise and sunset data
-    const sunriseSunset = getSunriseSunset(locationCoords);
-
-    const options = {
-        timeZone: timezone,
-        year: 'numeric',
-        month: 'numeric',
-        day: 'numeric',
-        hour: 'numeric',
-        minute: 'numeric',
-        hour12: false,
-    };
-    const formatter = new Intl.DateTimeFormat([], options);
+    const sunriseSunset = await getSunriseSunset(locationCoords, timezone);
 
     // Note: The order of weather variables in the URL query and the indices below need to match!
     const weatherData = {
         location: {
             name: locationCoords.name,
+            timezone: locationCoords.timezone,
         },
         current: {
-            time: new Date(Date.parse(formatter.format(new Date()))),
+            time: formatDateTimezone(timezone, new Date()),
             temperature2m: current.variables(0).value(),
             relativeHumidity2m: current.variables(1).value(),
             apparentTemperature: current.variables(2).value(),
@@ -83,7 +82,7 @@ export default async function getLocationData(location) {
         },
         hourly: {
             time: range(Number(hourly.time()), Number(hourly.timeEnd()), hourly.interval()).map(
-                (t) => new Date(Date.parse(formatter.format(new Date(t * 1000)))),
+                (t) => formatDateTimezone(timezone, new Date(t * 1000)),
             ),
             temperature2m: hourly.variables(0).valuesArray(),
             precipitation: hourly.variables(1).valuesArray(),
@@ -93,14 +92,13 @@ export default async function getLocationData(location) {
         },
         daily: {
             time: range(Number(daily.time()), Number(daily.timeEnd()), daily.interval()).map(
-                (t) => new Date(Date.parse(formatter.format(new Date(t * 1000)))),
+                (t) => formatDateTimezone(timezone, new Date(t * 1000)),
             ),
             weatherCode: daily.variables(0).valuesArray(),
             temperature2mMax: daily.variables(1).valuesArray(),
             temperature2mMin: daily.variables(2).valuesArray(),
             uvIndexMax: daily.variables(3).valuesArray(),
-            sunset: daily.variables(4).valuesArray(),
-            sunrise: daily.variables(5).valuesArray(),
+            sunriseSunset,
         },
 
     };

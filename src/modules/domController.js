@@ -5,7 +5,9 @@ import '../styles/hourly-forecast-style.css';
 import '../styles/daily-forecast-style.css';
 import '../styles/feels-like-style.css';
 import '../styles/uv-index-style.css';
+import '../styles/sunrise-sunset-style.css';
 import createTempBarElement from './tempBar';
+import formatDateTimezone from './timezoneFormatter';
 
 const degreeIcon = '\u{000B0}';
 
@@ -200,10 +202,47 @@ const updateUvIndex = (locationData) => {
     card.append(indexDiv, indexBarDiv, indexDesc);
 };
 
+const updateSunriseSunset = (locationData) => {
+    const sunriseSunset = document.querySelector('.sunrise-sunset');
+    const card = sunriseSunset.querySelector('.card-content');
+    const title = sunriseSunset.querySelector('.card-title');
+
+    const mainTime = document.createElement('div');
+    mainTime.classList.add('js-sunrise-sunset-main-time');
+    const nextTime = document.createElement('div');
+    nextTime.classList.add('js-sunrise-sunset-next-time');
+
+    const { timezone } = locationData.location;
+    const sunriseToday = locationData.daily.sunriseSunset[0].sunrise;
+    const sunsetToday = locationData.daily.sunriseSunset[0].sunset;
+    const currentTime = formatDateTimezone(timezone, new Date());
+
+    if (currentTime.getTime() > formatDateTimezone(timezone, new Date(sunriseToday)).getTime()
+    && currentTime.getTime() < formatDateTimezone(timezone, new Date(sunsetToday)).getTime()) {
+        title.textContent = 'Sunset';
+        mainTime.textContent = sunsetToday.slice(11, 16);
+        nextTime.textContent = `Sunset: ${locationData.daily.sunriseSunset[1].sunrise.slice(11, 16)}`;
+    // eslint-disable-next-line max-len
+    } else if (currentTime.getTime() > formatDateTimezone(timezone, new Date(sunriseToday)).getTime()
+    && currentTime.getTime() > formatDateTimezone(timezone, new Date(sunsetToday)).getTime()) {
+        title.textContent = 'Sunrise';
+        mainTime.textContent = locationData.daily.sunriseSunset[1].sunrise.slice(11, 16);
+        nextTime.textContent = `Sunset: ${locationData.daily.sunriseSunset[1].sunset.slice(11, 16)}`;
+    // eslint-disable-next-line max-len
+    } else if (currentTime.getTime() < formatDateTimezone(timezone, new Date(sunriseToday)).getTime()) {
+        title.textContent = 'Sunrise';
+        mainTime.textContent = locationData.daily.sunriseSunset[0].sunrise.slice(11, 16);
+        nextTime.textContent = `Sunset: ${sunsetToday.slice(11, 16)}`;
+    }
+
+    card.append(mainTime, nextTime);
+};
+
 export default function updateWeatherInfo(locationData, tempType) {
     updateBriefInfo(locationData, tempType);
     updateHourlyForecast(locationData, tempType);
     updateDailyForecast(locationData, tempType);
     updateFeelsLike(locationData, tempType);
     updateUvIndex(locationData);
+    updateSunriseSunset(locationData);
 }
