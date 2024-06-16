@@ -1,0 +1,40 @@
+.card.uv-index .card-content {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.js-uv-index {
+    width: 100%;
+}
+
+.js-index {
+    font-size: 2.5rem;
+}
+
+.js-scale {
+    font-size: 1.3rem;
+}
+
+.js-uv-bar {
+    width: 100%;
+    height: 8px;
+    position: relative;
+    border-radius: 5px;
+    background: linear-gradient(90deg, rgba(60, 193, 65, 1) 0%, rgba(150, 232, 23, 1) 10%, rgba(201, 255, 138, 1) 20%, rgba(245, 255, 0, 1) 33%, rgba(255, 111, 0, 1) 60%, rgba(255, 0, 0, 1) 70%, rgba(250, 0, 122, 1) 80%, rgba(255, 0, 211, 1) 90%, rgba(218, 0, 255, 1) 100%);
+}
+
+.js-uv-bar .js-bar {
+    height: 100%;
+    width: 8px;
+    left: 0%;
+    position: absolute;
+    border-radius: 5px;
+    background: #ffffff;
+}
+
+.js-uv-desc {
+    margin-top: auto;
+}

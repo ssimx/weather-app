@@ -107,27 +107,9 @@ hr {
     grid-column: span 2;
 }
 
-.card.hourly-forecast .card-content {
-    height: 100%;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    gap: 20px;
-    overflow-x: scroll;
-    scrollbar-width: none
-}
-
 .card.daily-forecast {
     grid-column: span 2;
     grid-row: span 3;
-}
-
-.card.daily-forecast .card-content {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 5px;
 }
 
 .card.precipitation {

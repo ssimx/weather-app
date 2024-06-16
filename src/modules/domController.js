@@ -1,7 +1,10 @@
+/* eslint-disable no-lonely-if */
 /* eslint-disable no-plusplus */
 import weatherCodes from '../assets/json/weatherCodes.json';
 import '../styles/hourly-forecast-style.css';
 import '../styles/daily-forecast-style.css';
+import '../styles/feels-like-style.css';
+import '../styles/uv-index-style.css';
 import createTempBarElement from './tempBar';
 
 const degreeIcon = '\u{000B0}';
@@ -23,16 +26,13 @@ const updateBriefInfo = (locationData, tempType) => {
     const name = locationData.location.name.split(',')[0];
     cityElement.textContent = name;
 
-    if (tempType === 'C') {
-        const currentTemp = Math.round(locationData.current.temperature2m);
-        tempElement.textContent = `${currentTemp}${degreeIcon}`;
+    const currentTemp = Math.round(locationData.current.temperature2m);
+    const tempMax = Math.round(locationData.daily.temperature2mMax[0]);
+    const tempMin = Math.round(locationData.daily.temperature2mMin[0]);
 
-        const tempMax = Math.round(locationData.daily.temperature2mMax[0]);
-        tempMaxElement.textContent += `${tempMax}${degreeIcon}`;
-
-        const tempMin = Math.round(locationData.daily.temperature2mMin[0]);
-        tempMinElement.textContent += `${tempMin}${degreeIcon}`;
-    }
+    tempElement.textContent = tempType === 'C' ? `${currentTemp}${degreeIcon}` : Math.round(`${currentTemp}${degreeIcon}` * (9 / 5)) + 32;
+    tempMaxElement.textContent = tempType === 'C' ? `${tempMax}${degreeIcon}` : Math.round(`${tempMax}${degreeIcon}` * (9 / 5)) + 32;
+    tempMinElement.textContent = tempType === 'C' ? `${tempMin}${degreeIcon}` : Math.round(`${tempMin}${degreeIcon}` * (9 / 5)) + 32;
 
     const weatherType = getWeatherType(
         locationData.current.weatherCode,
@@ -130,8 +130,80 @@ const updateDailyForecast = (locationData, tempType) => {
     }
 };
 
+const updateFeelsLike = (locationData, tempType) => {
+    const feels = document.querySelector('.feels-like');
+    const card = feels.querySelector('.card-content');
+    const feelsLikeTemp = Math.round(locationData.current.apparentTemperature);
+    const currentTemp = Math.round(locationData.current.temperature2m);
+
+    const temp = document.createElement('div');
+    temp.classList.add('js-feels-temp');
+    temp.textContent = tempType === 'C' ? `${feelsLikeTemp}${degreeIcon}` : Math.round(`${feelsLikeTemp}${degreeIcon}` * (9 / 5)) + 32;
+
+    const desc = document.createElement('div');
+    desc.classList.add('js-feels-desc');
+
+    const tempDif = feelsLikeTemp - currentTemp;
+    if (tempType === 'C') {
+        if (Math.abs(tempDif) <= 3) desc.textContent = 'Similar to the actual temperature.';
+        else if (tempDif > 3) desc.textContent = 'Hotter than the actual temperature.';
+        else if (tempDif > -3) desc.textContent = 'Colder than the actual temperature.';
+    } else {
+        if (Math.abs(tempDif) <= 6) desc.textContent = 'Similar to the actual temperature.';
+        else if (tempDif > 6) desc.textContent = 'Hotter than the actual temperature.';
+        else if (tempDif > -6) desc.textContent = 'Colder than the actual temperature.';
+    }
+
+    card.append(temp, desc);
+};
+
+const updateUvIndex = (locationData) => {
+    const uvIndex = document.querySelector('.uv-index');
+    const card = uvIndex.querySelector('.card-content');
+    const index = Math.round(locationData.daily.uvIndexMax[0]);
+
+    const indexDiv = document.createElement('div');
+    indexDiv.classList.add('js-uv-index');
+    const indexNumber = document.createElement('p');
+    indexNumber.classList.add('js-index');
+    indexNumber.textContent = index;
+    const indexScale = document.createElement('p');
+    indexScale.classList.add('js-scale');
+
+    const indexDesc = document.createElement('div');
+    indexDesc.classList.add('js-uv-desc');
+    if (index >= 0 && index <= 2) {
+        indexScale.textContent = 'Normal';
+        indexDesc.textContent = 'You can safely enjoy being outside.';
+    } else if (index >= 3 && index <= 5) {
+        indexScale.textContent = 'Moderate';
+        indexDesc.textContent = 'Use sun protection.';
+    } else if (index >= 6 && index <= 7) {
+        indexScale.textContent = 'High';
+        indexDesc.textContent = 'Use sun protection and seek shade.';
+    } else if (index >= 8 && index <= 10) {
+        indexScale.textContent = 'Very high';
+        indexDesc.textContent = 'Avoid being outside.';
+    } else if (index >= 11) {
+        indexScale.textContent = 'Extreme';
+        indexDesc.textContent = 'Avoid being outside.';
+    }
+
+    const indexBarDiv = document.createElement('div');
+    indexBarDiv.classList.add('js-uv-bar');
+    const indexBar = document.createElement('div');
+    indexBar.classList.add('js-bar');
+    indexBar.style.left = index > 10 ? '100%' : `${index}0%`;
+
+    indexDiv.append(indexNumber, indexScale);
+    indexBarDiv.append(indexBar);
+    card.append(indexDiv, indexBarDiv, indexDesc);
+};
+
 export default function updateWeatherInfo(locationData, tempType) {
     updateBriefInfo(locationData, tempType);
     updateHourlyForecast(locationData, tempType);
     updateDailyForecast(locationData, tempType);
+    updateFeelsLike(locationData, tempType);
+    updateUvIndex(locationData);
 }
