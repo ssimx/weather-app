@@ -1,11 +1,12 @@
 /* eslint-disable no-lonely-if */
 /* eslint-disable no-plusplus */
-import weatherCodes from '../assets/json/weatherCodes.json';
 import '../styles/hourly-forecast-style.css';
 import '../styles/daily-forecast-style.css';
 import '../styles/feels-like-style.css';
 import '../styles/uv-index-style.css';
 import '../styles/sunrise-sunset-style.css';
+import '../styles/wind-style.css';
+import weatherCodes from '../assets/json/weatherCodes.json';
 import createTempBarElement from './tempBar';
 import formatDateTimezone from './timezoneFormatter';
 
@@ -17,7 +18,7 @@ const getWeatherType = (weatherCode, isDay) => {
     return weatherCodes[weatherCode][dayType];
 };
 
-const updateBriefInfo = (locationData, tempType) => {
+const updateBriefInfo = (locationData, systemType) => {
     const locationBriefInfo = document.querySelector('.location-brief-info');
     const cityElement = locationBriefInfo.querySelector('.city');
     const tempElement = locationBriefInfo.querySelector('.temp');
@@ -32,9 +33,9 @@ const updateBriefInfo = (locationData, tempType) => {
     const tempMax = Math.round(locationData.daily.temperature2mMax[0]);
     const tempMin = Math.round(locationData.daily.temperature2mMin[0]);
 
-    tempElement.textContent = tempType === 'C' ? `${currentTemp}${degreeIcon}` : Math.round(`${currentTemp}${degreeIcon}` * (9 / 5)) + 32;
-    tempMaxElement.textContent = tempType === 'C' ? `${tempMax}${degreeIcon}` : Math.round(`${tempMax}${degreeIcon}` * (9 / 5)) + 32;
-    tempMinElement.textContent = tempType === 'C' ? `${tempMin}${degreeIcon}` : Math.round(`${tempMin}${degreeIcon}` * (9 / 5)) + 32;
+    tempElement.textContent = systemType === 'metric' ? `${currentTemp}${degreeIcon}` : Math.round(`${currentTemp}${degreeIcon}` * (9 / 5)) + 32;
+    tempMaxElement.textContent = systemType === 'metric' ? `${tempMax}${degreeIcon}` : Math.round(`${tempMax}${degreeIcon}` * (9 / 5)) + 32;
+    tempMinElement.textContent = systemType === 'metric' ? `${tempMin}${degreeIcon}` : Math.round(`${tempMin}${degreeIcon}` * (9 / 5)) + 32;
 
     const weatherType = getWeatherType(
         locationData.current.weatherCode,
@@ -43,7 +44,7 @@ const updateBriefInfo = (locationData, tempType) => {
     typeElement.textContent = weatherType.description;
 };
 
-const updateHourlyForecast = (locationData, tempType) => {
+const updateHourlyForecast = (locationData, systemType) => {
     const hourly = document.querySelector('.hourly-forecast');
     const card = hourly.querySelector('.card-content');
 
@@ -69,7 +70,7 @@ const updateHourlyForecast = (locationData, tempType) => {
         hourWeatherType.src = weatherType.image;
         const hourTemp = document.createElement('p');
         hourTemp.classList.add('js-hour-temp');
-        const temp = tempType === 'C' ? Math.round(locationData.hourly.temperature2m[i]) : Math.round((locationData.hourly.temperature2m[i] * (9 / 5)) + 32);
+        const temp = systemType === 'metric' ? Math.round(locationData.hourly.temperature2m[i]) : Math.round((locationData.hourly.temperature2m[i] * (9 / 5)) + 32);
         hourTemp.textContent = `${temp}${degreeIcon}`;
 
         item.append(hourTime, hourWeatherType, hourTemp);
@@ -77,7 +78,7 @@ const updateHourlyForecast = (locationData, tempType) => {
     }
 };
 
-const updateDailyForecast = (locationData, tempType) => {
+const updateDailyForecast = (locationData, systemType) => {
     const daily = document.querySelector('.daily-forecast');
     const card = daily.querySelector('.card-content');
 
@@ -108,10 +109,10 @@ const updateDailyForecast = (locationData, tempType) => {
         minTempElement.classList.add('js-daily-temp-min');
         maxTempElement.classList.add('js-daily-temp-max');
 
-        const minTemp = tempType === 'C' ? Math.round(locationData.daily.temperature2mMin[i]) : Math.round((locationData.daily.temperature2mMin[i] * (9 / 5)) + 32);
+        const minTemp = systemType === 'metric' ? Math.round(locationData.daily.temperature2mMin[i]) : Math.round((locationData.daily.temperature2mMin[i] * (9 / 5)) + 32);
         minTempElement.textContent = `${minTemp}${degreeIcon}`;
 
-        const maxTemp = tempType === 'C' ? Math.round(locationData.daily.temperature2mMax[i]) : Math.round((locationData.daily.temperature2mMax[i] * (9 / 5)) + 32);
+        const maxTemp = systemType === 'metric' ? Math.round(locationData.daily.temperature2mMax[i]) : Math.round((locationData.daily.temperature2mMax[i] * (9 / 5)) + 32);
         maxTempElement.textContent = `${maxTemp}${degreeIcon}`;
 
         const barElement = createTempBarElement(minTemp, maxTemp);
@@ -132,7 +133,7 @@ const updateDailyForecast = (locationData, tempType) => {
     }
 };
 
-const updateFeelsLike = (locationData, tempType) => {
+const updateFeelsLike = (locationData, systemType) => {
     const feels = document.querySelector('.feels-like');
     const card = feels.querySelector('.card-content');
     const feelsLikeTemp = Math.round(locationData.current.apparentTemperature);
@@ -140,13 +141,13 @@ const updateFeelsLike = (locationData, tempType) => {
 
     const temp = document.createElement('div');
     temp.classList.add('js-feels-temp');
-    temp.textContent = tempType === 'C' ? `${feelsLikeTemp}${degreeIcon}` : Math.round(`${feelsLikeTemp}${degreeIcon}` * (9 / 5)) + 32;
+    temp.textContent = systemType === 'metric' ? `${feelsLikeTemp}${degreeIcon}` : Math.round(`${feelsLikeTemp}${degreeIcon}` * (9 / 5)) + 32;
 
     const desc = document.createElement('div');
     desc.classList.add('js-feels-desc');
 
     const tempDif = feelsLikeTemp - currentTemp;
-    if (tempType === 'C') {
+    if (systemType === 'metric') {
         if (Math.abs(tempDif) <= 3) desc.textContent = 'Similar to the actual temperature.';
         else if (tempDif > 3) desc.textContent = 'Hotter than the actual temperature.';
         else if (tempDif > -3) desc.textContent = 'Colder than the actual temperature.';
@@ -238,11 +239,53 @@ const updateSunriseSunset = (locationData) => {
     card.append(mainTime, nextTime);
 };
 
-export default function updateWeatherInfo(locationData, tempType) {
-    updateBriefInfo(locationData, tempType);
-    updateHourlyForecast(locationData, tempType);
-    updateDailyForecast(locationData, tempType);
-    updateFeelsLike(locationData, tempType);
+const updateWind = (locationData, systemType) => {
+    const wind = document.querySelector('.wind');
+    const card = wind.querySelector('.card-content');
+    const windType = card.querySelector('.wind-type-wind');
+    const windSpeed = windType.querySelector('.wind-left');
+    const windMetric = windType.querySelector('.wind-metric');
+    const gustType = card.querySelector('.wind-type-gust');
+    const gustSpeed = gustType.querySelector('.wind-left');
+    const gustMetric = gustType.querySelector('.wind-metric');
+    const windDirection = card.querySelector('.wind-direction');
+    const direction = windDirection.querySelector('p');
+    const arrow = windDirection.querySelector('.arrow');
+
+    windMetric.textContent = systemType === 'metric' ? 'KM/H' : 'MP/H';
+    gustMetric.textContent = systemType === 'metric' ? 'KM/H' : 'MP/H';
+
+    const directionDegree = Math.round(locationData.current.windDirection10m);
+    arrow.style.transform = `rotate(${Math.round(directionDegree)}deg)`;
+
+    if (directionDegree >= 336 && directionDegree <= 24) {
+        direction.textContent = 'N';
+    } else if (directionDegree >= 25 && directionDegree <= 65) {
+        direction.textContent = 'NE';
+    } else if (directionDegree >= 66 && directionDegree <= 114) {
+        direction.textContent = 'E';
+    } else if (directionDegree >= 115 && directionDegree <= 155) {
+        direction.textContent = 'SE';
+    } else if (directionDegree >= 156 && directionDegree <= 204) {
+        direction.textContent = 'S';
+    } else if (directionDegree >= 205 && directionDegree <= 245) {
+        direction.textContent = 'SW';
+    } else if (directionDegree >= 246 && directionDegree <= 294) {
+        direction.textContent = 'W';
+    } else if (directionDegree >= 295 && directionDegree <= 335) {
+        direction.textContent = 'NW';
+    }
+
+    windSpeed.textContent = systemType === 'metric' ? Math.round(locationData.current.windSpeed10m) : Math.round(locationData.current.windSpeed10m / 1.609344);
+    gustSpeed.textContent = systemType === 'metric' ? Math.round(locationData.current.windGusts10m) : Math.round(locationData.current.windGusts10m / 1.609344);
+};
+
+export default function updateWeatherInfo(locationData, systemType) {
+    updateBriefInfo(locationData, systemType);
+    updateHourlyForecast(locationData, systemType);
+    updateDailyForecast(locationData, systemType);
+    updateFeelsLike(locationData, systemType);
     updateUvIndex(locationData);
     updateSunriseSunset(locationData);
+    updateWind(locationData, systemType);
 }

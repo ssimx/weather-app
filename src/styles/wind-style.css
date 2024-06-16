@@ -1,0 +1,89 @@
+.card.wind .card-content {
+    height: 100%;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+}
+
+.wind-speed {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 90%;
+}
+
+.wind-type-wind, .wind-type-gust {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.wind-left {
+    font-size: 2.5rem;
+    width: 25%;
+}
+
+.wind-right {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.wind-right p {
+    font-size: 0.9rem;
+}
+
+.wind-metric {
+    color: #ddddddad;
+}
+
+.wind-direction {
+    width: 100%;
+}
+
+.circle {
+    height: 100%;
+    width: 100%;
+    position: relative;
+}
+
+.circle img {
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    height: 100%;
+    z-index: 1;
+    bottom: 5px;
+}
+
+.circle img.arrow {
+    transform: rotate(0deg);
+}
+
+.circle .direction {
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    bottom: 5px;
+}
+
+.circle p {
+    height: 40%;
+    width: 40%;
+    background-color: #288FC8;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 1.2rem;
+}

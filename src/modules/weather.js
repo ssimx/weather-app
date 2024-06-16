@@ -21,7 +21,6 @@ const getSunriseSunset = async (location, timezone) => {
         let tomorrow = new Date();
         tomorrow.setDate(tomorrow.getDate() + 1);
         tomorrow = new Date(tomorrow.toLocaleString('en', { timeZone: timezone }));
-        console.log(tomorrow)
 
         const responseToday = await fetch(`https://api.sunrise-sunset.org/json?lat=${location.latitude}&lng=${location.longitude}&date=today&tzid=${timezone}&formatted=0`, { mode: 'cors' });
         const responseTomorrow = await fetch(`https://api.sunrise-sunset.org/json?lat=${location.latitude}&lng=${location.longitude}&date=${tomorrow.getFullYear()}-${tomorrow.getMonth()}-${tomorrow.getDate()}&tzid=${timezone}&formatted=0`, { mode: 'cors' });
@@ -41,7 +40,7 @@ export default async function getLocationData(location) {
     const params = {
         latitude: locationCoords.latitude,
         longitude: locationCoords.longitude,
-        current: ['temperature_2m', 'relative_humidity_2m', 'apparent_temperature', 'precipitation', 'weather_code', 'is_day'],
+        current: ['temperature_2m', 'relative_humidity_2m', 'apparent_temperature', 'precipitation', 'weather_code', 'is_day', 'wind_speed_10m', 'wind_direction_10m', 'wind_gusts_10m'],
         hourly: ['temperature_2m', 'precipitation', 'weather_code', 'uv_index', 'is_day'],
         daily: ['weather_code', 'temperature_2m_max', 'temperature_2m_min', 'uv_index_max'],
         timezone: 'auto',
@@ -79,6 +78,9 @@ export default async function getLocationData(location) {
             precipitation: current.variables(3).value(),
             weatherCode: current.variables(4).value(),
             isDay: current.variables(5).value(),
+            windSpeed10m: current.variables(6).value(),
+            windDirection10m: current.variables(7).value(),
+            windGusts10m: current.variables(8).value(),
         },
         hourly: {
             time: range(Number(hourly.time()), Number(hourly.timeEnd()), hourly.interval()).map(

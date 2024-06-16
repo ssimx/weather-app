@@ -6,4 +6,4 @@ import updateWeatherInfo from './modules/domController';
 
 const locationData = getLocationData('melbourne');
 locationData.then((res) => console.log(res));
-locationData.then((res) => updateWeatherInfo(res, 'C'));
+locationData.then((res) => updateWeatherInfo(res, 'metric'));

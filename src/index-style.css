@@ -18,6 +18,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: 4vh;
+    color: white;
 }
 
 header {
@@ -119,11 +120,13 @@ hr {
 
 .card.wind {
     grid-column: span 2;
+    background-color: #248DC7;
 }
 
 .card.air-pollution {
     display: none;
 }
+
 
 /* MEDIA QUERIES */
 /* TABLET */
