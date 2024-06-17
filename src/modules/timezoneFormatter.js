@@ -1,17 +1,37 @@
 export default function formatDateTimezone(timezone, date = new Date()) {
-    const options = {
+    const optionsYear = {
         timeZone: timezone,
         year: 'numeric',
-        month: 'numeric',
-        day: 'numeric',
+    };
+    const formatterYear = new Intl.DateTimeFormat([], optionsYear);
+    const newDateYear = formatterYear.format(date);
+
+    const optionsMonth = {
+        timeZone: timezone,
+        month: '2-digit',
+    };
+    const formatterMonth = new Intl.DateTimeFormat([], optionsMonth);
+    const newDateMonth = formatterMonth.format(date);
+
+    const optionsDay = {
+        timeZone: timezone,
+        day: '2-digit',
+    };
+    const formatterDay = new Intl.DateTimeFormat([], optionsDay);
+    const newDateDay = formatterDay.format(date);
+
+    const optionsTime = {
+        timeZone: timezone,
         hour: 'numeric',
         minute: 'numeric',
         second: 'numeric',
         hour12: false,
     };
-    const formatter = new Intl.DateTimeFormat([], options);
-    let newDate = new Date(Date.parse(formatter.format(date).replaceAll('/', ' ').replaceAll(',', '')));
+    const formatterTime = new Intl.DateTimeFormat([], optionsTime);
+    const newDateTime = formatterTime.format(date);
 
-    console.log(newDate)
+    let newDate = `${newDateYear}/${newDateMonth}/${newDateDay}T${newDateTime}`;
+
+    newDate = new Date(Date.parse(newDate.replaceAll('/', '-')));
     return newDate;
 }
