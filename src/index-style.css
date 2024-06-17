@@ -94,7 +94,7 @@ hr {
     /* Set the hr color */
     color: #ddd;
     /* old IE */
-    background-color: #ddd;
+    background-color: var(--light-grey);
     /* Modern Browsers */
 }
 

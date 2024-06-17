@@ -55,7 +55,6 @@
     margin-right: auto;
     height: 100%;
     z-index: 1;
-    bottom: 5px;
 }
 
 .circle img.arrow {
@@ -74,13 +73,12 @@
     justify-content: center;
     align-items: center;
     z-index: 100;
-    bottom: 5px;
 }
 
 .circle p {
-    height: 40%;
-    width: 40%;
-    background-color: #288FC8;
+    width: 40px;
+    height: 40px;
+    background-color: rgb(40, 143, 200);
     border-radius: 50%;
     display: flex;
     justify-content: center;
