@@ -1,5 +1,9 @@
+.card.hourly-forecast {
+    height: fit-content;
+}
+
 .card.hourly-forecast .card-content {
-    height: 100%;
+    height: fit-content;
     display: flex;
     justify-content: flex-start;
     align-items: center;
