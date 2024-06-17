@@ -81,8 +81,9 @@ main {
     flex-direction: column;
     gap: 10px;
     -webkit-filter: blur(100px);
+    -webkit-filter: brightness(90%);
     backdrop-filter: blur(100px);
-    filter: brightness(0.9);
+    filter: brightness(90%);
 }
 
 hr {
