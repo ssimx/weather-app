@@ -4,6 +4,6 @@ import './index-style.css';
 import getLocationData from './modules/weather';
 import updateWeatherInfo from './modules/domController';
 
-const locationData = getLocationData('melbourne');
+const locationData = getLocationData('koper');
 locationData.then((res) => console.log(res));
 locationData.then((res) => updateWeatherInfo(res, 'metric'));

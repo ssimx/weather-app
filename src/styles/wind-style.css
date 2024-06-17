@@ -60,6 +60,7 @@
 
 .circle img.arrow {
     transform: rotate(0deg);
+    scale: 0.98;
 }
 
 .circle .direction {

@@ -40,7 +40,7 @@ export default async function getLocationData(location) {
     const params = {
         latitude: locationCoords.latitude,
         longitude: locationCoords.longitude,
-        current: ['temperature_2m', 'relative_humidity_2m', 'apparent_temperature', 'precipitation', 'weather_code', 'is_day', 'wind_speed_10m', 'wind_direction_10m', 'wind_gusts_10m'],
+        current: ['temperature_2m', 'relative_humidity_2m', 'apparent_temperature', 'precipitation', 'weather_code', 'is_day', 'wind_speed_10m', 'wind_direction_10m', 'wind_gusts_10m', 'pressure_msl'],
         hourly: ['temperature_2m', 'precipitation', 'weather_code', 'uv_index', 'is_day'],
         daily: ['weather_code', 'temperature_2m_max', 'temperature_2m_min', 'uv_index_max'],
         timezone: 'auto',
@@ -81,6 +81,7 @@ export default async function getLocationData(location) {
             windSpeed10m: current.variables(6).value(),
             windDirection10m: current.variables(7).value(),
             windGusts10m: current.variables(8).value(),
+            pressureMsl: current.variables(9).value(),
         },
         hourly: {
             time: range(Number(hourly.time()), Number(hourly.timeEnd()), hourly.interval()).map(

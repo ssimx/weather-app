@@ -1,0 +1,81 @@
+.card.pressure .card-content {
+    min-height: 12vh;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-top: auto;
+}
+
+p.pressure-unit {
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    z-index: 100;
+    bottom: 10px;
+    font-size: 1.15rem;
+    font-weight: 500;
+}
+
+.pressure-low-high {
+    margin-top: auto;
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+/* ------- Alternate Style ------- */
+
+.gauge-container.three {
+    position: relative;
+    margin: auto;
+    height: 90px;
+}
+
+.gauge-container>.gauge .dial {
+    stroke: #eee;
+    stroke-width: 2;
+    fill: rgba(0, 0, 0, 0);
+}
+
+.gauge-container>.gauge .value {
+    stroke: rgb(47, 227, 255);
+    stroke-width: 2;
+    fill: rgba(0, 0, 0, 0);
+}
+
+.gauge-container>.gauge .value-text {
+    fill: rgb(47, 227, 255);
+    font-family: sans-serif;
+    font-weight: bold;
+    font-size: 1em;
+}
+
+.gauge-container.three svg {
+    height: 100px;
+    transform: scale(1.3);
+}
+
+.gauge-container.three>.gauge .dial {
+    stroke: #ddddddad;
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-dasharray: 1 5;
+}
+
+.gauge-container.three>.gauge .value {
+    stroke: white;
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-dasharray: 1 5;
+}
+
+.gauge-container.three>.gauge .value-text {
+    fill: white;
+    font-size: 1.2rem;
+}

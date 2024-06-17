@@ -6,9 +6,11 @@ import '../styles/feels-like-style.css';
 import '../styles/uv-index-style.css';
 import '../styles/sunrise-sunset-style.css';
 import '../styles/wind-style.css';
+import '../styles/pressure-style.css';
 import weatherCodes from '../assets/json/weatherCodes.json';
 import createTempBarElement from './tempBar';
 import formatDateTimezone from './timezoneFormatter';
+import pressureGauge from './pressureGauge';
 
 const degreeIcon = '\u{000B0}';
 
@@ -280,6 +282,10 @@ const updateWind = (locationData, systemType) => {
     gustSpeed.textContent = systemType === 'metric' ? Math.round(locationData.current.windGusts10m) : Math.round(locationData.current.windGusts10m / 1.609344);
 };
 
+const updatePressure = (locationData) => {
+    pressureGauge(Math.round(locationData.current.pressureMsl));
+};
+
 export default function updateWeatherInfo(locationData, systemType) {
     updateBriefInfo(locationData, systemType);
     updateHourlyForecast(locationData, systemType);
@@ -288,4 +294,5 @@ export default function updateWeatherInfo(locationData, systemType) {
     updateUvIndex(locationData);
     updateSunriseSunset(locationData);
     updateWind(locationData, systemType);
+    updatePressure(locationData);
 }
