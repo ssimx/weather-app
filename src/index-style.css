@@ -8,6 +8,7 @@
     /* VARS */
 
     --radius: 10px;
+    --light-grey: #ddddddad;
 }
 
 body {
@@ -81,8 +82,8 @@ main {
     flex-direction: column;
     gap: 10px;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
+    /* backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px); */
     background: rgba(255, 255, 255, 0.1);
 }
 
@@ -120,6 +121,13 @@ hr {
 
 .card.air-pollution {
     display: none;
+}
+
+.card-title {
+    color: var(--light-grey);
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.5px;
 }
 
 
