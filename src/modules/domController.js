@@ -260,8 +260,6 @@ const updateWind = (locationData, systemType) => {
     const directionDegree = Math.round(locationData.current.windDirection10m);
     arrow.style.transform = `rotate(${Math.round(directionDegree)}deg)`;
 
-    console.log(directionDegree)
-
     if (directionDegree >= 336 || directionDegree <= 24) {
         direction.textContent = 'N';
     } else if (directionDegree >= 25 && directionDegree <= 65) {

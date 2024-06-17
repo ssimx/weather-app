@@ -10,7 +10,8 @@ export default function formatDateTimezone(timezone, date = new Date()) {
         hour12: false,
     };
     const formatter = new Intl.DateTimeFormat([], options);
-    const newDate = new Date(Date.parse(formatter.format(date)));
+    let newDate = new Date(Date.parse(formatter.format(date).replaceAll('/', ' ').replaceAll(',', '')));
 
+    console.log(newDate)
     return newDate;
 }
