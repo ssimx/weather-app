@@ -7,6 +7,8 @@ import '../styles/uv-index-style.css';
 import '../styles/sunrise-sunset-style.css';
 import '../styles/wind-style.css';
 import '../styles/pressure-style.css';
+import sunset from '../assets/icons/sunset.svg';
+import sunrise from '../assets/icons/sunrise.svg';
 import weatherCodes from '../assets/json/weatherCodes.json';
 import createTempBarElement from './tempBar';
 import formatDateTimezone from './timezoneFormatter';
@@ -209,6 +211,8 @@ const updateSunriseSunset = (locationData) => {
     const sunriseSunset = document.querySelector('.sunrise-sunset');
     const card = sunriseSunset.querySelector('.card-content');
     const title = sunriseSunset.querySelector('.card-title');
+    const cardTitleIcon = title.querySelector('.card-title-icon');
+    const cardTitleText = title.querySelector('.card-title-text');
 
     const mainTime = document.createElement('div');
     mainTime.classList.add('js-sunrise-sunset-main-time');
@@ -222,18 +226,24 @@ const updateSunriseSunset = (locationData) => {
 
     if (currentTime.getTime() > formatDateTimezone(timezone, new Date(sunriseToday)).getTime()
     && currentTime.getTime() < formatDateTimezone(timezone, new Date(sunsetToday)).getTime()) {
-        title.textContent = 'Sunset';
+        cardTitleText.textContent = 'Sunset';
+        cardTitleIcon.src = sunset;
+        cardTitleIcon.alt = 'Sunset icon';
         mainTime.textContent = sunsetToday.slice(11, 16);
         nextTime.textContent = `Sunset: ${locationData.daily.sunriseSunset[1].sunrise.slice(11, 16)}`;
     // eslint-disable-next-line max-len
     } else if (currentTime.getTime() > formatDateTimezone(timezone, new Date(sunriseToday)).getTime()
     && currentTime.getTime() > formatDateTimezone(timezone, new Date(sunsetToday)).getTime()) {
-        title.textContent = 'Sunrise';
+        cardTitleText.textContent = 'Sunrise';
+        cardTitleIcon.src = sunrise;
+        cardTitleIcon.alt = 'Sunrise icon';
         mainTime.textContent = locationData.daily.sunriseSunset[1].sunrise.slice(11, 16);
         nextTime.textContent = `Sunset: ${locationData.daily.sunriseSunset[1].sunset.slice(11, 16)}`;
     // eslint-disable-next-line max-len
     } else if (currentTime.getTime() < formatDateTimezone(timezone, new Date(sunriseToday)).getTime()) {
-        title.textContent = 'Sunrise';
+        cardTitleText.textContent = 'Sunrise';
+        cardTitleIcon.src = sunrise;
+        cardTitleIcon.alt = 'Sunrise icon';
         mainTime.textContent = locationData.daily.sunriseSunset[0].sunrise.slice(11, 16);
         nextTime.textContent = `Sunset: ${sunsetToday.slice(11, 16)}`;
     }

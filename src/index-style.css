@@ -124,10 +124,21 @@ hr {
 }
 
 .card-title {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+img.card-title-icon {
+    height: 15px;
+}
+
+p.card-title-text {
     color: var(--light-grey);
     text-transform: uppercase;
     font-size: 0.75rem;
     letter-spacing: 0.5px;
+    line-height: 0;
 }
 
 
