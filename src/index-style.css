@@ -80,6 +80,7 @@ main {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    -webkit-backdrop-filter: blur(40px) brightness(0.9);
     backdrop-filter: blur(40px) brightness(0.9);
 }
 
