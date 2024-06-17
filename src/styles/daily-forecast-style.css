@@ -51,3 +51,9 @@
     background: rgb(0, 243, 252);
     background: linear-gradient(90deg, var(--mild), var(--warm));
 }
+
+@media (min-width: 1025px) {
+    .card.daily-forecast {
+        height: max-content;
+    }
+}

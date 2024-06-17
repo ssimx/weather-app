@@ -18,3 +18,17 @@
     align-items: center;
     gap: 10px;
 }
+
+@media (min-width: 1025px) {
+    .card.hourly-forecast .card-content {
+            height: fit-content;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 20px;
+            overflow-x: scroll;
+            scrollbar-width: none;
+            margin-bottom: auto;
+            margin-top: auto;
+        }
+}
