@@ -69,6 +69,8 @@ export default async function getLocationData(location) {
         location: {
             name: locationCoords.name,
             timezone: locationCoords.timezone,
+            latitude: locationCoords.latitude,
+            longitude: locationCoords.longitude,
         },
         current: {
             time: formatDateTimezone(timezone, new Date()),
