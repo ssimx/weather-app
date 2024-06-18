@@ -13,12 +13,12 @@
     },
     "1": {
         "day": {
-            "description": "Mainly Sunny",
+            "description": "Mostly Sunny",
             "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/575900edccbc7def167f7874c02aeb0b.png",
             "background": "sunny"
         },
         "night": {
-            "description": "Mainly Clear",
+            "description": "Mostly Clear",
             "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/1200cde3569cf69bd80e1ddabc0f15cd.png",
             "background": "clear"
         }

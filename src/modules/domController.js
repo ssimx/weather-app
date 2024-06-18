@@ -27,7 +27,6 @@ import nightThunderstormBg from '../assets/gifs/night-thunderstorm.gif';
 import nightLightSnowBg from '../assets/gifs/night-light-snow.gif';
 import nightSnowBg from '../assets/gifs/night-snow.gif';
 import nightHeavySnowBg from '../assets/gifs/night-heavy-snow.gif';
-
 import heavySnowBg from '../assets/gifs/heavy-snow.gif';
 import thunderstormBg from '../assets/gifs/thunderstorm.gif';
 import sunset from '../assets/icons/sunset.svg';
@@ -36,6 +35,7 @@ import weatherCodes from '../assets/json/weatherCodes.json';
 import createTempBarElement from './tempBar';
 import formatDateTimezone from './timezoneFormatter';
 import pressureGauge from './pressureGauge';
+import renderPrecipitationMap from './precipitationMap';
 
 const degreeIcon = '\u{000B0}';
 
@@ -268,6 +268,10 @@ const updateDailyForecast = (locationData, systemType) => {
     }
 };
 
+const updatePrecipitationMap = (locationData) => {
+    renderPrecipitationMap(locationData);
+};
+
 const updateFeelsLike = (locationData, systemType) => {
     const feels = document.querySelector('.feels-like');
     const card = feels.querySelector('.card-content');
@@ -361,7 +365,7 @@ const updateSunriseSunset = (locationData) => {
         cardTitleIcon.src = sunset;
         cardTitleIcon.alt = 'Sunset icon';
         mainTime.textContent = sunsetToday.slice(11, 16);
-        nextTime.textContent = `Sunset: ${locationData.daily.sunriseSunset[1].sunrise.slice(11, 16)}`;
+        nextTime.textContent = `Sunrise: ${locationData.daily.sunriseSunset[1].sunrise.slice(11, 16)}`;
     // eslint-disable-next-line max-len
     } else if (currentTime.getTime() > formatDateTimezone(timezone, new Date(sunriseToday)).getTime()
     && currentTime.getTime() > formatDateTimezone(timezone, new Date(sunsetToday)).getTime()) {
@@ -432,6 +436,7 @@ export default function updateWeatherInfo(locationData, systemType) {
     updateWeatherBackground(locationData);
     updateHourlyForecast(locationData, systemType);
     updateDailyForecast(locationData, systemType);
+    updatePrecipitationMap(locationData);
     updateFeelsLike(locationData, systemType);
     updateUvIndex(locationData);
     updateSunriseSunset(locationData);
