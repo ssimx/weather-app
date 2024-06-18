@@ -18,8 +18,9 @@ body {
     display: flex;
     flex-direction: column;
     gap: 4vh;
-    background-color: #248DC7;
-    color: white
+    background-size: cover;
+    color: white;
+    /* background-color: #248DC7; */
 }
 
 header {
@@ -81,10 +82,10 @@ main {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-    /* backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px); */
-    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(200px) brightness(0.90);
+    -webkit-backdrop-filter: blur(200px);
+    /* background-color: rgba(32, 73, 255, 0.2); */
+    background-color: rgba(106, 134, 255, 0.2);
 }
 
 hr {
@@ -119,7 +120,7 @@ hr {
 .card.pressure {
 }
 
-.card.air-pollution {
+.card.report-issue {
     display: none;
 }
 
@@ -271,7 +272,6 @@ p.card-title-text {
         grid-row: span 1;
         order: 9;
         min-height: 0;
-        height: 100px;
         display: flex;
         flex-direction: row;
         align-items: flex-start;

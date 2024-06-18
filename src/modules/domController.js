@@ -7,6 +7,22 @@ import '../styles/uv-index-style.css';
 import '../styles/sunrise-sunset-style.css';
 import '../styles/wind-style.css';
 import '../styles/pressure-style.css';
+import sunnyBg from '../assets/gifs/sunny.gif';
+import cloudyBg from '../assets/gifs/cloudy.gif';
+import veryCloudyBg from '../assets/gifs/very-cloudy.gif';
+import fogBg from '../assets/gifs/fog.gif';
+import lightRainBg from '../assets/gifs/light-rain.gif';
+import rainBg from '../assets/gifs/rain.gif';
+import heavyRainBg from '../assets/gifs/heavy-rain.gif';
+import lightSnowBg from '../assets/gifs/light-snow.gif';
+import snowBg from '../assets/gifs/snow.gif';
+import nightClearBg from '../assets/gifs/night-clear.gif';
+import nightCloudyBg from '../assets/gifs/night-cloudy.gif';
+import nightVeryCloudyBg from '../assets/gifs/night-very-cloudy.gif';
+import nightFogBg from '../assets/gifs/night-fog.gif';
+
+import heavySnowBg from '../assets/gifs/heavy-snow.gif';
+import thunderstormBg from '../assets/gifs/thunderstorm.gif';
 import sunset from '../assets/icons/sunset.svg';
 import sunrise from '../assets/icons/sunrise.svg';
 import weatherCodes from '../assets/json/weatherCodes.json';
@@ -20,6 +36,100 @@ const getWeatherType = (weatherCode, isDay) => {
     const dayType = isDay === 1 ? 'day' : 'night';
 
     return weatherCodes[weatherCode][dayType];
+};
+
+const updateWeatherBackground = (locationData) => {
+    const weatherType = getWeatherType(
+        locationData.current.weatherCode,
+        locationData.current.isDay,
+    );
+
+    const body = document.querySelector('body');
+
+    if (locationData.current.isDay === 0) {
+        const cards = document.querySelectorAll('.card');
+
+        cards.forEach((el) => {
+            const card = el;
+            card.style.backgroundColor = 'rgba(106, 134, 255, 0.2)';
+        });
+
+        switch (weatherType.background) {
+            case 'clear':
+                body.style.backgroundImage = `url(${nightClearBg})`;
+                break;
+            case 'cloudy':
+                body.style.backgroundImage = `url(${nightCloudyBg})`;
+                break;
+            case 'very-cloudy':
+                body.style.backgroundImage = `url(${nightVeryCloudyBg})`;
+                break;
+            case 'fog':
+                body.style.backgroundImage = `url(${nightFogBg})`;
+                break;
+            case 'light-rain':
+                body.style.backgroundImage = `url(${lightRainBg})`;
+                break;
+            case 'rain':
+                body.style.backgroundImage = `url(${rainBg})`;
+                break;
+            case 'heavy-rain':
+                body.style.backgroundImage = `url(${heavyRainBg})`;
+                break;
+            case 'light-snow':
+                body.style.backgroundImage = `url(${lightSnowBg})`;
+                break;
+            case 'snow':
+                body.style.backgroundImage = `url(${snowBg})`;
+                break;
+            case 'heavy-snow':
+                body.style.backgroundImage = `url(${heavySnowBg})`;
+                break;
+            case 'thunderstorm':
+                body.style.backgroundImage = `url(${thunderstormBg})`;
+                break;
+            default:
+                body.style.background = '#248DC7';
+        }
+    } else {
+        switch (weatherType.background) {
+            case 'sunny':
+                body.style.backgroundImage = `url(${sunnyBg})`;
+                break;
+            case 'cloudy':
+                body.style.backgroundImage = `url(${cloudyBg})`;
+                break;
+            case 'very-cloudy':
+                body.style.backgroundImage = `url(${veryCloudyBg})`;
+                break;
+            case 'fog':
+                body.style.backgroundImage = `url(${fogBg})`;
+                break;
+            case 'light-rain':
+                body.style.backgroundImage = `url(${lightRainBg})`;
+                break;
+            case 'rain':
+                body.style.backgroundImage = `url(${rainBg})`;
+                break;
+            case 'heavy-rain':
+                body.style.backgroundImage = `url(${heavyRainBg})`;
+                break;
+            case 'light-snow':
+                body.style.backgroundImage = `url(${lightSnowBg})`;
+                break;
+            case 'snow':
+                body.style.backgroundImage = `url(${snowBg})`;
+                break;
+            case 'heavy-snow':
+                body.style.backgroundImage = `url(${heavySnowBg})`;
+                break;
+            case 'thunderstorm':
+                body.style.backgroundImage = `url(${thunderstormBg})`;
+                break;
+            default:
+                body.style.background = '#248DC7';
+        }
+    }
 };
 
 const updateBriefInfo = (locationData, systemType) => {
@@ -100,7 +210,7 @@ const updateDailyForecast = (locationData, systemType) => {
         const day = new Date(locationData.daily.time[i]).getDay();
         dayNameElement.textContent = i === 7 ? 'Today' : weekday[day];
         const dailyWeatherTypeElement = document.createElement('img');
-        dailyWeatherTypeElement.classList.add('js-hour-weather-type');
+        dailyWeatherTypeElement.classList.add('js-daily-weather-type');
         dailyWeatherTypeElement.setAttribute('alt', 'Weather type icon');
         dailyWeatherTypeElement.setAttribute('height', '24');
         const weatherType = getWeatherType(
@@ -298,6 +408,7 @@ const updatePressure = (locationData) => {
 
 export default function updateWeatherInfo(locationData, systemType) {
     updateBriefInfo(locationData, systemType);
+    updateWeatherBackground(locationData);
     updateHourlyForecast(locationData, systemType);
     updateDailyForecast(locationData, systemType);
     updateFeelsLike(locationData, systemType);

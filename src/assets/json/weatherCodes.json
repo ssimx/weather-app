@@ -2,281 +2,337 @@
     "0": {
         "day": {
             "description": "Sunny",
-            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/575900edccbc7def167f7874c02aeb0b.png"
+            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/575900edccbc7def167f7874c02aeb0b.png",
+            "background": "sunny"
         },
         "night": {
             "description": "Clear",
-            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/1200cde3569cf69bd80e1ddabc0f15cd.png"
+            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/1200cde3569cf69bd80e1ddabc0f15cd.png",
+            "background": "clear"
         }
     },
     "1": {
         "day": {
             "description": "Mainly Sunny",
-            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/575900edccbc7def167f7874c02aeb0b.png"
+            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/575900edccbc7def167f7874c02aeb0b.png",
+            "background": "sunny"
         },
         "night": {
             "description": "Mainly Clear",
-            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/1200cde3569cf69bd80e1ddabc0f15cd.png"
+            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/1200cde3569cf69bd80e1ddabc0f15cd.png",
+            "background": "clear"
         }
     },
     "2": {
         "day": {
             "description": "Partly Cloudy",
-            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/67aaf9dbe30989c25cbde6c6ec099213.png"
+            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/67aaf9dbe30989c25cbde6c6ec099213.png",
+            "background": "cloudy"
         },
         "night": {
             "description": "Partly Cloudy",
-            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/17cc1a8a95028b89ba6988ee47eeab29.png"
+            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/17cc1a8a95028b89ba6988ee47eeab29.png",
+            "background": "cloudy"
         }
     },
     "3": {
         "day": {
             "description": "Cloudy",
-            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/67aaf9dbe30989c25cbde6c6ec099213.png"
+            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/67aaf9dbe30989c25cbde6c6ec099213.png",
+            "background": "very-cloudy"
         },
         "night": {
             "description": "Cloudy",
-            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/17cc1a8a95028b89ba6988ee47eeab29.png"
+            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/17cc1a8a95028b89ba6988ee47eeab29.png",
+            "background": "very-cloudy"
         }
     },
     "45": {
         "day": {
             "description": "Foggy",
-            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/d35bb25d12281cd9ee5ce78a98cd2aa7.png"
+            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/d35bb25d12281cd9ee5ce78a98cd2aa7.png",
+            "background": "fog"
         },
         "night": {
             "description": "Foggy",
-            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/d35bb25d12281cd9ee5ce78a98cd2aa7.png"
+            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/d35bb25d12281cd9ee5ce78a98cd2aa7.png",
+            "background": "fog"
         }
     },
     "48": {
         "day": {
             "description": "Rime Fog",
-            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/d35bb25d12281cd9ee5ce78a98cd2aa7.png"
+            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/d35bb25d12281cd9ee5ce78a98cd2aa7.png",
+            "background": "fog"
         },
         "night": {
             "description": "Rime Fog",
-            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/d35bb25d12281cd9ee5ce78a98cd2aa7.png"
+            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/d35bb25d12281cd9ee5ce78a98cd2aa7.png",
+            "background": "fog"
         }
     },
     "51": {
         "day": {
             "description": "Light Drizzle",
-            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/a55fef55bbeb0762a8dd329b4b8ad342.png"
+            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/a55fef55bbeb0762a8dd329b4b8ad342.png",
+            "background": "light-rain"
         },
         "night": {
             "description": "Light Drizzle",
-            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/d4b6596291c114305b64056bd92ccee3.png"
+            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/d4b6596291c114305b64056bd92ccee3.png",
+            "background": "light-rain"
         }
     },
     "53": {
         "day": {
             "description": "Drizzle",
-            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/a55fef55bbeb0762a8dd329b4b8ad342.png"
+            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/a55fef55bbeb0762a8dd329b4b8ad342.png",
+            "background": "rain"
         },
         "night": {
             "description": "Drizzle",
-            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/d4b6596291c114305b64056bd92ccee3.png"
+            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/d4b6596291c114305b64056bd92ccee3.png",
+            "background": "rain"
         }
     },
     "55": {
         "day": {
             "description": "Heavy Drizzle",
-            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/a55fef55bbeb0762a8dd329b4b8ad342.png"
+            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/a55fef55bbeb0762a8dd329b4b8ad342.png",
+            "background": "heavy-rain"
         },
         "night": {
             "description": "Heavy Drizzle",
-            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/d4b6596291c114305b64056bd92ccee3.png"
+            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/d4b6596291c114305b64056bd92ccee3.png",
+            "background": "heavy-rain"
         }
     },
     "56": {
         "day": {
             "description": "Light Freezing Drizzle",
-            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/a55fef55bbeb0762a8dd329b4b8ad342.png"
+            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/a55fef55bbeb0762a8dd329b4b8ad342.png",
+            "background": "light-rain"
         },
         "night": {
             "description": "Light Freezing Drizzle",
-            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/d4b6596291c114305b64056bd92ccee3.png"
+            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/d4b6596291c114305b64056bd92ccee3.png",
+            "background": "light-rain"
         }
     },
     "57": {
         "day": {
             "description": "Freezing Drizzle",
-            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/a55fef55bbeb0762a8dd329b4b8ad342.png"
+            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/a55fef55bbeb0762a8dd329b4b8ad342.png",
+            "background": "rain"
         },
         "night": {
             "description": "Freezing Drizzle",
-            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/d4b6596291c114305b64056bd92ccee3.png"
+            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/d4b6596291c114305b64056bd92ccee3.png",
+            "background": "rain"
         }
     },
     "61": {
         "day": {
             "description": "Light Rain",
-            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/a55fef55bbeb0762a8dd329b4b8ad342.png"
+            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/a55fef55bbeb0762a8dd329b4b8ad342.png",
+            "background": "light-rain"
         },
         "night": {
             "description": "Light Rain",
-            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/d4b6596291c114305b64056bd92ccee3.png"
+            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/d4b6596291c114305b64056bd92ccee3.png",
+            "background": "light-rain"
         }
     },
     "63": {
         "day": {
             "description": "Rain",
-            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/4417bf88c7bbcd8e24fb78ee6479b362.png"
+            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/4417bf88c7bbcd8e24fb78ee6479b362.png",
+            "background": "rain"
         },
         "night": {
             "description": "Rain",
-            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/4417bf88c7bbcd8e24fb78ee6479b362.png"
+            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/4417bf88c7bbcd8e24fb78ee6479b362.png",
+            "background": "rain"
         }
     },
     "65": {
         "day": {
             "description": "Heavy Rain",
-            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/451d37e6cea3af4a568110863a1adcf7.png"
+            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/451d37e6cea3af4a568110863a1adcf7.png",
+            "background": "heavy-rain"
         },
         "night": {
             "description": "Heavy Rain",
-            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/451d37e6cea3af4a568110863a1adcf7.png"
+            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/451d37e6cea3af4a568110863a1adcf7.png",
+            "background": "heavy-rain"
         }
     },
     "66": {
         "day": {
             "description": "Light Freezing Rain",
-            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/9189cb49e806d1ebfeed24f33367143c.png"
+            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/9189cb49e806d1ebfeed24f33367143c.png",
+            "background": "light-rain"
         },
         "night": {
             "description": "Light Freezing Rain",
-            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/9189cb49e806d1ebfeed24f33367143c.png"
+            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/9189cb49e806d1ebfeed24f33367143c.png",
+            "background": "light-rain"
         }
     },
     "67": {
         "day": {
             "description": "Freezing Rain",
-            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/9189cb49e806d1ebfeed24f33367143c.png"
+            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/9189cb49e806d1ebfeed24f33367143c.png",
+            "background": "rain"
         },
         "night": {
             "description": "Freezing Rain",
-            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/9189cb49e806d1ebfeed24f33367143c.png"
+            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/9189cb49e806d1ebfeed24f33367143c.png",
+            "background": "rain"
         }
     },
     "71": {
         "day": {
             "description": "Light Snow",
-            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/00171e3b54b97dee8c1a2f6a62272640.png"
+            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/00171e3b54b97dee8c1a2f6a62272640.png",
+            "background": "light-snow"
         },
         "night": {
             "description": "Light Snow",
-            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/00171e3b54b97dee8c1a2f6a62272640.png"
+            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/00171e3b54b97dee8c1a2f6a62272640.png",
+            "background": "light-snow"
         }
     },
     "73": {
         "day": {
             "description": "Snow",
-            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/00171e3b54b97dee8c1a2f6a62272640.png"
+            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/00171e3b54b97dee8c1a2f6a62272640.png",
+            "background": "snow"
         },
         "night": {
             "description": "Snow",
-            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/00171e3b54b97dee8c1a2f6a62272640.png"
+            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/00171e3b54b97dee8c1a2f6a62272640.png",
+            "background": "snow"
         }
     },
     "75": {
         "day": {
             "description": "Heavy Snow",
-            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/e95fb90fc5a4aac111be78770921beb1.png"
+            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/e95fb90fc5a4aac111be78770921beb1.png",
+            "background": "heavy-snow"
         },
         "night": {
             "description": "Heavy Snow",
-            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/e95fb90fc5a4aac111be78770921beb1.png"
+            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/e95fb90fc5a4aac111be78770921beb1.png",
+            "background": "heavy-snow"
         }
     },
     "77": {
         "day": {
             "description": "Snow Grains",
-            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/e95fb90fc5a4aac111be78770921beb1.png"
+            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/e95fb90fc5a4aac111be78770921beb1.png",
+            "background": "snow"
         },
         "night": {
             "description": "Snow Grains",
-            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/e95fb90fc5a4aac111be78770921beb1.png"
+            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/e95fb90fc5a4aac111be78770921beb1.png",
+            "background": "snow"
         }
     },
     "80": {
         "day": {
             "description": "Light Showers",
-            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/a55fef55bbeb0762a8dd329b4b8ad342.png"
+            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/a55fef55bbeb0762a8dd329b4b8ad342.png",
+            "background": "light-rain"
         },
         "night": {
             "description": "Light Showers",
-            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/a55fef55bbeb0762a8dd329b4b8ad342.png"
+            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/a55fef55bbeb0762a8dd329b4b8ad342.png",
+            "background": "light-rain"
         }
     },
     "81": {
         "day": {
             "description": "Showers",
-            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/4417bf88c7bbcd8e24fb78ee6479b362.png"
+            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/4417bf88c7bbcd8e24fb78ee6479b362.png",
+            "background": "rain"
         },
         "night": {
             "description": "Showers",
-            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/4417bf88c7bbcd8e24fb78ee6479b362.png"
+            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/4417bf88c7bbcd8e24fb78ee6479b362.png",
+            "background": "rain"
         }
     },
     "82": {
         "day": {
             "description": "Heavy Showers",
-            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/451d37e6cea3af4a568110863a1adcf7.png"
+            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/451d37e6cea3af4a568110863a1adcf7.png",
+            "background": "heavy-rain"
         },
         "night": {
             "description": "Heavy Showers",
-            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/451d37e6cea3af4a568110863a1adcf7.png"
+            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/451d37e6cea3af4a568110863a1adcf7.png",
+            "background": "heavy-rain"
         }
     },
     "85": {
         "day": {
             "description": "Light Snow Showers",
-            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/9189cb49e806d1ebfeed24f33367143c.png"
+            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/9189cb49e806d1ebfeed24f33367143c.png",
+            "background": "light-snow"
         },
         "night": {
             "description": "Light Snow Showers",
-            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/9189cb49e806d1ebfeed24f33367143c.png"
+            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/9189cb49e806d1ebfeed24f33367143c.png",
+            "background": "light-snow"
         }
     },
     "86": {
         "day": {
             "description": "Snow Showers",
-            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/00171e3b54b97dee8c1a2f6a62272640.png"
+            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/00171e3b54b97dee8c1a2f6a62272640.png",
+            "background": "snow"
         },
         "night": {
             "description": "Snow Showers",
-            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/00171e3b54b97dee8c1a2f6a62272640.png"
+            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/00171e3b54b97dee8c1a2f6a62272640.png",
+            "background": "snow"
         }
     },
     "95": {
         "day": {
             "description": "Thunderstorm",
-            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/efffb1e26f6de5bf5c8adbd872a2933a.png"
+            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/efffb1e26f6de5bf5c8adbd872a2933a.png",
+            "background": "thunderstorm"
         },
         "night": {
             "description": "Thunderstorm",
-            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/efffb1e26f6de5bf5c8adbd872a2933a.png"
+            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/efffb1e26f6de5bf5c8adbd872a2933a.png",
+            "background": "thunderstorm"
         }
     },
     "96": {
         "day": {
             "description": "Light Thunderstorms With Hail",
-            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/efffb1e26f6de5bf5c8adbd872a2933a.png"
+            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/efffb1e26f6de5bf5c8adbd872a2933a.png",
+            "background": "thunderstorm"
         },
         "night": {
             "description": "Light Thunderstorms With Hail",
-            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/efffb1e26f6de5bf5c8adbd872a2933a.png"
+            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/efffb1e26f6de5bf5c8adbd872a2933a.png",
+            "background": "thunderstorm"
         }
     },
     "99": {
         "day": {
             "description": "Thunderstorm With Hail",
-            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/efffb1e26f6de5bf5c8adbd872a2933a.png"
+            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/efffb1e26f6de5bf5c8adbd872a2933a.png",
+            "background": "thunderstorm"
         },
         "night": {
             "description": "Thunderstorm With Hail",
-            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/efffb1e26f6de5bf5c8adbd872a2933a.png"
+            "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/efffb1e26f6de5bf5c8adbd872a2933a.png",
+            "background": "thunderstorm"
         }
     }
 }

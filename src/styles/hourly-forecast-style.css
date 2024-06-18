@@ -19,6 +19,10 @@
     gap: 10px;
 }
 
+.card.hourly-forecast .card-content .js-hour-item .js-hour-weather-type {
+    filter: contrast(200%);
+}
+
 @media (min-width: 1025px) {
     .card.hourly-forecast .card-content {
             height: fit-content;

@@ -51,9 +51,11 @@
     background: rgb(0, 243, 252);
     background: linear-gradient(90deg, var(--mild), var(--warm));
 }
+.card.daily-forecast .card-content .js-daily-item .js-daily-weather-type {
+    filter: contrast(200%);
+}
 
 @media (min-width: 1025px) {
     .card.daily-forecast {
-        height: max-content;
     }
 }
