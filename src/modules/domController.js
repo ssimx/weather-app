@@ -20,6 +20,13 @@ import nightClearBg from '../assets/gifs/night-clear.gif';
 import nightCloudyBg from '../assets/gifs/night-cloudy.gif';
 import nightVeryCloudyBg from '../assets/gifs/night-very-cloudy.gif';
 import nightFogBg from '../assets/gifs/night-fog.gif';
+import nightLightRainBg from '../assets/gifs/night-light-rain.gif';
+import nightRainBg from '../assets/gifs/night-rain.gif';
+import nightHeavyRainBg from '../assets/gifs/night-heavy-rain.gif';
+import nightThunderstormBg from '../assets/gifs/night-thunderstorm.gif';
+import nightLightSnowBg from '../assets/gifs/night-light-snow.gif';
+import nightSnowBg from '../assets/gifs/night-snow.gif';
+import nightHeavySnowBg from '../assets/gifs/night-heavy-snow.gif';
 
 import heavySnowBg from '../assets/gifs/heavy-snow.gif';
 import thunderstormBg from '../assets/gifs/thunderstorm.gif';
@@ -51,42 +58,56 @@ const updateWeatherBackground = (locationData) => {
 
         cards.forEach((el) => {
             const card = el;
+            const direction = document.querySelector('.direction-text');
+
             card.style.backgroundColor = 'rgba(106, 134, 255, 0.2)';
+            direction.style.backgroundColor = 'rgb(0 41 96)';
         });
 
         switch (weatherType.background) {
             case 'clear':
                 body.style.backgroundImage = `url(${nightClearBg})`;
+                body.style.backgroundPosition = '65%';
                 break;
             case 'cloudy':
                 body.style.backgroundImage = `url(${nightCloudyBg})`;
+                body.style.backgroundPosition = '85%';
                 break;
             case 'very-cloudy':
                 body.style.backgroundImage = `url(${nightVeryCloudyBg})`;
+                body.style.backgroundPosition = '90%';
                 break;
             case 'fog':
                 body.style.backgroundImage = `url(${nightFogBg})`;
+                body.style.backgroundPosition = '90%';
                 break;
             case 'light-rain':
-                body.style.backgroundImage = `url(${lightRainBg})`;
+                body.style.backgroundImage = `url(${nightLightRainBg})`;
+                body.style.backgroundPosition = '50%';
                 break;
             case 'rain':
-                body.style.backgroundImage = `url(${rainBg})`;
+                body.style.backgroundImage = `url(${nightRainBg})`;
+                body.style.backgroundPosition = '50%';
                 break;
             case 'heavy-rain':
-                body.style.backgroundImage = `url(${heavyRainBg})`;
+                body.style.backgroundImage = `url(${nightHeavyRainBg})`;
+                body.style.backgroundPosition = '50%';
                 break;
             case 'light-snow':
-                body.style.backgroundImage = `url(${lightSnowBg})`;
+                body.style.backgroundImage = `url(${nightLightSnowBg})`;
+                body.style.backgroundPosition = '50%';
                 break;
             case 'snow':
-                body.style.backgroundImage = `url(${snowBg})`;
+                body.style.backgroundImage = `url(${nightSnowBg})`;
+                body.style.backgroundPosition = '50%';
                 break;
             case 'heavy-snow':
-                body.style.backgroundImage = `url(${heavySnowBg})`;
+                body.style.backgroundImage = `url(${nightHeavySnowBg})`;
+                body.style.backgroundPosition = '50%';
                 break;
             case 'thunderstorm':
-                body.style.backgroundImage = `url(${thunderstormBg})`;
+                body.style.backgroundImage = `url(${nightThunderstormBg})`;
+                body.style.backgroundPosition = '90%';
                 break;
             default:
                 body.style.background = '#248DC7';
