@@ -1,0 +1,95 @@
+ #saved-locations {
+    background-color: black;
+    gap: 10px;
+    background-attachment: none;
+ }
+
+ .settings-menu {
+    margin-left: auto;
+ }
+
+ .search {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+ }
+
+ .search p {
+    font-size: 2rem;
+    font-weight: 600;
+ }
+
+ .search input {
+    width: 100%;
+    background: #242424 url('../assets/icons/search.svg') no-repeat scroll 5px 5px;
+    background-size: 18px;
+    background-position: 5px;
+    padding: 7px;
+    border-radius: 7px;
+    border: 0;
+    box-sizing: border-box;
+    color: white;
+    padding-left: 30px;
+ }
+
+ .search input:focus {
+    border: 0;
+ }
+
+ .search input::placeholder {
+    color: #757575;
+ }
+
+ /* location cards */
+
+ .saved-locations-cards {
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 1vh;
+ }
+
+ .location-card {
+    width: 100%;
+    height: 100px;
+    box-sizing: border-box;
+    padding: 15px;
+    border-radius: 15px;
+
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    grid-template-rows: 1fr;
+}
+
+.location-card-left, .location-card-right {
+    display: flex;
+    flex-direction: column;
+}
+
+.location-card-left p, .location-card-right p{
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.location-card-right {
+    align-items: flex-end;
+}
+
+p.city {
+    font-size: 1.2rem;
+}
+
+p.current-temp {
+    font-size: 2.5rem;
+}
+
+p.weather, .high-low-temp {
+    margin-top: auto;
+}
+
+.high-low-temp {
+    display: flex;
+    gap: 5px;
+}

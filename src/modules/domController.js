@@ -45,13 +45,78 @@ const getWeatherType = (weatherCode, isDay) => {
     return weatherCodes[weatherCode][dayType];
 };
 
+const getWeatherBackground = (locationData) => {
+    const weatherType = getWeatherType(
+        locationData.current.weatherCode,
+        locationData.current.isDay,
+    );
+
+    if (locationData.current.isDay === 0) {
+        switch (weatherType.background) {
+            case 'clear':
+                return nightClearBg;
+            case 'cloudy':
+                return nightCloudyBg;
+            case 'very-cloudy':
+                return nightVeryCloudyBg;
+            case 'fog':
+                return nightFogBg;
+            case 'light-rain':
+                return nightLightRainBg;
+            case 'rain':
+                return nightRainBg;
+            case 'heavy-rain':
+                return nightHeavyRainBg;
+            case 'light-snow':
+                return nightLightSnowBg;
+            case 'snow':
+                return nightSnowBg;
+            case 'heavy-snow':
+                return nightHeavySnowBg;
+            case 'thunderstorm':
+                return nightThunderstormBg;
+            default:
+                return '';
+        }
+    } else {
+        switch (weatherType.background) {
+            case 'sunny':
+                return sunnyBg;
+            case 'cloudy':
+                return cloudyBg;
+            case 'very-cloudy':
+                return veryCloudyBg;
+            case 'fog':
+                return fogBg;
+            case 'light-rain':
+                return lightRainBg;
+            case 'rain':
+                return rainBg;
+            case 'heavy-rain':
+                return heavyRainBg;
+            case 'light-snow':
+                return lightSnowBg;
+            case 'snow':
+                return snowBg;
+            case 'heavy-snow':
+                return heavySnowBg;
+            case 'thunderstorm':
+                return thunderstormBg;
+            default:
+                return '#248DC7';
+        }
+    }
+};
+
 const updateWeatherBackground = (locationData) => {
     const weatherType = getWeatherType(
         locationData.current.weatherCode,
         locationData.current.isDay,
     );
 
-    const body = document.querySelector('body');
+    const bgFile = getWeatherBackground(locationData);
+    const locationDiv = document.querySelector('#location');
+    locationDiv.style.backgroundImage = `url(${bgFile})`;
 
     if (locationData.current.isDay === 0) {
         const direction = document.querySelector('.direction-text');
@@ -60,100 +125,78 @@ const updateWeatherBackground = (locationData) => {
 
         switch (weatherType.background) {
             case 'clear':
-                body.style.backgroundImage = `url(${nightClearBg})`;
-                body.style.backgroundPosition = '65%';
+                locationDiv.style.backgroundPosition = '65%';
                 break;
             case 'cloudy':
-                body.style.backgroundImage = `url(${nightCloudyBg})`;
-                body.style.backgroundPosition = '65%';
+                locationDiv.style.backgroundPosition = '65%';
                 break;
             case 'very-cloudy':
-                body.style.backgroundImage = `url(${nightVeryCloudyBg})`;
-                body.style.backgroundPosition = '90%';
+                locationDiv.style.backgroundPosition = '90%';
                 break;
             case 'fog':
-                body.style.backgroundImage = `url(${nightFogBg})`;
-                body.style.backgroundPosition = '90%';
+                locationDiv.style.backgroundPosition = '90%';
                 break;
             case 'light-rain':
-                body.style.backgroundImage = `url(${nightLightRainBg})`;
-                body.style.backgroundPosition = '50%';
+                locationDiv.style.backgroundPosition = '50%';
                 break;
             case 'rain':
-                body.style.backgroundImage = `url(${nightRainBg})`;
-                body.style.backgroundPosition = '50%';
+                locationDiv.style.backgroundPosition = '50%';
                 break;
             case 'heavy-rain':
-                body.style.backgroundImage = `url(${nightHeavyRainBg})`;
-                body.style.backgroundPosition = '50%';
+                locationDiv.style.backgroundPosition = '50%';
                 break;
             case 'light-snow':
-                body.style.backgroundImage = `url(${nightLightSnowBg})`;
-                body.style.backgroundPosition = '50%';
+                locationDiv.style.backgroundPosition = '50%';
                 break;
             case 'snow':
-                body.style.backgroundImage = `url(${nightSnowBg})`;
-                body.style.backgroundPosition = '50%';
+                locationDiv.style.backgroundPosition = '50%';
                 break;
             case 'heavy-snow':
-                body.style.backgroundImage = `url(${nightHeavySnowBg})`;
-                body.style.backgroundPosition = '50%';
+                locationDiv.style.backgroundPosition = '50%';
                 break;
             case 'thunderstorm':
-                body.style.backgroundImage = `url(${nightThunderstormBg})`;
-                body.style.backgroundPosition = '60%';
+                locationDiv.style.backgroundPosition = '60%';
                 break;
             default:
-                body.style.background = '#248DC7';
+                locationDiv.style.background = '#248DC7';
         }
     } else {
         switch (weatherType.background) {
             case 'sunny':
-                body.style.backgroundImage = `url(${sunnyBg})`;
-                body.style.backgroundPosition = '60%';
+                locationDiv.style.backgroundPosition = '60%';
                 break;
             case 'cloudy':
-                body.style.backgroundImage = `url(${cloudyBg})`;
-                body.style.backgroundPosition = '60%';
+                locationDiv.style.backgroundPosition = '60%';
                 break;
             case 'very-cloudy':
-                body.style.backgroundImage = `url(${veryCloudyBg})`;
-                body.style.backgroundPosition = '90%';
+                locationDiv.style.backgroundPosition = '90%';
                 break;
             case 'fog':
-                body.style.backgroundImage = `url(${fogBg})`;
-                body.style.backgroundPosition = '80%';
+                locationDiv.style.backgroundPosition = '80%';
                 break;
             case 'light-rain':
-                body.style.backgroundImage = `url(${lightRainBg})`;
-                body.style.backgroundPosition = '50%';
+                locationDiv.style.backgroundPosition = '50%';
                 break;
             case 'rain':
-                body.style.backgroundImage = `url(${rainBg})`;
-                body.style.backgroundPosition = '60%';
+                locationDiv.style.backgroundPosition = '60%';
                 break;
             case 'heavy-rain':
-                body.style.backgroundImage = `url(${heavyRainBg})`;
-                body.style.backgroundPosition = '90%';
+                locationDiv.style.backgroundPosition = '90%';
                 break;
             case 'light-snow':
-                body.style.backgroundImage = `url(${lightSnowBg})`;
-                body.style.backgroundPosition = '50%';
+                locationDiv.style.backgroundPosition = '50%';
                 break;
             case 'snow':
-                body.style.backgroundImage = `url(${snowBg})`;
-                body.style.backgroundPosition = '50%';
+                locationDiv.style.backgroundPosition = '50%';
                 break;
             case 'heavy-snow':
-                body.style.backgroundImage = `url(${heavySnowBg})`;
-                body.style.backgroundPosition = '50%';
+                locationDiv.style.backgroundPosition = '50%';
                 break;
             case 'thunderstorm':
-                body.style.backgroundImage = `url(${thunderstormBg})`;
-                body.style.backgroundPosition = '80%';
+                locationDiv.style.backgroundPosition = '80%';
                 break;
             default:
-                body.style.background = '#248DC7';
+                locationDiv.style.background = '#248DC7';
         }
     }
 };
@@ -438,7 +481,7 @@ const updatePressure = (locationData) => {
     pressureGauge(Math.round(locationData.current.pressureMsl));
 };
 
-export default function updateWeatherInfo(locationData, systemType) {
+const getWeatherInfo = (locationData, systemType) => {
     updateBriefInfo(locationData, systemType);
     updateWeatherBackground(locationData);
     updateHourlyForecast(locationData, systemType);
@@ -449,4 +492,99 @@ export default function updateWeatherInfo(locationData, systemType) {
     updateSunriseSunset(locationData);
     updateWind(locationData, systemType);
     updatePressure(locationData);
-}
+};
+
+const updateCardWeatherBackground = (locationData, card) => {
+    const weatherType = getWeatherType(
+        locationData.current.weatherCode,
+        locationData.current.isDay,
+    );
+
+    const bgFile = getWeatherBackground(locationData);
+    card.style.backgroundImage = `url(${bgFile})`;
+
+    if (locationData.current.isDay === 0) {
+        switch (weatherType.background) {
+            case 'clear':
+                card.style.backgroundPosition = 'top';
+                break;
+            case 'cloudy':
+                card.style.backgroundPosition = 'top right';
+                break;
+            case 'very-cloudy':
+                card.style.backgroundPosition = 'top center';
+                break;
+            case 'fog':
+                card.style.backgroundPosition = 'top center';
+                break;
+            case 'light-rain':
+                card.style.backgroundPosition = 'center';
+                break;
+            case 'rain':
+                card.style.backgroundPosition = 'center';
+                break;
+            case 'heavy-rain':
+                card.style.backgroundPosition = 'center';
+                break;
+            case 'light-snow':
+                card.style.backgroundPosition = 'center';
+                break;
+            case 'snow':
+                card.style.backgroundPosition = 'center';
+                break;
+            case 'heavy-snow':
+                card.style.backgroundPosition = 'center';
+                break;
+            case 'thunderstorm':
+                card.style.backgroundPosition = 'center right';
+                break;
+            default:
+                card.style.background = 'rgb(0 41 96)';
+        }
+    } else {
+        switch (weatherType.background) {
+            case 'sunny':
+                card.style.backgroundPosition = 'top';
+                break;
+            case 'cloudy':
+                card.style.backgroundPosition = 'top';
+                break;
+            case 'very-cloudy':
+                card.style.backgroundPosition = 'top';
+                break;
+            case 'fog':
+                card.style.backgroundPosition = 'top center';
+                break;
+            case 'light-rain':
+                card.style.backgroundPosition = 'center';
+                break;
+            case 'rain':
+                card.style.backgroundPosition = 'center';
+                break;
+            case 'heavy-rain':
+                card.style.backgroundPosition = 'center';
+                break;
+            case 'light-snow':
+                card.style.backgroundPosition = 'center';
+                break;
+            case 'snow':
+                card.style.backgroundPosition = 'center';
+                break;
+            case 'heavy-snow':
+                card.style.backgroundPosition = 'center';
+                break;
+            case 'thunderstorm':
+                card.style.backgroundPosition = 'center';
+                break;
+            default:
+                card.style.background = '#248DC7';
+        }
+    }
+};
+
+const getCardInfo = (locationData, systemType) => {
+    const cardsContainer = document.querySelector('.saved-locations-cards');
+    const cardElements = cardsContainer.querySelectorAll('.location-card');
+};
+
+export { getWeatherInfo, getCardInfo };
