@@ -54,15 +54,9 @@ const updateWeatherBackground = (locationData) => {
     const body = document.querySelector('body');
 
     if (locationData.current.isDay === 0) {
-        const cards = document.querySelectorAll('.card');
+        const direction = document.querySelector('.direction-text');
 
-        cards.forEach((el) => {
-            const card = el;
-            const direction = document.querySelector('.direction-text');
-
-            card.style.backgroundColor = 'rgba(106, 134, 255, 0.2)';
-            direction.style.backgroundColor = 'rgb(0 41 96)';
-        });
+        direction.style.backgroundColor = 'rgb(0 41 96)';
 
         switch (weatherType.background) {
             case 'clear':
@@ -71,7 +65,7 @@ const updateWeatherBackground = (locationData) => {
                 break;
             case 'cloudy':
                 body.style.backgroundImage = `url(${nightCloudyBg})`;
-                body.style.backgroundPosition = '85%';
+                body.style.backgroundPosition = '65%';
                 break;
             case 'very-cloudy':
                 body.style.backgroundImage = `url(${nightVeryCloudyBg})`;
@@ -107,45 +101,56 @@ const updateWeatherBackground = (locationData) => {
                 break;
             case 'thunderstorm':
                 body.style.backgroundImage = `url(${nightThunderstormBg})`;
-                body.style.backgroundPosition = '90%';
+                body.style.backgroundPosition = '60%';
                 break;
             default:
                 body.style.background = '#248DC7';
         }
     } else {
-        switch (weatherType.background) {
+        switch ('thunderstorm') {
             case 'sunny':
                 body.style.backgroundImage = `url(${sunnyBg})`;
+                body.style.backgroundPosition = '60%';
                 break;
             case 'cloudy':
                 body.style.backgroundImage = `url(${cloudyBg})`;
+                body.style.backgroundPosition = '60%';
                 break;
             case 'very-cloudy':
                 body.style.backgroundImage = `url(${veryCloudyBg})`;
+                body.style.backgroundPosition = '90%';
                 break;
             case 'fog':
                 body.style.backgroundImage = `url(${fogBg})`;
+                body.style.backgroundPosition = '80%';
                 break;
             case 'light-rain':
                 body.style.backgroundImage = `url(${lightRainBg})`;
+                body.style.backgroundPosition = '50%';
                 break;
             case 'rain':
                 body.style.backgroundImage = `url(${rainBg})`;
+                body.style.backgroundPosition = '60%';
                 break;
             case 'heavy-rain':
                 body.style.backgroundImage = `url(${heavyRainBg})`;
+                body.style.backgroundPosition = '90%';
                 break;
             case 'light-snow':
                 body.style.backgroundImage = `url(${lightSnowBg})`;
+                body.style.backgroundPosition = '50%';
                 break;
             case 'snow':
                 body.style.backgroundImage = `url(${snowBg})`;
+                body.style.backgroundPosition = '50%';
                 break;
             case 'heavy-snow':
                 body.style.backgroundImage = `url(${heavySnowBg})`;
+                body.style.backgroundPosition = '50%';
                 break;
             case 'thunderstorm':
                 body.style.backgroundImage = `url(${thunderstormBg})`;
+                body.style.backgroundPosition = '80%';
                 break;
             default:
                 body.style.background = '#248DC7';
@@ -156,7 +161,8 @@ const updateWeatherBackground = (locationData) => {
 const updateBriefInfo = (locationData, systemType) => {
     const locationBriefInfo = document.querySelector('.location-brief-info');
     const cityElement = locationBriefInfo.querySelector('.city');
-    const tempElement = locationBriefInfo.querySelector('.temp');
+    const tempNumberElement = locationBriefInfo.querySelector('.temp-number');
+    const tempIconElement = locationBriefInfo.querySelector('.temp-icon');
     const typeElement = locationBriefInfo.querySelector('.type');
     const tempMaxElement = locationBriefInfo.querySelector('.temp-high');
     const tempMinElement = locationBriefInfo.querySelector('.temp-low');
@@ -168,9 +174,10 @@ const updateBriefInfo = (locationData, systemType) => {
     const tempMax = Math.round(locationData.daily.temperature2mMax[0]);
     const tempMin = Math.round(locationData.daily.temperature2mMin[0]);
 
-    tempElement.textContent = systemType === 'metric' ? `${currentTemp}${degreeIcon}` : Math.round(`${currentTemp}${degreeIcon}` * (9 / 5)) + 32;
-    tempMaxElement.textContent = systemType === 'metric' ? `${tempMax}${degreeIcon}` : Math.round(`${tempMax}${degreeIcon}` * (9 / 5)) + 32;
-    tempMinElement.textContent = systemType === 'metric' ? `${tempMin}${degreeIcon}` : Math.round(`${tempMin}${degreeIcon}` * (9 / 5)) + 32;
+    tempNumberElement.textContent = systemType === 'metric' ? `${currentTemp}` : Math.round(`${currentTemp * ((9 / 5) + 32)}`);
+    tempIconElement.textContent = `${degreeIcon}`;
+    tempMaxElement.textContent += systemType === 'metric' ? `${tempMax}${degreeIcon}` : Math.round(`${tempMax * ((9 / 5) + 32)}${degreeIcon}`);
+    tempMinElement.textContent += systemType === 'metric' ? `${tempMin}${degreeIcon}` : Math.round(`${tempMin * ((9 / 5) + 32)}${degreeIcon}`);
 
     const weatherType = getWeatherType(
         locationData.current.weatherCode,

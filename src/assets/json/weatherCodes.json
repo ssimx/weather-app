@@ -25,24 +25,24 @@
     },
     "2": {
         "day": {
-            "description": "Partly Cloudy",
+            "description": "Cloudy",
             "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/67aaf9dbe30989c25cbde6c6ec099213.png",
             "background": "cloudy"
         },
         "night": {
-            "description": "Partly Cloudy",
+            "description": "Cloudy",
             "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/17cc1a8a95028b89ba6988ee47eeab29.png",
             "background": "cloudy"
         }
     },
     "3": {
         "day": {
-            "description": "Cloudy",
+            "description": "Very Cloudy",
             "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/67aaf9dbe30989c25cbde6c6ec099213.png",
             "background": "very-cloudy"
         },
         "night": {
-            "description": "Cloudy",
+            "description": "Very Cloudy",
             "image": "https://help.apple.com/assets/65E21662495F1A6C8701F50A/65E21663EF8273BE1D0C2734/en_US/17cc1a8a95028b89ba6988ee47eeab29.png",
             "background": "very-cloudy"
         }

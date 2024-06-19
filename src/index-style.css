@@ -21,11 +21,7 @@ body {
     background-size: cover;
     color: white;
     /* background-color: #248DC7; */
-}
-
-header {
-    display: flex;
-    justify-content: space-between;
+    background-attachment: fixed;
 }
 
 main {
@@ -38,6 +34,15 @@ main {
     padding: 20px;
 }
 
+.list {
+    margin: 10px;
+    height: 24px;
+}
+
+.list button {
+    background-color: transparent;
+    border: 0;
+}
 /* LOCATION BRIEF INFO */
 
 .location-brief-info {
@@ -52,7 +57,7 @@ main {
     font-size: 1.6rem;
 }
 
-.location-brief-info p.temp {
+.location-brief-info .temp-number {
     font-size: 4.5rem;
     font-weight: 300;
 }
@@ -82,10 +87,10 @@ main {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    backdrop-filter: blur(200px) brightness(0.90);
+    backdrop-filter: blur(200px) brightness(0.80);
     -webkit-backdrop-filter: blur(200px);
     /* background-color: rgba(32, 73, 255, 0.2); */
-    background-color: rgba(106, 134, 255, 0.2);
+    background-repeat: no-repeat;
 }
 
 hr {
