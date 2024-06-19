@@ -107,7 +107,7 @@ const updateWeatherBackground = (locationData) => {
                 body.style.background = '#248DC7';
         }
     } else {
-        switch ('thunderstorm') {
+        switch (weatherType.background) {
             case 'sunny':
                 body.style.backgroundImage = `url(${sunnyBg})`;
                 body.style.backgroundPosition = '60%';
