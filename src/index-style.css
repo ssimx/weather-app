@@ -10,7 +10,7 @@
     --radius: 10px;
     --light-grey: #ddddddad;
 
-    --main-bg-position-clear-night: 65%;
+    --main-bg-position-sunny-night: 65%;
     --main-bg-position-cloudy-night: 65%;
     --main-bg-position-very-cloudy-night: 90%;
     --main-bg-position-fog-night: 90%;
@@ -22,7 +22,7 @@
     --main-bg-position-thunderstorm-night: 50%;
     --main-bg-position-heavy-snow-night: 60%;
 
-    --main-bg-position-clear-day: 60%;
+    --main-bg-position-sunny-day: 60%;
     --main-bg-position-cloudy-day: 60%;
     --main-bg-position-very-cloudy-day: 90%;
     --main-bg-position-fog-day: 80%;

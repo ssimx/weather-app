@@ -1,3 +1,4 @@
+/* eslint-disable no-use-before-define */
 /* eslint-disable import/no-extraneous-dependencies */
 import 'normalize.css';
 import './index-style.css';
@@ -19,7 +20,7 @@ const savedLocationsDiv = bodyDiv.querySelector('#saved-locations');
 
 // ADD SYLE FOR SEARCH INPUT
 const gmpx = document.querySelector('gmpx-place-picker');
-let style = document.createElement('style');
+const style = document.createElement('style');
 style.innerHTML = '.pac-target-input { border-radius: 10px; border: none; font-size: 1rem; } .pac-target-input:focus { outline: none; } .icon { transform: scale(1.5); color: #757575; }';
 gmpx.shadowRoot.appendChild(style);
 
@@ -31,12 +32,11 @@ savedLocationsBtn.addEventListener('click', (e) => {
     savedLocationsDiv.classList.toggle('visible');
     savedLocationsDiv.style.display = '';
 
+    // EVENT LISTENER FOR SEARCH INPUT CHANGE, RENDER THE CHOSEN LOCATION
     const picker = document.querySelector('gmpx-place-picker');
     const input = picker.shadowRoot.querySelector('input');
-
-    // EVENT LISTENER FOR SEARCH INPUT CHANGE, RENDER THE CHOSEN LOCATION
-    picker.addEventListener('gmpx-placechange', (event) => {
-        const location = event.target.value.formattedAddress ?? '';
+    const handleSearchClick = (event) => {
+        const location = event.target.value.formattedAddress;
         getWeatherInfo(location, 0);
 
         locationDiv.style.display = '';
@@ -46,5 +46,28 @@ savedLocationsBtn.addEventListener('click', (e) => {
         savedLocationsDiv.style.display = 'none';
 
         input.value = '';
-    });
+        removeMenuListeners();
+    };
+    picker.addEventListener('gmpx-placechange', handleSearchClick);
+
+    // EVENT LISTENER FOR CARDS
+    const cardsContainer = document.querySelector('.saved-locations-cards');
+    const handleCardClick = (event) => {
+        const cardLocationIndex = event.target.closest('.location-card').dataset.index;
+        getWeatherInfo(locations().get()[cardLocationIndex].city, 0);
+
+        savedLocationsDiv.style.display = 'none';
+        savedLocationsDiv.classList.toggle('visible');
+
+        locationDiv.classList.toggle('visible');
+        locationDiv.style.display = '';
+
+        removeMenuListeners();
+    };
+    cardsContainer.addEventListener('click', handleCardClick);
+
+    function removeMenuListeners() {
+        cardsContainer.removeEventListener('click', handleCardClick);
+        picker.removeEventListener('gmpx-placechange', handleSearchClick);
+    }
 });

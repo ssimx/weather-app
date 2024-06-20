@@ -482,9 +482,10 @@ const createSavedLocationsCards = async (systemType) => {
     const cardsContainer = document.querySelector('.saved-locations-cards');
     const locationsData = await getLocationData(cities, latitudes, longitudes, systemType);
 
-    locationsData.forEach((location) => {
+    locationsData.forEach((location, index) => {
         const cardDiv = document.createElement('div');
         cardDiv.classList.add('location-card');
+        cardDiv.dataset.index = index;
 
         const cardLeftDiv = document.createElement('div');
         cardLeftDiv.classList.add('location-card-left');
