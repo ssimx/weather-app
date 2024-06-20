@@ -7,9 +7,10 @@ const range = require('lodash.range');
 
 const getCoords = async (location) => {
     try {
-        const response = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${location}&count=1&language=en&format=json`, { mode: 'cors' });
+        const response = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${location}&key=AIzaSyDqnHb0ScTTw8WWCAH2NabxjSqDTjkV-cY`, { mode: 'cors' });
 
         const data = await response.json();
+
         return data.results[0];
     } catch (err) {
         return err;
@@ -35,7 +36,12 @@ const getSunriseSunset = async (location, timezone) => {
 };
 
 export default async function getLocationData(location) {
-    const locationCoords = await getCoords(location);
+    const locationData = await getCoords(location);
+
+    const locationCoords = {
+        latitude: locationData.geometry.location.lat,
+        longitude: locationData.geometry.location.lng,
+    };
 
     const params = {
         latitude: locationCoords.latitude,
@@ -67,8 +73,8 @@ export default async function getLocationData(location) {
     // Note: The order of weather variables in the URL query and the indices below need to match!
     const weatherData = {
         location: {
-            name: locationCoords.name,
-            timezone: locationCoords.timezone,
+            name: locationData.address_components[0].short_name,
+            timezone,
             latitude: locationCoords.latitude,
             longitude: locationCoords.longitude,
         },

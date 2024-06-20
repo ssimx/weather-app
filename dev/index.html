@@ -15,7 +15,7 @@
 
 <body>
 
-    <div id="location" class="visible" style="display: none">
+    <div id="location" class="visible" style="">
         <div class="list">
             <button id="saved-locations-btn">
                 <svg width="30px" height="30px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
@@ -43,8 +43,8 @@
             </div>
             <p class="type"></p>
             <div class="temp-high-low">
-                <p class="temp-high">H:</p>
-                <p class="temp-low">L:</p>
+                <p class="temp-high"></p>
+                <p class="temp-low"></p>
             </div>
         </div>
 
@@ -135,7 +135,6 @@
                 </div>
                 <div class="card-content">
                     <div id="gauge3" class="gauge-container three">
-                        <p class="pressure-unit">hPa</p>
                     </div>
                     <div class="pressure-low-high">
                         <p class="pressure-low">Low</p>
@@ -162,13 +161,13 @@
         </div>
     </div>
 
-    <div id="saved-locations" class="" style="">
+    <div id="saved-locations" class="" style="display: none">
         <div class="settings-menu">X</div>
 
         <div class="search">
             <p>Weather</p>
 
-            <gmpx-api-loader key="AIzaSyA_Ex3t3lQ0HGS6EMXs7q2sBAjv4l-x2d4" solution-channel="GMP_GCC_placepicker_v1"></gmpx-api-loader>
+            <gmpx-api-loader key="AIzaSyDqnHb0ScTTw8WWCAH2NabxjSqDTjkV-cY" solution-channel="GMP_GCC_placepicker_v1"></gmpx-api-loader>
             <div id="place-picker-box">
                 <div id="place-picker-container">
                     <gmpx-place-picker placeholder="Search for a city" type="(cities)"></gmpx-place-picker>

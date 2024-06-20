@@ -25,19 +25,6 @@
     font-weight: 600;
  }
 
- .search input {
-    width: 100%;
-    background: #242424 url('../assets/icons/search.svg') no-repeat scroll 5px 5px;
-    background-size: 18px;
-    background-position: 5px;
-    padding: 7px;
-    border-radius: 7px;
-    border: 0;
-    box-sizing: border-box;
-    color: white;
-    padding-left: 30px;
- }
-
  .search gmpx-place-picker {
     width: 100%;
  }
@@ -87,7 +74,6 @@
  .pac-icon {
     display: none;
  }
-
 
  /* location cards */
 

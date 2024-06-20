@@ -219,8 +219,8 @@ const updateBriefInfo = (locationData, systemType) => {
 
     tempNumberElement.textContent = systemType === 'metric' ? `${currentTemp}` : Math.round(`${currentTemp * ((9 / 5) + 32)}`);
     tempIconElement.textContent = `${degreeIcon}`;
-    tempMaxElement.textContent += systemType === 'metric' ? `${tempMax}${degreeIcon}` : Math.round(`${tempMax * ((9 / 5) + 32)}${degreeIcon}`);
-    tempMinElement.textContent += systemType === 'metric' ? `${tempMin}${degreeIcon}` : Math.round(`${tempMin * ((9 / 5) + 32)}${degreeIcon}`);
+    tempMaxElement.textContent = systemType === 'metric' ? `H:${tempMax}${degreeIcon}` : Math.round(`${tempMax * ((9 / 5) + 32)}${degreeIcon}`);
+    tempMinElement.textContent = systemType === 'metric' ? `L:${tempMin}${degreeIcon}` : Math.round(`${tempMin * ((9 / 5) + 32)}${degreeIcon}`);
 
     const weatherType = getWeatherType(
         locationData.current.weatherCode,
@@ -232,6 +232,7 @@ const updateBriefInfo = (locationData, systemType) => {
 const updateHourlyForecast = (locationData, systemType) => {
     const hourly = document.querySelector('.hourly-forecast');
     const card = hourly.querySelector('.card-content');
+    card.textContent = '';
 
     // create first element in card content to be Now
     // create 23 items for next 23 hours
@@ -266,6 +267,7 @@ const updateHourlyForecast = (locationData, systemType) => {
 const updateDailyForecast = (locationData, systemType) => {
     const daily = document.querySelector('.daily-forecast');
     const card = daily.querySelector('.card-content');
+    card.textContent = '';
 
     // create first element for today
     // create 9 elements for following days
@@ -325,6 +327,8 @@ const updatePrecipitationMap = (locationData) => {
 const updateFeelsLike = (locationData, systemType) => {
     const feels = document.querySelector('.feels-like');
     const card = feels.querySelector('.card-content');
+    card.textContent = '';
+
     const feelsLikeTemp = Math.round(locationData.current.apparentTemperature);
     const currentTemp = Math.round(locationData.current.temperature2m);
 
@@ -352,6 +356,8 @@ const updateFeelsLike = (locationData, systemType) => {
 const updateUvIndex = (locationData) => {
     const uvIndex = document.querySelector('.uv-index');
     const card = uvIndex.querySelector('.card-content');
+    card.textContent = '';
+
     const index = Math.round(locationData.hourly.uvIndex[0]);
 
     const indexDiv = document.createElement('div');
@@ -395,6 +401,8 @@ const updateUvIndex = (locationData) => {
 const updateSunriseSunset = (locationData) => {
     const sunriseSunset = document.querySelector('.sunrise-sunset');
     const card = sunriseSunset.querySelector('.card-content');
+    card.textContent = '';
+
     const title = sunriseSunset.querySelector('.card-title');
     const cardTitleIcon = title.querySelector('.card-title-icon');
     const cardTitleText = title.querySelector('.card-title-text');
@@ -478,6 +486,14 @@ const updateWind = (locationData, systemType) => {
 };
 
 const updatePressure = (locationData) => {
+    const gaugeDiv = document.querySelector('.gauge-container');
+    gaugeDiv.textContent = '';
+
+    const pressureUnitText = document.createElement('p');
+    pressureUnitText.classList.add('pressure-unit');
+    pressureUnitText.textContent = 'hPa';
+    gaugeDiv.append(pressureUnitText);
+
     pressureGauge(Math.round(locationData.current.pressureMsl));
 };
 

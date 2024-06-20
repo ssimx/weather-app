@@ -19,6 +19,7 @@ module.exports = {
                 title: 'Weather App',
                 template: '/src/index.html',
                 filename: 'index.html',
+                searchApi: `${process.env.WEATHER_APP_SEARCH_AUTOCOMPLETE_KEY}`,
             },
         ),
     ],
