@@ -10,7 +10,7 @@
     --radius: 10px;
     --light-grey: #ddddddad;
 
-    --main-bg-position-sunny-night: 65%;
+    --main-bg-position-clear-night: 65%;
     --main-bg-position-cloudy-night: 65%;
     --main-bg-position-very-cloudy-night: 90%;
     --main-bg-position-fog-night: 90%;
@@ -49,15 +49,25 @@
     color: white;
 }
 
-.list {
+.header-buttons {
     margin: 10px;
     height: 24px;
+    width: 100%;
+    display: flex;
+}
+
+.header-buttons button {
+    background-color: transparent;
+    border: 0;
+    color: white;
+}
+
+button#saved-locations-btn, button#cancel-btn {
     margin-right: auto;
 }
 
-.list button {
-    background-color: transparent;
-    border: 0;
+button#save-btn {
+    margin-left: auto;
 }
 
 /* LOCATION CARDS */

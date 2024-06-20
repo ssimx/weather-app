@@ -433,6 +433,7 @@ const getWeatherInfo = async (location, systemType) => {
         [locationCoords.address_components[0].long_name],
         [locationCoords.geometry.location.lat],
         [locationCoords.geometry.location.lng],
+        [locationCoords.place_id],
         systemType,
     ))[0];
 
@@ -472,15 +473,21 @@ const createSavedLocationsCards = async (systemType) => {
     const cities = [];
     const latitudes = [];
     const longitudes = [];
+    const locationIDs = [];
+    const timezones = [];
 
     savedLocations.forEach((location) => {
         cities.push(location.city);
         latitudes.push(location.latitude);
         longitudes.push(location.longitude);
+        locationIDs.push(location.locationId);
+        timezones.push(location.timezone);
     });
 
     const cardsContainer = document.querySelector('.saved-locations-cards');
-    const locationsData = await getLocationData(cities, latitudes, longitudes, systemType);
+    cardsContainer.textContent = '';
+    const locationsData = await getLocationData(
+        cities, latitudes, longitudes, locationIDs, systemType);
 
     locationsData.forEach((location, index) => {
         const cardDiv = document.createElement('div');
@@ -495,7 +502,24 @@ const createSavedLocationsCards = async (systemType) => {
 
         const time = document.createElement('p');
         time.classList.add('time');
-        time.textContent = `${new Date(location.current.time).getHours()}:${new Date(location.current.time).getMinutes()}`;
+
+        const getFullHour = () => {
+            const hours = new Date(location.current.time).getHours();
+            if (hours < 10) {
+                return `0${hours}`;
+            }
+            return hours;
+        };
+
+        const getFullMinutes = () => {
+            const minutes = new Date(location.current.time).getMinutes();
+            if (minutes < 10) {
+                return `0${minutes}`;
+            }
+            return minutes;
+        };
+
+        time.textContent = `${getFullHour()}:${getFullMinutes()}`;
 
         const weather = document.createElement('p');
         weather.classList.add('weather');

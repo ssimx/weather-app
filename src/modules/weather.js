@@ -36,7 +36,7 @@ const getSunriseSunset = async (latitude, longitude, timezone) => {
 };
 
 // eslint-disable-next-line max-len
-export default async function getLocationData(cityArray, latitudeArray, longitudeArray, systemType) {
+export default async function getLocationData(cityArray, latitudeArray, longitudeArray, locationIdArray, systemType) {
     const params = {
         latitude: [...latitudeArray],
         longitude: [...longitudeArray],
@@ -72,6 +72,7 @@ export default async function getLocationData(cityArray, latitudeArray, longitud
                 timezone,
                 latitude: latitudeArray[index],
                 longitude: longitudeArray[index],
+                locationId: locationIdArray[index],
             },
             current: {
                 time: formatDateTimezone(timezone, new Date()),

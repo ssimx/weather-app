@@ -14,7 +14,7 @@
     --card-bg-position-thunderstorm-night: center;
     --card-bg-position-heavy-snow-night: center right;
 
-    --card-bg-position-clear-day: top;
+    --card-bg-position-sunny-day: top;
     --card-bg-position-cloudy-day: top;
     --card-bg-position-very-cloudy-day: top;
     --card-bg-position-fog-day: top center;
@@ -117,7 +117,7 @@
     border-radius: 15px;
 
     display: grid;
-    grid-template-columns: 3fr 1fr;
+    grid-template-columns: 4fr 1fr;
     grid-template-rows: 1fr;
 }
 
@@ -132,7 +132,7 @@
 }
 
 .location-card-right {
-    align-items: flex-end;
+    align-items: center;
 }
 
 p.city {
@@ -150,4 +150,5 @@ p.weather, .high-min-temp {
 .high-min-temp {
     display: flex;
     gap: 5px;
+
 }
