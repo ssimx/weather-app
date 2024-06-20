@@ -119,11 +119,11 @@ p.current-temp {
     font-size: 2.5rem;
 }
 
-p.weather, .high-low-temp {
+p.weather, .high-min-temp {
     margin-top: auto;
 }
 
-.high-low-temp {
+.high-min-temp {
     display: flex;
     gap: 5px;
 }

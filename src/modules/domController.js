@@ -7,6 +7,8 @@ import '../styles/uv-index-style.css';
 import '../styles/sunrise-sunset-style.css';
 import '../styles/wind-style.css';
 import '../styles/pressure-style.css';
+import locations from './locations';
+import getLocationData, { getCoords, getSunriseSunset } from './weather';
 import sunnyBg from '../assets/gifs/sunny.gif';
 import cloudyBg from '../assets/gifs/cloudy.gif';
 import veryCloudyBg from '../assets/gifs/very-cloudy.gif';
@@ -46,6 +48,7 @@ const getWeatherType = (weatherCode, isDay) => {
 };
 
 const getWeatherBackground = (locationData) => {
+    console.log(locationData);
     const weatherType = getWeatherType(
         locationData.current.weatherCode,
         locationData.current.isDay,
@@ -201,7 +204,7 @@ const updateWeatherBackground = (locationData) => {
     }
 };
 
-const updateBriefInfo = (locationData, systemType) => {
+const updateBriefInfo = (locationData) => {
     const locationBriefInfo = document.querySelector('.location-brief-info');
     const cityElement = locationBriefInfo.querySelector('.city');
     const tempNumberElement = locationBriefInfo.querySelector('.temp-number');
@@ -210,17 +213,16 @@ const updateBriefInfo = (locationData, systemType) => {
     const tempMaxElement = locationBriefInfo.querySelector('.temp-high');
     const tempMinElement = locationBriefInfo.querySelector('.temp-low');
 
-    const name = locationData.location.name.split(',')[0];
-    cityElement.textContent = name;
+    cityElement.textContent = locationData.location.city;
 
     const currentTemp = Math.round(locationData.current.temperature2m);
     const tempMax = Math.round(locationData.daily.temperature2mMax[0]);
     const tempMin = Math.round(locationData.daily.temperature2mMin[0]);
 
-    tempNumberElement.textContent = systemType === 'metric' ? `${currentTemp}` : Math.round(`${currentTemp * ((9 / 5) + 32)}`);
+    tempNumberElement.textContent = `${currentTemp}`;
     tempIconElement.textContent = `${degreeIcon}`;
-    tempMaxElement.textContent = systemType === 'metric' ? `H:${tempMax}${degreeIcon}` : Math.round(`${tempMax * ((9 / 5) + 32)}${degreeIcon}`);
-    tempMinElement.textContent = systemType === 'metric' ? `L:${tempMin}${degreeIcon}` : Math.round(`${tempMin * ((9 / 5) + 32)}${degreeIcon}`);
+    tempMaxElement.textContent = `H:${tempMax}${degreeIcon}`;
+    tempMinElement.textContent = `L:${tempMin}${degreeIcon}`;
 
     const weatherType = getWeatherType(
         locationData.current.weatherCode,
@@ -229,7 +231,7 @@ const updateBriefInfo = (locationData, systemType) => {
     typeElement.textContent = weatherType.description;
 };
 
-const updateHourlyForecast = (locationData, systemType) => {
+const updateHourlyForecast = (locationData) => {
     const hourly = document.querySelector('.hourly-forecast');
     const card = hourly.querySelector('.card-content');
     card.textContent = '';
@@ -256,7 +258,7 @@ const updateHourlyForecast = (locationData, systemType) => {
         hourWeatherType.src = weatherType.image;
         const hourTemp = document.createElement('p');
         hourTemp.classList.add('js-hour-temp');
-        const temp = systemType === 'metric' ? Math.round(locationData.hourly.temperature2m[i]) : Math.round((locationData.hourly.temperature2m[i] * (9 / 5)) + 32);
+        const temp = Math.round(locationData.hourly.temperature2m[i]);
         hourTemp.textContent = `${temp}${degreeIcon}`;
 
         item.append(hourTime, hourWeatherType, hourTemp);
@@ -264,7 +266,7 @@ const updateHourlyForecast = (locationData, systemType) => {
     }
 };
 
-const updateDailyForecast = (locationData, systemType) => {
+const updateDailyForecast = (locationData) => {
     const daily = document.querySelector('.daily-forecast');
     const card = daily.querySelector('.card-content');
     card.textContent = '';
@@ -296,10 +298,10 @@ const updateDailyForecast = (locationData, systemType) => {
         minTempElement.classList.add('js-daily-temp-min');
         maxTempElement.classList.add('js-daily-temp-max');
 
-        const minTemp = systemType === 'metric' ? Math.round(locationData.daily.temperature2mMin[i]) : Math.round((locationData.daily.temperature2mMin[i] * (9 / 5)) + 32);
+        const minTemp = Math.round(locationData.daily.temperature2mMin[i]);
         minTempElement.textContent = `${minTemp}${degreeIcon}`;
 
-        const maxTemp = systemType === 'metric' ? Math.round(locationData.daily.temperature2mMax[i]) : Math.round((locationData.daily.temperature2mMax[i] * (9 / 5)) + 32);
+        const maxTemp = Math.round(locationData.daily.temperature2mMax[i]);
         maxTempElement.textContent = `${maxTemp}${degreeIcon}`;
 
         const barElement = createTempBarElement(minTemp, maxTemp);
@@ -334,13 +336,13 @@ const updateFeelsLike = (locationData, systemType) => {
 
     const temp = document.createElement('div');
     temp.classList.add('js-feels-temp');
-    temp.textContent = systemType === 'metric' ? `${feelsLikeTemp}${degreeIcon}` : Math.round(`${feelsLikeTemp}${degreeIcon}` * (9 / 5)) + 32;
+    temp.textContent = `${feelsLikeTemp}${degreeIcon}`;
 
     const desc = document.createElement('div');
     desc.classList.add('js-feels-desc');
 
     const tempDif = feelsLikeTemp - currentTemp;
-    if (systemType === 'metric') {
+    if (systemType === 0) {
         if (Math.abs(tempDif) <= 3) desc.textContent = 'Similar to the actual temperature.';
         else if (tempDif > 3) desc.textContent = 'Hotter than the actual temperature.';
         else if (tempDif > -3) desc.textContent = 'Colder than the actual temperature.';
@@ -398,7 +400,7 @@ const updateUvIndex = (locationData) => {
     card.append(indexDiv, indexBarDiv, indexDesc);
 };
 
-const updateSunriseSunset = (locationData) => {
+const updateSunriseSunset = async (locationData) => {
     const sunriseSunset = document.querySelector('.sunrise-sunset');
     const card = sunriseSunset.querySelector('.card-content');
     card.textContent = '';
@@ -412,9 +414,10 @@ const updateSunriseSunset = (locationData) => {
     const nextTime = document.createElement('div');
     nextTime.classList.add('js-sunrise-sunset-next-time');
 
-    const { timezone } = locationData.location;
-    const sunriseToday = locationData.daily.sunriseSunset[0].sunrise;
-    const sunsetToday = locationData.daily.sunriseSunset[0].sunset;
+    const { latitude, longitude, timezone } = locationData.location;
+    const sunriseSunsetInfo = await getSunriseSunset(latitude, longitude, timezone);
+    const sunriseToday = sunriseSunsetInfo[0].sunrise;
+    const sunsetToday = sunriseSunsetInfo[0].sunset;
     const currentTime = formatDateTimezone(timezone, new Date());
 
     if (currentTime.getTime() > formatDateTimezone(timezone, new Date(sunriseToday)).getTime()
@@ -423,21 +426,21 @@ const updateSunriseSunset = (locationData) => {
         cardTitleIcon.src = sunset;
         cardTitleIcon.alt = 'Sunset icon';
         mainTime.textContent = sunsetToday.slice(11, 16);
-        nextTime.textContent = `Sunrise: ${locationData.daily.sunriseSunset[1].sunrise.slice(11, 16)}`;
+        nextTime.textContent = `Sunrise: ${sunriseSunsetInfo[1].sunrise.slice(11, 16)}`;
     // eslint-disable-next-line max-len
     } else if (currentTime.getTime() > formatDateTimezone(timezone, new Date(sunriseToday)).getTime()
     && currentTime.getTime() > formatDateTimezone(timezone, new Date(sunsetToday)).getTime()) {
         cardTitleText.textContent = 'Sunrise';
         cardTitleIcon.src = sunrise;
         cardTitleIcon.alt = 'Sunrise icon';
-        mainTime.textContent = locationData.daily.sunriseSunset[1].sunrise.slice(11, 16);
-        nextTime.textContent = `Sunset: ${locationData.daily.sunriseSunset[1].sunset.slice(11, 16)}`;
+        mainTime.textContent = sunriseSunsetInfo[1].sunrise.slice(11, 16);
+        nextTime.textContent = `Sunset: ${sunriseSunsetInfo[1].sunset.slice(11, 16)}`;
     // eslint-disable-next-line max-len
     } else if (currentTime.getTime() < formatDateTimezone(timezone, new Date(sunriseToday)).getTime()) {
         cardTitleText.textContent = 'Sunrise';
         cardTitleIcon.src = sunrise;
         cardTitleIcon.alt = 'Sunrise icon';
-        mainTime.textContent = locationData.daily.sunriseSunset[0].sunrise.slice(11, 16);
+        mainTime.textContent = sunriseSunsetInfo[0].sunrise.slice(11, 16);
         nextTime.textContent = `Sunset: ${sunsetToday.slice(11, 16)}`;
     }
 
@@ -497,11 +500,20 @@ const updatePressure = (locationData) => {
     pressureGauge(Math.round(locationData.current.pressureMsl));
 };
 
-const getWeatherInfo = (locationData, systemType) => {
-    updateBriefInfo(locationData, systemType);
+const getWeatherInfo = async (location, systemType) => {
+    const locationCoords = await getCoords([location]);
+    const locationData = (await getLocationData(
+        [locationCoords.address_components[0].short_name],
+        [locationCoords.geometry.location.lat],
+        [locationCoords.geometry.location.lng],
+        systemType,
+    ))[0];
+
+    console.log(locationData);
+    updateBriefInfo(locationData);
     updateWeatherBackground(locationData);
-    updateHourlyForecast(locationData, systemType);
-    updateDailyForecast(locationData, systemType);
+    updateHourlyForecast(locationData);
+    updateDailyForecast(locationData);
     updatePrecipitationMap(locationData);
     updateFeelsLike(locationData, systemType);
     updateUvIndex(locationData);
@@ -511,101 +523,161 @@ const getWeatherInfo = (locationData, systemType) => {
 };
 
 const updateCardWeatherBackground = (locationData, card) => {
+    const cardDiv = card;
+
     const weatherType = getWeatherType(
         locationData.current.weatherCode,
         locationData.current.isDay,
     );
 
     const bgFile = getWeatherBackground(locationData);
-    card.style.backgroundImage = `url(${bgFile})`;
+    cardDiv.style.backgroundImage = `url(${bgFile})`;
 
     if (locationData.current.isDay === 0) {
         switch (weatherType.background) {
             case 'clear':
-                card.style.backgroundPosition = 'top';
+                cardDiv.style.backgroundPosition = 'top';
                 break;
             case 'cloudy':
-                card.style.backgroundPosition = 'top right';
+                cardDiv.style.backgroundPosition = 'top right';
                 break;
             case 'very-cloudy':
-                card.style.backgroundPosition = 'top center';
+                cardDiv.style.backgroundPosition = 'top center';
                 break;
             case 'fog':
-                card.style.backgroundPosition = 'top center';
+                cardDiv.style.backgroundPosition = 'top center';
                 break;
             case 'light-rain':
-                card.style.backgroundPosition = 'center';
+                cardDiv.style.backgroundPosition = 'center';
                 break;
             case 'rain':
-                card.style.backgroundPosition = 'center';
+                cardDiv.style.backgroundPosition = 'center';
                 break;
             case 'heavy-rain':
-                card.style.backgroundPosition = 'center';
+                cardDiv.style.backgroundPosition = 'center';
                 break;
             case 'light-snow':
-                card.style.backgroundPosition = 'center';
+                cardDiv.style.backgroundPosition = 'center';
                 break;
             case 'snow':
-                card.style.backgroundPosition = 'center';
+                cardDiv.style.backgroundPosition = 'center';
                 break;
             case 'heavy-snow':
-                card.style.backgroundPosition = 'center';
+                cardDiv.style.backgroundPosition = 'center';
                 break;
             case 'thunderstorm':
-                card.style.backgroundPosition = 'center right';
+                cardDiv.style.backgroundPosition = 'center right';
                 break;
             default:
-                card.style.background = 'rgb(0 41 96)';
+                cardDiv.style.background = 'rgb(0 41 96)';
         }
     } else {
         switch (weatherType.background) {
             case 'sunny':
-                card.style.backgroundPosition = 'top';
+                cardDiv.style.backgroundPosition = 'top';
                 break;
             case 'cloudy':
-                card.style.backgroundPosition = 'top';
+                cardDiv.style.backgroundPosition = 'top';
                 break;
             case 'very-cloudy':
-                card.style.backgroundPosition = 'top';
+                cardDiv.style.backgroundPosition = 'top';
                 break;
             case 'fog':
-                card.style.backgroundPosition = 'top center';
+                cardDiv.style.backgroundPosition = 'top center';
                 break;
             case 'light-rain':
-                card.style.backgroundPosition = 'center';
+                cardDiv.style.backgroundPosition = 'center';
                 break;
             case 'rain':
-                card.style.backgroundPosition = 'center';
+                cardDiv.style.backgroundPosition = 'center';
                 break;
             case 'heavy-rain':
-                card.style.backgroundPosition = 'center';
+                cardDiv.style.backgroundPosition = 'center';
                 break;
             case 'light-snow':
-                card.style.backgroundPosition = 'center';
+                cardDiv.style.backgroundPosition = 'center';
                 break;
             case 'snow':
-                card.style.backgroundPosition = 'center';
+                cardDiv.style.backgroundPosition = 'center';
                 break;
             case 'heavy-snow':
-                card.style.backgroundPosition = 'center';
+                cardDiv.style.backgroundPosition = 'center';
                 break;
             case 'thunderstorm':
-                card.style.backgroundPosition = 'center';
+                cardDiv.style.backgroundPosition = 'center';
                 break;
             default:
-                card.style.background = '#248DC7';
+                cardDiv.style.background = '#248DC7';
         }
     }
 };
 
-const getCardInfo = (locationData, systemType) => {
-    const cardsContainer = document.querySelector('.saved-locations-cards');
-    const cardElements = cardsContainer.querySelectorAll('.location-card');
+const createSavedLocationsCards = async (systemType) => {
+    const savedLocations = locations().get();
+    const cities = [];
+    const latitudes = [];
+    const longitudes = [];
 
-    const gmpx = document.querySelector('gmpx-place-picker');
-    let style = document.createElement('style');
-    style.innerHTML = '.pac-target-input { border-radius: 10px; border: none; font-size: 1rem; } .pac-target-input:focus { outline: none; } .icon { transform: scale(1.5); color: #757575; }';
-    gmpx.shadowRoot.appendChild(style);
+    savedLocations.forEach((location) => {
+        cities.push(location.city);
+        latitudes.push(location.latitude);
+        longitudes.push(location.longitude);
+    });
+
+    const cardsContainer = document.querySelector('.saved-locations-cards');
+    const locationsData = await getLocationData(cities, latitudes, longitudes, systemType);
+
+    locationsData.forEach((location) => {
+        const cardDiv = document.createElement('div');
+        cardDiv.classList.add('location-card');
+
+        const cardLeftDiv = document.createElement('div');
+        cardLeftDiv.classList.add('location-card-left');
+        const city = document.createElement('p');
+        city.classList.add('city');
+        city.textContent = location.location.city;
+
+        const time = document.createElement('p');
+        time.classList.add('time');
+        time.textContent = `${new Date(location.current.time).getHours()}:${new Date(location.current.time).getMinutes()}`;
+
+        const weather = document.createElement('p');
+        weather.classList.add('weather');
+        const weatherType = getWeatherType(
+            location.current.weatherCode,
+            location.current.isDay,
+        );
+        weather.textContent = weatherType.description;
+
+        const cardRightDiv = document.createElement('div');
+        cardRightDiv.classList.add('location-card-right');
+
+        const currentTemp = document.createElement('p');
+        currentTemp.classList.add('current-temp');
+        currentTemp.textContent = `${Math.round(location.current.temperature2m)}${degreeIcon}`;
+
+        const highMinTemp = document.createElement('div');
+        highMinTemp.classList.add('high-min-temp');
+
+        const highTemp = document.createElement('p');
+        highTemp.classList.add('high-temp');
+        highTemp.textContent = `L:${Math.round(location.daily.temperature2mMax[0])}`;
+
+        const minTemp = document.createElement('p');
+        minTemp.classList.add('min-temp');
+        minTemp.textContent = `L:${Math.round(location.daily.temperature2mMin[0])}`;
+
+        highMinTemp.append(highTemp, minTemp);
+        cardLeftDiv.append(city, time, weather);
+        cardRightDiv.append(currentTemp, highMinTemp);
+        cardDiv.append(cardLeftDiv, cardRightDiv);
+        updateCardWeatherBackground(location, cardDiv);
+        cardsContainer.append(cardDiv);
+    });
 };
 
-export { getWeatherInfo, getCardInfo };
+const getCardsInfo = (systemType) => {
+    createSavedLocationsCards(systemType);
+};
+
+export { getWeatherInfo, getCardsInfo };

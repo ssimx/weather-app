@@ -2,22 +2,26 @@
 import 'normalize.css';
 import './index-style.css';
 import './styles/saved-locations-style.css';
-import getLocationData from './modules/weather';
-import { getWeatherInfo, getCardInfo } from './modules/domController';
+import getLocationData, { getCoords } from './modules/weather';
+import { getWeatherInfo, getCardsInfo } from './modules/domController';
 import locations from './modules/locations';
 
 // get saved locations list, render the first one
 locations();
 
-const locationData = getLocationData(locations().get()[0]);
-locationData.then((res) => console.log(res));
-locationData.then((res) => getWeatherInfo(res, 'metric'));
-locationData.then((res) => getCardInfo(res, 'metric'));
+getWeatherInfo(locations().get()[0].city, 0);
+getCardsInfo(0);
 
 const bodyDiv = document.querySelector('body');
 const savedLocationsBtn = bodyDiv.querySelector('#saved-locations-btn');
 const locationDiv = bodyDiv.querySelector('#location');
 const savedLocationsDiv = bodyDiv.querySelector('#saved-locations');
+
+// ADD SYLE FOR SEARCH INPUT
+const gmpx = document.querySelector('gmpx-place-picker');
+let style = document.createElement('style');
+style.innerHTML = '.pac-target-input { border-radius: 10px; border: none; font-size: 1rem; } .pac-target-input:focus { outline: none; } .icon { transform: scale(1.5); color: #757575; }';
+gmpx.shadowRoot.appendChild(style);
 
 // EVENT LISTENER FOR SAVED LOCATIONS MENU
 savedLocationsBtn.addEventListener('click', (e) => {
@@ -33,11 +37,7 @@ savedLocationsBtn.addEventListener('click', (e) => {
     // EVENT LISTENER FOR SEARCH INPUT CHANGE, RENDER THE CHOSEN LOCATION
     picker.addEventListener('gmpx-placechange', (event) => {
         const location = event.target.value.formattedAddress ?? '';
-        const searchLocatioNData = getLocationData(location);
-        searchLocatioNData.then((res) => console.log(res));
-        searchLocatioNData.then((res) => getWeatherInfo(res, 'metric'));
-        searchLocatioNData.then((res) => getCardInfo(res, 'metric'));
-
+        getWeatherInfo(location, 0);
 
         locationDiv.style.display = '';
         locationDiv.classList.toggle('visible');
