@@ -1,5 +1,6 @@
 /* eslint-disable no-lonely-if */
 /* eslint-disable no-plusplus */
+import '../styles/brief-info-style.css';
 import '../styles/hourly-forecast-style.css';
 import '../styles/daily-forecast-style.css';
 import '../styles/feels-like-style.css';
@@ -48,7 +49,6 @@ const getWeatherType = (weatherCode, isDay) => {
 };
 
 const getWeatherBackground = (locationData) => {
-    console.log(locationData);
     const weatherType = getWeatherType(
         locationData.current.weatherCode,
         locationData.current.isDay,
@@ -125,82 +125,9 @@ const updateWeatherBackground = (locationData) => {
         const direction = document.querySelector('.direction-text');
 
         direction.style.backgroundColor = 'rgb(0 41 96)';
-
-        switch (weatherType.background) {
-            case 'clear':
-                locationDiv.style.backgroundPosition = '65%';
-                break;
-            case 'cloudy':
-                locationDiv.style.backgroundPosition = '65%';
-                break;
-            case 'very-cloudy':
-                locationDiv.style.backgroundPosition = '90%';
-                break;
-            case 'fog':
-                locationDiv.style.backgroundPosition = '90%';
-                break;
-            case 'light-rain':
-                locationDiv.style.backgroundPosition = '50%';
-                break;
-            case 'rain':
-                locationDiv.style.backgroundPosition = '50%';
-                break;
-            case 'heavy-rain':
-                locationDiv.style.backgroundPosition = '50%';
-                break;
-            case 'light-snow':
-                locationDiv.style.backgroundPosition = '50%';
-                break;
-            case 'snow':
-                locationDiv.style.backgroundPosition = '50%';
-                break;
-            case 'heavy-snow':
-                locationDiv.style.backgroundPosition = '50%';
-                break;
-            case 'thunderstorm':
-                locationDiv.style.backgroundPosition = '60%';
-                break;
-            default:
-                locationDiv.style.background = '#248DC7';
-        }
+        locationDiv.style.backgroundPosition = `var(--main-bg-position-${weatherType.background}-night)`;
     } else {
-        switch (weatherType.background) {
-            case 'sunny':
-                locationDiv.style.backgroundPosition = '60%';
-                break;
-            case 'cloudy':
-                locationDiv.style.backgroundPosition = '60%';
-                break;
-            case 'very-cloudy':
-                locationDiv.style.backgroundPosition = '90%';
-                break;
-            case 'fog':
-                locationDiv.style.backgroundPosition = '80%';
-                break;
-            case 'light-rain':
-                locationDiv.style.backgroundPosition = '50%';
-                break;
-            case 'rain':
-                locationDiv.style.backgroundPosition = '60%';
-                break;
-            case 'heavy-rain':
-                locationDiv.style.backgroundPosition = '90%';
-                break;
-            case 'light-snow':
-                locationDiv.style.backgroundPosition = '50%';
-                break;
-            case 'snow':
-                locationDiv.style.backgroundPosition = '50%';
-                break;
-            case 'heavy-snow':
-                locationDiv.style.backgroundPosition = '50%';
-                break;
-            case 'thunderstorm':
-                locationDiv.style.backgroundPosition = '80%';
-                break;
-            default:
-                locationDiv.style.background = '#248DC7';
-        }
+        locationDiv.style.backgroundPosition = `var(--main-bg-position-${weatherType.background}-day)`;
     }
 };
 
@@ -503,7 +430,7 @@ const updatePressure = (locationData) => {
 const getWeatherInfo = async (location, systemType) => {
     const locationCoords = await getCoords([location]);
     const locationData = (await getLocationData(
-        [locationCoords.address_components[0].short_name],
+        [locationCoords.address_components[0].long_name],
         [locationCoords.geometry.location.lat],
         [locationCoords.geometry.location.lng],
         systemType,
@@ -534,81 +461,9 @@ const updateCardWeatherBackground = (locationData, card) => {
     cardDiv.style.backgroundImage = `url(${bgFile})`;
 
     if (locationData.current.isDay === 0) {
-        switch (weatherType.background) {
-            case 'clear':
-                cardDiv.style.backgroundPosition = 'top';
-                break;
-            case 'cloudy':
-                cardDiv.style.backgroundPosition = 'top right';
-                break;
-            case 'very-cloudy':
-                cardDiv.style.backgroundPosition = 'top center';
-                break;
-            case 'fog':
-                cardDiv.style.backgroundPosition = 'top center';
-                break;
-            case 'light-rain':
-                cardDiv.style.backgroundPosition = 'center';
-                break;
-            case 'rain':
-                cardDiv.style.backgroundPosition = 'center';
-                break;
-            case 'heavy-rain':
-                cardDiv.style.backgroundPosition = 'center';
-                break;
-            case 'light-snow':
-                cardDiv.style.backgroundPosition = 'center';
-                break;
-            case 'snow':
-                cardDiv.style.backgroundPosition = 'center';
-                break;
-            case 'heavy-snow':
-                cardDiv.style.backgroundPosition = 'center';
-                break;
-            case 'thunderstorm':
-                cardDiv.style.backgroundPosition = 'center right';
-                break;
-            default:
-                cardDiv.style.background = 'rgb(0 41 96)';
-        }
+        cardDiv.style.backgroundPosition = `var(--card-bg-position-${weatherType.background}-night)`;
     } else {
-        switch (weatherType.background) {
-            case 'sunny':
-                cardDiv.style.backgroundPosition = 'top';
-                break;
-            case 'cloudy':
-                cardDiv.style.backgroundPosition = 'top';
-                break;
-            case 'very-cloudy':
-                cardDiv.style.backgroundPosition = 'top';
-                break;
-            case 'fog':
-                cardDiv.style.backgroundPosition = 'top center';
-                break;
-            case 'light-rain':
-                cardDiv.style.backgroundPosition = 'center';
-                break;
-            case 'rain':
-                cardDiv.style.backgroundPosition = 'center';
-                break;
-            case 'heavy-rain':
-                cardDiv.style.backgroundPosition = 'center';
-                break;
-            case 'light-snow':
-                cardDiv.style.backgroundPosition = 'center';
-                break;
-            case 'snow':
-                cardDiv.style.backgroundPosition = 'center';
-                break;
-            case 'heavy-snow':
-                cardDiv.style.backgroundPosition = 'center';
-                break;
-            case 'thunderstorm':
-                cardDiv.style.backgroundPosition = 'center';
-                break;
-            default:
-                cardDiv.style.background = '#248DC7';
-        }
+        cardDiv.style.backgroundPosition = `var(--card-bg-position-${weatherType.background}-day)`;
     }
 };
 

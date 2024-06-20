@@ -1,0 +1,45 @@
+.location-brief-info {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-shadow: 2px 2px 5px rgba(160, 160, 160, 0.8), 0px 0px 2px rgba(160, 160, 160, 0.8);
+}
+
+.location-brief-info p.city {
+    font-size: 1.6rem;
+    font-weight: 500;
+}
+
+.location-brief-info .temp {
+    position: relative;
+    display: flex;
+}
+
+.location-brief-info .temp-number {
+    font-size: 4.5rem;
+    font-weight: 200;
+}
+
+.location-brief-info .temp-icon {
+    position: absolute;
+    top: 5%;
+    left: 100%;
+    font-size: 3rem;
+    font-weight: 200;
+}
+
+.location-brief-info .type {
+    font-weight: 400;
+    margin-top: -5px;
+}
+
+.location-brief-info .temp-high-low {
+    display: flex;
+    gap: 20px;
+}
+
+.location-brief-info .temp-high-low p {
+    font-weight: 400;
+}

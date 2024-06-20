@@ -1,6 +1,30 @@
  :root {
     --gmpx-color-surface: #242424;
     --gmpx-color-on-surface: #ffffff;
+
+    --card-bg-position-clear-night: top;
+    --card-bg-position-cloudy-night: top right;
+    --card-bg-position-very-cloudy-night: top center;
+    --card-bg-position-fog-night: top center;
+    --card-bg-position-light-rain-night: center;
+    --card-bg-position-rain-night: center;
+    --card-bg-position-heavy-rain-night: center;
+    --card-bg-position-light-snow-night: center;
+    --card-bg-position-snow-night: center;
+    --card-bg-position-thunderstorm-night: center;
+    --card-bg-position-heavy-snow-night: center right;
+
+    --card-bg-position-clear-day: top;
+    --card-bg-position-cloudy-day: top;
+    --card-bg-position-very-cloudy-day: top;
+    --card-bg-position-fog-day: top center;
+    --card-bg-position-light-rain-day: center;
+    --card-bg-position-rain-day: center;
+    --card-bg-position-heavy-rain-day: center;
+    --card-bg-position-light-snow-day: center;
+    --card-bg-position-snow-day: center;
+    --card-bg-position-thunderstorm-day: center;
+    --card-bg-position-heavy-snow-day: center;
  }
  
  #saved-locations {
