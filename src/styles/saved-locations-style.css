@@ -1,3 +1,8 @@
+ :root {
+    --gmpx-color-surface: #242424;
+    --gmpx-color-on-surface: #ffffff;
+ }
+ 
  #saved-locations {
     background-color: black;
     gap: 10px;
@@ -33,6 +38,10 @@
     padding-left: 30px;
  }
 
+ .search gmpx-place-picker {
+    width: 100%;
+ }
+
  .search input:focus {
     border: 0;
  }
@@ -40,6 +49,45 @@
  .search input::placeholder {
     color: #757575;
  }
+
+ #place-picker-box {
+     width: 100%;
+ }
+
+ #place-picker-container {
+     text-align: left;
+ }
+ 
+ .pac-container {
+    margin-top: 10px;
+    background-color: #000000;
+    border: 0;
+    text-align: left;
+    border: 0;
+ }
+
+ .pac-item {
+    border: 0;
+    margin-bottom: 5px;
+ }
+
+ .pac-item span, span.pac-matched {
+    font-weight: 400;
+    font-size: 1rem;
+ }
+
+ .pac-item .pac-matched {
+    color: white;
+ }
+
+ .pac-item span {
+    color: #949494;
+ }
+
+ .pac-icon {
+    display: none;
+ }
+
 
  /* location cards */
 

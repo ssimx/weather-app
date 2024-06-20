@@ -585,6 +585,11 @@ const updateCardWeatherBackground = (locationData, card) => {
 const getCardInfo = (locationData, systemType) => {
     const cardsContainer = document.querySelector('.saved-locations-cards');
     const cardElements = cardsContainer.querySelectorAll('.location-card');
+
+    const gmpx = document.querySelector('gmpx-place-picker');
+    let style = document.createElement('style');
+    style.innerHTML = '.pac-target-input { border-radius: 10px; border: none; font-size: 1rem; } .pac-target-input:focus { outline: none; } .icon { transform: scale(1.5); color: #757575; }';
+    gmpx.shadowRoot.appendChild(style);
 };
 
 export { getWeatherInfo, getCardInfo };
