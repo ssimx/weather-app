@@ -9,6 +9,8 @@ import { getCoords } from './modules/weather';
 
 const bodyDiv = document.querySelector('body');
 const cardsContainer = document.querySelector('.saved-locations-cards');
+const settingsBtn = document.querySelector('.settings-btn');
+const settingsMenu = document.querySelector('.settings-menu');
 const savedLocationsDiv = bodyDiv.querySelector('#saved-locations');
 const headerBtns = bodyDiv.querySelector('.header-buttons');
 const savedLocationsMenuBtn = bodyDiv.querySelector('#saved-locations-btn');
@@ -114,6 +116,31 @@ const handleHeaderBtnClick = (event) => {
     }
 };
 
+const handleMenuClick = (event) => {
+    if (event.target.closest('.settings-option')) {
+        const menuItem = event.target.closest('.settings-option');
+        if (menuItem.classList.contains('edit-list')) {
+            console.log('edit');
+            settingsMenu.classList.toggle('hidden-menu');
+            window.removeEventListener('mouseup', handleMenuClick);
+        } else if (menuItem.classList.contains('metric')) {
+            console.log('metric');
+        } else if (menuItem.classList.contains('imperial')) {
+            console.log('imperial');
+        }
+    } else {
+        settingsMenu.classList.toggle('hidden-menu');
+        window.removeEventListener('mouseup', handleMenuClick);
+    }
+};
+
+const handleSettingsBtn = () => {
+    settingsMenu.classList.toggle('hidden-menu');
+
+    // EVENT LISTENER FOR MENU BUTTONS AND BACKGROUND
+    window.addEventListener('mouseup', handleMenuClick);
+};
+
 // FOR REMOVING ABOVE ACTIVE EVENT LISTENERS
 const removeListeners = () => {
     picker.removeEventListener('gmpx-placechange', handleSearchClick);
@@ -122,3 +149,6 @@ const removeListeners = () => {
 
 // EVENT LISTENER FOR HEADER BUTTONS
 headerBtns.addEventListener('click', handleHeaderBtnClick);
+
+// EVENT LISTENER FOR SETTINGS
+settingsBtn.addEventListener('click', handleSettingsBtn);
