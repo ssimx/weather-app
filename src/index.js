@@ -6,6 +6,8 @@ import './styles/saved-locations-style.css';
 import { getWeatherInfo, getCardsInfo } from './modules/domController';
 import locations from './modules/locations';
 import { getCoords } from './modules/weather';
+import { setStorage, getStorage } from './modules/localStorage';
+import checkIcon from './assets/icons/check.svg';
 
 const bodyDiv = document.querySelector('body');
 const cardsContainer = document.querySelector('.saved-locations-cards');
@@ -18,13 +20,22 @@ const cancelBtn = bodyDiv.querySelector('#cancel-btn');
 const saveBtn = bodyDiv.querySelector('#save-btn');
 const locationDiv = bodyDiv.querySelector('#location');
 const picker = document.querySelector('gmpx-place-picker');
+let systemType;
 let searchLocation;
+
+// get or define system type
+if (getStorage('systemType') === null) {
+    systemType = 0;
+    setStorage('systemType', systemType);
+} else {
+    systemType = getStorage('systemType');
+}
 
 // create or get saved locations list,
 // render the first location and render menu cards of all saved locations in the background
 locations();
-getWeatherInfo(locations().get()[0].city, 0);
-getCardsInfo(0);
+getWeatherInfo(locations().get()[0].city, systemType);
+getCardsInfo(systemType);
 
 // ADD SYLE FOR SEARCH INPUT
 const gmpx = document.querySelector('gmpx-place-picker');
@@ -45,7 +56,7 @@ const handleSearchClick = async (event) => {
     if (!locations().exists(searchLocation.place_id)) {
         toggleHeaderButtons();
     }
-    getWeatherInfo(event.target.value.formattedAddress, 0);
+    getWeatherInfo(event.target.value.formattedAddress, systemType);
 
     locationDiv.style.display = '';
     locationDiv.classList.toggle('visible');
@@ -62,7 +73,7 @@ const handleSearchClick = async (event) => {
 // EVENT LISTENER FUNCTION: FOR SAVED LOCATION CARD CLICK
 const handleCardClick = (event) => {
     const cardLocationIndex = event.target.closest('.location-card').dataset.index;
-    getWeatherInfo(locations().get()[cardLocationIndex].city, 0);
+    getWeatherInfo(locations().get()[cardLocationIndex].city, systemType);
 
     savedLocationsDiv.style.display = 'none';
     savedLocationsDiv.classList.toggle('visible');
@@ -116,29 +127,49 @@ const handleHeaderBtnClick = (event) => {
     }
 };
 
-const handleMenuClick = (event) => {
+const handleSettingsMenuClick = (event) => {
     if (event.target.closest('.settings-option')) {
         const menuItem = event.target.closest('.settings-option');
         if (menuItem.classList.contains('edit-list')) {
             console.log('edit');
-            settingsMenu.classList.toggle('hidden-menu');
-            window.removeEventListener('mouseup', handleMenuClick);
         } else if (menuItem.classList.contains('metric')) {
-            console.log('metric');
+            if (systemType === 1) {
+                systemType = 0;
+                setStorage('systemType', systemType);
+                getWeatherInfo(locations().get()[0].city, systemType);
+                getCardsInfo(systemType);
+            }
         } else if (menuItem.classList.contains('imperial')) {
-            console.log('imperial');
+            if (systemType === 0) {
+                systemType = 1;
+                setStorage('systemType', systemType);
+                getWeatherInfo(locations().get()[0].city, systemType);
+                getCardsInfo(systemType);
+            }
         }
-    } else {
-        settingsMenu.classList.toggle('hidden-menu');
-        window.removeEventListener('mouseup', handleMenuClick);
     }
+
+    settingsMenu.classList.toggle('hidden-menu');
+    window.removeEventListener('mouseup', handleSettingsMenuClick);
 };
 
 const handleSettingsBtn = () => {
     settingsMenu.classList.toggle('hidden-menu');
+    const metricItem = settingsMenu.querySelector('.metric');
+    const imperialItem = settingsMenu.querySelector('.imperial');
+    const metricCheckIcon = metricItem.querySelector('.check-icon');
+    const imperialCheckIcon = imperialItem.querySelector('.check-icon');
+    metricCheckIcon.src = '';
+    imperialCheckIcon.src = '';
+
+    if (systemType === 0) {
+        metricCheckIcon.src = checkIcon;
+    } else {
+        imperialCheckIcon.src = checkIcon;
+    }
 
     // EVENT LISTENER FOR MENU BUTTONS AND BACKGROUND
-    window.addEventListener('mouseup', handleMenuClick);
+    window.addEventListener('mouseup', handleSettingsMenuClick);
 };
 
 // FOR REMOVING ABOVE ACTIVE EVENT LISTENERS
