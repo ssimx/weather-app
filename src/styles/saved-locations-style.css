@@ -29,12 +29,13 @@
  
  #saved-locations {
     background-color: black;
-    gap: 10px;
+    gap: 12px;
     background-attachment: none;
  }
 
- .settings-menu {
+ .settings {
     margin-left: auto;
+    position: relative;
  }
 
  .search {

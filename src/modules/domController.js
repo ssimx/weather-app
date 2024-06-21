@@ -8,8 +8,13 @@ import '../styles/uv-index-style.css';
 import '../styles/sunrise-sunset-style.css';
 import '../styles/wind-style.css';
 import '../styles/pressure-style.css';
+import '../styles/settings-style.css';
 import locations from './locations';
 import getLocationData, { getCoords, getSunriseSunset } from './weather';
+import createTempBarElement from './tempBar';
+import formatDateTimezone from './timezoneFormatter';
+import pressureGauge from './pressureGauge';
+import renderPrecipitationMap from './precipitationMap';
 import sunnyBg from '../assets/gifs/sunny.gif';
 import cloudyBg from '../assets/gifs/cloudy.gif';
 import veryCloudyBg from '../assets/gifs/very-cloudy.gif';
@@ -35,10 +40,6 @@ import thunderstormBg from '../assets/gifs/thunderstorm.gif';
 import sunset from '../assets/icons/sunset.svg';
 import sunrise from '../assets/icons/sunrise.svg';
 import weatherCodes from '../assets/json/weatherCodes.json';
-import createTempBarElement from './tempBar';
-import formatDateTimezone from './timezoneFormatter';
-import pressureGauge from './pressureGauge';
-import renderPrecipitationMap from './precipitationMap';
 
 const degreeIcon = '\u{000B0}';
 
