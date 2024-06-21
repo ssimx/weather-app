@@ -62,6 +62,10 @@
     color: white;
 }
 
+.header-buttons button.btn-hidden {
+    display: none;
+}
+
 button#saved-locations-btn, button#cancel-btn {
     margin-right: auto;
 }
