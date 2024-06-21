@@ -1,7 +1,8 @@
-const setStorage = (savedLocations) => {
-    localStorage.setItem('savedLocations', JSON.stringify(savedLocations));
+const setStorage = (key, value) => {
+    console.log(key, value)
+    localStorage.setItem(key, JSON.stringify(value));
 };
 
-const getStorage = () => JSON.parse(localStorage.getItem('savedLocations'));
+const getStorage = (key) => JSON.parse(localStorage.getItem(key));
 
 export { setStorage, getStorage };

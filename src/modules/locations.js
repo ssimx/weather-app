@@ -1,7 +1,9 @@
 import { setStorage, getStorage } from './localStorage';
 
-export default function locations() {
-    let savedLocations = [
+let savedLocations;
+
+if (getStorage('savedLocations') === null) {
+    savedLocations = [
         {
             city: 'Melbourne',
             latitude: -37.8136276,
@@ -21,12 +23,13 @@ export default function locations() {
             locationId: 'ChIJ0YaYlvUxZUcRIOw_ghz4AAQ',
         },
     ];
-    if (getStorage() === null) {
-        setStorage(savedLocations);
-    } else {
-        savedLocations = getStorage('savedLocations');
-    }
 
+    setStorage('savedLocations', savedLocations);
+} else {
+    savedLocations = getStorage('savedLocations');
+}
+
+export default function locations() {
     const exists = (locationId) => {
         if (savedLocations.length !== 0) {
             // eslint-disable-next-line max-len
@@ -41,16 +44,20 @@ export default function locations() {
                 city, latitude, longitude, locationId,
             },
         );
-        console.log(savedLocations);
-        return setStorage(savedLocations);
+        return setStorage('savedLocations', savedLocations);
     };
 
     const remove = (index) => {
         savedLocations.splice(index);
-        return setStorage(savedLocations, 'savedLocations');
+        return setStorage('savedLocations', savedLocations);
     };
 
-    const get = () => getStorage();
+    const get = () => getStorage('savedLocations');
 
-    return { exists, add, remove, get };
-};
+    return {
+        exists,
+        add,
+        remove,
+        get,
+    };
+}
