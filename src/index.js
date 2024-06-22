@@ -67,6 +67,9 @@ const handleSearchClick = async (event) => {
     const input = picker.shadowRoot.querySelector('input');
     input.value = '';
 
+    const clear = picker.shadowRoot.querySelector('.clear-button');
+    clear.setAttribute('hidden', '');
+
     removeListeners();
 };
 

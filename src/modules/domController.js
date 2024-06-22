@@ -620,7 +620,20 @@ const toggleEditLocationsCards = () => {
 
 const manageEditLocationsCards = (event) => {
     if (event.target.closest('.location-container')) {
-        console.log(event.target);
+        let cardsDiv = document.querySelector('.saved-locations-cards');
+        const containerIndex = event.target.closest('.location-container').dataset.index;
+        if (event.target.closest('.remove-card-btn')) {
+            locations().remove(containerIndex);
+            cardsDiv.removeChild(event.target.closest('.location-container'));
+
+            // update card indexes
+            cardsDiv = document.querySelector('.saved-locations-cards');
+            const containers = cardsDiv.querySelectorAll('.location-container');
+            containers.forEach((container, index) => {
+                const containerDiv = container;
+                containerDiv.dataset.index = index;
+            });
+        }
     } else {
         window.removeEventListener('mouseup', manageEditLocationsCards);
         toggleEditLocationsCards();
