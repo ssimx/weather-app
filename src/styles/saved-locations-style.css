@@ -107,7 +107,15 @@
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 1vh;
+ }
+
+ .location-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 5px;
  }
 
  .location-card {
@@ -120,6 +128,10 @@
     display: grid;
     grid-template-columns: 4fr 1fr;
     grid-template-rows: 1fr;
+}
+
+.location-card-left {
+    margin-right: auto;
 }
 
 .location-card-left, .location-card-right {

@@ -40,6 +40,8 @@ import thunderstormBg from '../assets/gifs/thunderstorm.gif';
 import sunset from '../assets/icons/sunset.svg';
 import sunrise from '../assets/icons/sunrise.svg';
 import weatherCodes from '../assets/json/weatherCodes.json';
+import removeIcon from '../assets/icons/remove.svg';
+import reorderIcon from '../assets/icons/reorder.svg';
 
 const degreeIcon = '\u{000B0}';
 
@@ -491,9 +493,13 @@ const createSavedLocationsCards = async (systemType) => {
         cities, latitudes, longitudes, locationIDs, systemType);
 
     locationsData.forEach((location, index) => {
+        const locationDiv = document.createElement('div');
+        locationDiv.classList.add('location-container');
+        locationDiv.dataset.index = index;
+
         const cardDiv = document.createElement('div');
         cardDiv.classList.add('location-card');
-        cardDiv.dataset.index = index;
+        updateCardWeatherBackground(location, cardDiv);
 
         const cardLeftDiv = document.createElement('div');
         cardLeftDiv.classList.add('location-card-left');
@@ -552,13 +558,60 @@ const createSavedLocationsCards = async (systemType) => {
         cardLeftDiv.append(city, time, weather);
         cardRightDiv.append(currentTemp, highMinTemp);
         cardDiv.append(cardLeftDiv, cardRightDiv);
-        updateCardWeatherBackground(location, cardDiv);
-        cardsContainer.append(cardDiv);
+        locationDiv.append(cardDiv);
+        cardsContainer.append(locationDiv);
     });
+};
+
+const manageEditLocationsCards = (event) => {
+    window.removeEventListener('mouseup', manageEditLocationsCards);
+};
+
+const enableEditLocationsCards = () => {
+    const cardsDiv = document.querySelector('.saved-locations-cards');
+
+    // for each container add remove/reorder elements and resize the card
+    const locationContainers = cardsDiv.querySelectorAll('.location-container');
+    locationContainers.forEach((container) => {
+        const containerDiv = container;
+
+        // resize the card
+        const locationCard = containerDiv.querySelector('.location-card');
+        locationCard.style.width = '80%';
+        locationCard.style.height = '7vh';
+        locationCard.style.borderRadius = '25px';
+        locationCard.style.padding = '0 5px';
+
+        const cardChildren = locationCard.childNodes;
+        cardChildren.forEach((child) => {
+            const elementChild = child;
+            elementChild.style.transform = 'scale(0.7)';
+        });
+
+        // remove element
+        const removeBtn = document.createElement('button');
+        removeBtn.classList.add('remove-card-btn');
+        const removeIcn = document.createElement('img');
+        removeIcn.setAttribute('src', `${removeIcon}`);
+        removeBtn.append(removeIcn);
+
+        // reorder element
+        const reorderBtn = document.createElement('button');
+        reorderBtn.classList.add('reorder-card-btn');
+        const reorderIcn = document.createElement('img');
+        reorderIcn.setAttribute('src', `${reorderIcon}`);
+        reorderBtn.append(reorderIcn);
+
+        locationCard.insertAdjacentElement('beforebegin', removeBtn);
+        locationCard.insertAdjacentElement('afterend', reorderBtn);
+    });
+
+    // add event listener for managing interactions
+    window.addEventListener('mouseup', manageEditLocationsCards);
 };
 
 const getCardsInfo = (systemType) => {
     createSavedLocationsCards(systemType);
 };
 
-export { getWeatherInfo, getCardsInfo };
+export { getWeatherInfo, getCardsInfo, enableEditLocationsCards };

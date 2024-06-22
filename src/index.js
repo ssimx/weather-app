@@ -3,7 +3,7 @@
 import 'normalize.css';
 import './index-style.css';
 import './styles/saved-locations-style.css';
-import { getWeatherInfo, getCardsInfo } from './modules/domController';
+import { getWeatherInfo, getCardsInfo, enableEditLocationsCards } from './modules/domController';
 import locations from './modules/locations';
 import { getCoords } from './modules/weather';
 import { setStorage, getStorage } from './modules/localStorage';
@@ -72,7 +72,7 @@ const handleSearchClick = async (event) => {
 
 // EVENT LISTENER FUNCTION: FOR SAVED LOCATION CARD CLICK
 const handleCardClick = (event) => {
-    const cardLocationIndex = event.target.closest('.location-card').dataset.index;
+    const cardLocationIndex = event.target.closest('.location-container').dataset.index;
     getWeatherInfo(locations().get()[cardLocationIndex].city, systemType);
 
     savedLocationsDiv.style.display = 'none';
@@ -128,10 +128,13 @@ const handleHeaderBtnClick = (event) => {
 };
 
 const handleSettingsMenuClick = (event) => {
+    settingsMenu.classList.toggle('hidden-menu');
+    window.removeEventListener('mouseup', handleSettingsMenuClick);
+
     if (event.target.closest('.settings-option')) {
         const menuItem = event.target.closest('.settings-option');
         if (menuItem.classList.contains('edit-list')) {
-            console.log('edit');
+            enableEditLocationsCards();
         } else if (menuItem.classList.contains('metric')) {
             if (systemType === 1) {
                 systemType = 0;
@@ -148,9 +151,6 @@ const handleSettingsMenuClick = (event) => {
             }
         }
     }
-
-    settingsMenu.classList.toggle('hidden-menu');
-    window.removeEventListener('mouseup', handleSettingsMenuClick);
 };
 
 const handleSettingsBtn = () => {
