@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 /* eslint-disable no-lonely-if */
 /* eslint-disable no-plusplus */
 import '../styles/brief-info-style.css';
@@ -42,6 +43,7 @@ import sunrise from '../assets/icons/sunrise.svg';
 import weatherCodes from '../assets/json/weatherCodes.json';
 import removeIcon from '../assets/icons/remove.svg';
 import reorderIcon from '../assets/icons/reorder.svg';
+import { getStorage } from './localStorage';
 
 const degreeIcon = '\u{000B0}';
 
@@ -563,55 +565,73 @@ const createSavedLocationsCards = async (systemType) => {
     });
 };
 
-const manageEditLocationsCards = (event) => {
-    window.removeEventListener('mouseup', manageEditLocationsCards);
+const getCardsInfo = (systemType) => {
+    createSavedLocationsCards(systemType);
 };
 
-const enableEditLocationsCards = () => {
+const toggleEditLocationsCards = () => {
     const cardsDiv = document.querySelector('.saved-locations-cards');
+    const locationContainers = cardsDiv.querySelectorAll('.location-container');
 
     // for each container add remove/reorder elements and resize the card
-    const locationContainers = cardsDiv.querySelectorAll('.location-container');
     locationContainers.forEach((container) => {
         const containerDiv = container;
 
         // resize the card
         const locationCard = containerDiv.querySelector('.location-card');
-        locationCard.style.width = '80%';
-        locationCard.style.height = '7vh';
-        locationCard.style.borderRadius = '25px';
-        locationCard.style.padding = '0 5px';
+        locationCard.style.width === '' ? locationCard.style.width = '80%' : locationCard.style.width = '';
+        locationCard.style.height === '' ? locationCard.style.height = '7vh' : locationCard.style.height = '';
+        locationCard.style.borderRadius === '' ? locationCard.style.borderRadius = '20px' : locationCard.style.borderRadius = '';
+        locationCard.style.padding === '' ? locationCard.style.padding = '0 5px' : locationCard.style.padding = '';
 
         const cardChildren = locationCard.childNodes;
         cardChildren.forEach((child) => {
             const elementChild = child;
-            elementChild.style.transform = 'scale(0.7)';
+            elementChild.style.transform === '' ? elementChild.style.transform = 'scale(0.7)' : elementChild.style.transform = '';
         });
 
         // remove element
-        const removeBtn = document.createElement('button');
-        removeBtn.classList.add('remove-card-btn');
-        const removeIcn = document.createElement('img');
-        removeIcn.setAttribute('src', `${removeIcon}`);
-        removeBtn.append(removeIcn);
+        if (containerDiv.querySelector('.remove-card-btn')) {
+            containerDiv.querySelector('.remove-card-btn').remove();
+        } else {
+            const removeBtn = document.createElement('button');
+            removeBtn.classList.add('remove-card-btn');
+            const removeIcn = document.createElement('img');
+            removeIcn.setAttribute('src', `${removeIcon}`);
+            removeBtn.append(removeIcn);
+
+            locationCard.insertAdjacentElement('beforebegin', removeBtn);
+        }
 
         // reorder element
-        const reorderBtn = document.createElement('button');
-        reorderBtn.classList.add('reorder-card-btn');
-        const reorderIcn = document.createElement('img');
-        reorderIcn.setAttribute('src', `${reorderIcon}`);
-        reorderBtn.append(reorderIcn);
+        if (containerDiv.querySelector('.reorder-card-btn')) {
+            containerDiv.querySelector('.reorder-card-btn').remove();
+        } else {
+            const reorderBtn = document.createElement('button');
+            reorderBtn.classList.add('reorder-card-btn');
+            const reorderIcn = document.createElement('img');
+            reorderIcn.setAttribute('src', `${reorderIcon}`);
+            reorderBtn.append(reorderIcn);
 
-        locationCard.insertAdjacentElement('beforebegin', removeBtn);
-        locationCard.insertAdjacentElement('afterend', reorderBtn);
+            locationCard.insertAdjacentElement('afterend', reorderBtn);
+        }
     });
+};
+
+const manageEditLocationsCards = (event) => {
+    if (event.target.closest('.location-container')) {
+        console.log(event.target);
+    } else {
+        window.removeEventListener('mouseup', manageEditLocationsCards);
+        toggleEditLocationsCards();
+    }
+};
+
+const enableEditLocationsCards = () => {
+    toggleEditLocationsCards();
 
     // add event listener for managing interactions
     window.addEventListener('mouseup', manageEditLocationsCards);
-};
-
-const getCardsInfo = (systemType) => {
-    createSavedLocationsCards(systemType);
 };
 
 export { getWeatherInfo, getCardsInfo, enableEditLocationsCards };

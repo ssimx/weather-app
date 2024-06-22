@@ -72,16 +72,18 @@ const handleSearchClick = async (event) => {
 
 // EVENT LISTENER FUNCTION: FOR SAVED LOCATION CARD CLICK
 const handleCardClick = (event) => {
-    const cardLocationIndex = event.target.closest('.location-container').dataset.index;
-    getWeatherInfo(locations().get()[cardLocationIndex].city, systemType);
+    if (event.target.closest('.location-card')) {
+        const cardLocationIndex = event.target.closest('.location-container').dataset.index;
+        getWeatherInfo(locations().get()[cardLocationIndex].city, systemType);
 
-    savedLocationsDiv.style.display = 'none';
-    savedLocationsDiv.classList.toggle('visible');
+        savedLocationsDiv.style.display = 'none';
+        savedLocationsDiv.classList.toggle('visible');
 
-    locationDiv.classList.toggle('visible');
-    locationDiv.style.display = '';
+        locationDiv.classList.toggle('visible');
+        locationDiv.style.display = '';
 
-    removeListeners();
+        removeListeners();
+    }
 };
 
 // EVENT LISTENER FUNCTION: FOR HEADER BUTTONS CLICK
@@ -127,6 +129,7 @@ const handleHeaderBtnClick = (event) => {
     }
 };
 
+// EVENT LISTENER FUNCTION: FOR SETTINGS MENU ITEMS
 const handleSettingsMenuClick = (event) => {
     settingsMenu.classList.toggle('hidden-menu');
     window.removeEventListener('mouseup', handleSettingsMenuClick);
@@ -153,6 +156,7 @@ const handleSettingsMenuClick = (event) => {
     }
 };
 
+// EVENT LISTENER FUNCTION: FOR SETTINGS BUTTON
 const handleSettingsBtn = () => {
     settingsMenu.classList.toggle('hidden-menu');
     const metricItem = settingsMenu.querySelector('.metric');
