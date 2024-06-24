@@ -461,12 +461,14 @@ const updateCardWeatherBackground = (locationData, card) => {
     );
 
     const bgFile = getWeatherBackground(locationData);
-    cardDiv.style.backgroundImage = `url(${bgFile})`;
+    cardDiv.style.setProperty('--background', `url(${bgFile}) 0 0 repeat`);
 
     if (locationData.current.isDay === 0) {
-        cardDiv.style.backgroundPosition = `var(--card-bg-position-${weatherType.background}-night)`;
+        cardDiv.style.setProperty('--top-position', `var(--card-bg-top-position-${weatherType.background}-night)`);
+        cardDiv.style.setProperty('--left-position', `var(--card-bg-left-position-${weatherType.background}-night)`);
     } else {
-        cardDiv.style.backgroundPosition = `var(--card-bg-position-${weatherType.background}-day)`;
+        cardDiv.style.setProperty('--top-position', `var(--card-bg-top-position-${weatherType.background}-day)`);
+        cardDiv.style.setProperty('--left-position', `var(--card-bg-left-position-${weatherType.background}-day)`);
     }
 };
 
@@ -742,3 +744,4 @@ const enableEditLocationsCards = () => {
 };
 
 export { getCurrentLocation, getWeatherInfo, getCardsInfo, enableEditLocationsCards };
+
