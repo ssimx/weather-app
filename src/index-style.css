@@ -35,6 +35,10 @@
     --main-bg-position-heavy-snow-day: 80%;
 }
 
+body {
+    background-color: black;
+}
+
 #location, #saved-locations {
     min-height: 100vh;
     max-width: 100%;
@@ -216,9 +220,16 @@ p.card-title-text {
     }
 }
 
+/* DESKTOP */
+
 @media (min-width: 1025px) {
     * {
         font-size: 18px;
+    }
+
+    #location {
+        background-position: 0 !important;
+        background-attachment: unset;
     }
 
     .location-info-cards {

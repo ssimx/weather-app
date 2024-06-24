@@ -114,23 +114,43 @@ const getWeatherBackground = (locationData) => {
     }
 };
 
-const updateWeatherBackground = (locationData) => {
-    const weatherType = getWeatherType(
-        locationData.current.weatherCode,
-        locationData.current.isDay,
-    );
+const updateWeatherBackground = (locationData, card = '') => {
+    if (!card) {
+        const weatherType = getWeatherType(
+            locationData.current.weatherCode,
+            locationData.current.isDay,
+        );
 
-    const bgFile = getWeatherBackground(locationData);
-    const locationDiv = document.querySelector('#location');
-    locationDiv.style.backgroundImage = `url(${bgFile})`;
+        const bgFile = getWeatherBackground(locationData);
+        const locationDiv = document.querySelector('#location');
+        locationDiv.style.backgroundImage = `url(${bgFile})`;
 
-    if (locationData.current.isDay === 0) {
-        const direction = document.querySelector('.direction-text');
+        if (locationData.current.isDay === 0) {
+            const direction = document.querySelector('.direction-text');
 
-        direction.style.backgroundColor = 'rgb(0 41 96)';
-        locationDiv.style.backgroundPosition = `var(--main-bg-position-${weatherType.background}-night)`;
+            direction.style.backgroundColor = 'rgb(0 41 96)';
+            locationDiv.style.backgroundPosition = `var(--main-bg-position-${weatherType.background}-night)`;
+        } else {
+            locationDiv.style.backgroundPosition = `var(--main-bg-position-${weatherType.background}-day)`;
+        }
     } else {
-        locationDiv.style.backgroundPosition = `var(--main-bg-position-${weatherType.background}-day)`;
+        const cardDiv = card;
+
+        const weatherType = getWeatherType(
+            locationData.current.weatherCode,
+            locationData.current.isDay,
+        );
+
+        const bgFile = getWeatherBackground(locationData);
+        cardDiv.style.setProperty('--background', `url(${bgFile}) 0 0 repeat`);
+
+        if (locationData.current.isDay === 0) {
+            cardDiv.style.setProperty('--top-position', `var(--card-bg-top-position-${weatherType.background}-night)`);
+            cardDiv.style.setProperty('--left-position', `var(--card-bg-left-position-${weatherType.background}-night)`);
+        } else {
+            cardDiv.style.setProperty('--top-position', `var(--card-bg-top-position-${weatherType.background}-day)`);
+            cardDiv.style.setProperty('--left-position', `var(--card-bg-left-position-${weatherType.background}-day)`);
+        }
     }
 };
 
@@ -452,26 +472,6 @@ const getWeatherInfo = async (location, systemType) => {
     updatePressure(locationData);
 };
 
-const updateCardWeatherBackground = (locationData, card) => {
-    const cardDiv = card;
-
-    const weatherType = getWeatherType(
-        locationData.current.weatherCode,
-        locationData.current.isDay,
-    );
-
-    const bgFile = getWeatherBackground(locationData);
-    cardDiv.style.setProperty('--background', `url(${bgFile}) 0 0 repeat`);
-
-    if (locationData.current.isDay === 0) {
-        cardDiv.style.setProperty('--top-position', `var(--card-bg-top-position-${weatherType.background}-night)`);
-        cardDiv.style.setProperty('--left-position', `var(--card-bg-left-position-${weatherType.background}-night)`);
-    } else {
-        cardDiv.style.setProperty('--top-position', `var(--card-bg-top-position-${weatherType.background}-day)`);
-        cardDiv.style.setProperty('--left-position', `var(--card-bg-left-position-${weatherType.background}-day)`);
-    }
-};
-
 const getSavedLocationsData = async (systemType) => {
     const savedLocations = locations().get();
     const cities = [];
@@ -511,7 +511,7 @@ const createSavedLocationsCards = async (systemType) => {
 
         const cardDiv = document.createElement('div');
         cardDiv.classList.add('location-card');
-        updateCardWeatherBackground(location, cardDiv);
+        updateWeatherBackground(location, cardDiv);
 
         const cardLeftDiv = document.createElement('div');
         cardLeftDiv.classList.add('location-card-left');
@@ -627,7 +627,7 @@ const createCurrentLocationCard = async (systemType) => {
 
     const cardDiv = document.createElement('div');
     cardDiv.classList.add('location-card');
-    updateCardWeatherBackground(location, cardDiv);
+    updateWeatherBackground(location, cardDiv);
 
     const cardLeftDiv = document.createElement('div');
     cardLeftDiv.classList.add('location-card-left');
@@ -743,5 +743,9 @@ const enableEditLocationsCards = () => {
     window.addEventListener('mouseup', manageEditLocationsCards);
 };
 
-export { getCurrentLocation, getWeatherInfo, getCardsInfo, enableEditLocationsCards };
-
+export {
+    getCurrentLocation,
+    getWeatherInfo,
+    getCardsInfo,
+    enableEditLocationsCards,
+};

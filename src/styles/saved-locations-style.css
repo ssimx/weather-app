@@ -13,7 +13,7 @@
     --card-bg-top-position-heavy-rain-night: -80%;
     --card-bg-top-position-light-snow-night: -80%;
     --card-bg-top-position-snow-night: -80%;
-    --card-bg-top-position-thunderstorm-night: -90%;
+    --card-bg-top-position-thunderstorm-night: -150%;
     --card-bg-top-position-heavy-snow-night: -80%;
 
     --card-bg-left-position-clear-night: -130%;
@@ -38,11 +38,11 @@
     --card-bg-top-position-heavy-rain-day: -80%;
     --card-bg-top-position-light-snow-day: -80%;
     --card-bg-top-position-snow-day: -80%;
-    --card-bg-top-position-thunderstorm-day: -90%;
+    --card-bg-top-position-thunderstorm-day: -150%;
     --card-bg-top-position-heavy-snow-day: -80%;
 
     --card-bg-left-position-sunny-day: -130%;
-    --card-bg-left-position-cloudy-day: -115%;
+    --card-bg-left-position-cloudy-day: -130%;
     --card-bg-left-position-very-cloudy-day: -60%;
     --card-bg-left-position-fog-day: -100%;
     --card-bg-left-position-light-rain-day: -60%;
@@ -55,14 +55,14 @@
  }
  
  #saved-locations {
-    background-color: black;
     gap: 12px;
-    background-attachment: none;
  }
 
  .settings {
-    margin-left: auto;
     position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
  }
 
  .search {
@@ -127,6 +127,10 @@
     display: none;
  }
 
+ .pac-item:hover {
+    background-color: #141414 !important;
+ }
+
  /* location cards */
 
  .saved-locations-cards {
@@ -138,6 +142,10 @@
     gap: 1vh;
     position: relative;
     z-index: 0;
+ }
+
+ .saved-locations-cards p {
+    text-shadow: 2px 2px 5px rgba(160, 160, 160, 0.8), 0px 0px 2px rgba(160, 160, 160, 0.8);
  }
 
  .location-container,
@@ -172,6 +180,7 @@
     left: var(--left-position);
     z-index: -1;
     background: var(--background);
+    background-size: cover;
 }
 
 .location-card-left {
@@ -207,5 +216,48 @@ p.weather, .high-min-temp {
 .high-min-temp {
     display: flex;
     gap: 5px;
+}
+
+@media (min-width: 1025px) {
+    :root {
+        /* CARD NIGHT POSITIONING */
+        
+        --card-bg-top-position-clear-night: -20%;
+        --card-bg-top-position-cloudy-night: -50%;
+        --card-bg-top-position-very-cloudy-night: -50%;
+        --card-bg-top-position-fog-night: 0%;
+        --card-bg-top-position-light-rain-night: -100%;
+        --card-bg-top-position-rain-night: -100%;
+        --card-bg-top-position-heavy-rain-night: -100%;
+        --card-bg-top-position-light-snow-night: -100%;
+        --card-bg-top-position-snow-night: -100%;
+        --card-bg-top-position-thunderstorm-night: -100%;
+        --card-bg-top-position-heavy-snow-night: -100%;
+    
+        /* CARD DAY POSITIONING */
+        --card-bg-top-position-sunny-day: 0%;
+        --card-bg-top-position-cloudy-day: -30%;
+        --card-bg-top-position-very-cloudy-day: -100%;
+        --card-bg-top-position-fog-day: 0%;
+        --card-bg-top-position-light-rain-day: -100%;
+        --card-bg-top-position-rain-day: -100%;
+        --card-bg-top-position-heavy-rain-day: -100%;
+        --card-bg-top-position-light-snow-day: -100%;
+        --card-bg-top-position-snow-day: -100%;
+        --card-bg-top-position-thunderstorm-day: -100%;
+        --card-bg-top-position-heavy-snow-day: -100%;
+
+    }
+
+    #saved-locations {
+        width: 50vw;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .location-card::before {
+        left: 0;
+        background-size: initial;
+    }
 
 }
