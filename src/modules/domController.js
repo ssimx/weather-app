@@ -460,6 +460,16 @@ const getWeatherInfo = async (location, systemType) => {
         systemType,
     ))[0];
 
+    const cards = document.querySelectorAll('.card');
+    cards.forEach((card) => {
+        const element = card;
+        if (locationData.current.isDay === 0) {
+            element.style.filter = 'brightness(1.2)';
+        } else {
+            element.style.filter = 'brightness(0.95)';
+        }
+    });
+
     updateBriefInfo(locationData);
     updateWeatherBackground(locationData);
     updateHourlyForecast(locationData);

@@ -53,7 +53,27 @@
     visibility: hidden;
 }
 
-@media (min-width: 1025px) {
+@media (min-width: 480px) and (max-width: 1025px) {
+    .settings-btn svg {
+        transform: scale(1.4);
+    }
+
+    .settings-menu {
+        width: 30%;
+    }
+
+    .settings-menu .settings-option {
+        grid-template-rows: 50px;
+    }
+}
+
+@media (min-width: 900px) and (max-width: 1499px) {
+    .settings-btn svg {
+        transform: scale(1.5);
+    }
+}
+
+@media (min-width: 1500px) {
     #saved-locations {
         width: 50%;
         margin-left: auto;

@@ -85,7 +85,7 @@ button#save-btn {
     box-sizing: border-box;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 1vh;
+    gap: 10px;
     position: relative;
 }
 
@@ -96,9 +96,9 @@ button#save-btn {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    backdrop-filter: blur(200px) brightness(0.80);
-    -webkit-backdrop-filter: blur(200px);
-    /* background-color: rgba(32, 73, 255, 0.2); */
+    backdrop-filter: blur(100px);
+    -webkit-backdrop-filter: blur(100px);
+    /* background-color: rgba(132, 132, 132, 0.213); */
     background-repeat: no-repeat;
 }
 
@@ -145,6 +145,7 @@ hr {
 }
 
 img.card-title-icon {
+    width: 15px;
     height: 15px;
 }
 
@@ -160,7 +161,92 @@ p.card-title-text {
 /* MEDIA QUERIES */
 /* TABLET */
 
-@media (min-width: 480px) and (max-width: 1025px) {
+@media (min-width: 550px) and (max-width: 1499px) {
+    * {
+        font-size: 20px;
+    }
+
+    .location-info-cards {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 10px;
+        position: relative;
+    }
+    
+    .location-info-cards .card {
+        border-radius: var(--radius);
+        min-height: fit-content;
+        padding: 15px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .location-info-cards .card.hourly-forecast {
+        grid-column: span 3;
+        order: 0;
+    }
+
+    .location-info-cards .card.daily-forecast {
+        grid-column: span 2;
+        order: 1;
+    }
+
+    .location-info-cards .card.uv-index {
+        grid-column: span 1;
+        grid-row: span 1;
+        order: 2;
+    }
+
+    .location-info-cards .card.feels-like {
+        grid-column: span 1;
+        grid-row: span 1;
+        order: 3;
+    }
+
+    .location-info-cards .card.precipitation {
+        grid-column: span 2;
+        order: 4;
+    }
+
+    .location-info-cards .card.report-issue {
+        grid-column: span 1;
+        grid-row: span 2;
+        order: 8;
+        display: grid;
+        grid-template-columns: 1fr;
+        padding: 20px;
+        gap: 20px;
+        text-align: center;
+    }
+
+    .location-info-cards .card.report-issue .card-content {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .location-info-cards .card.report-issue img {
+        margin: auto;
+        transform: scale(3);
+    }
+
+    p.issue-title {
+        color: white;
+        font-size: 1rem;
+        text-transform: none;
+        margin-top: 10px;
+    }
+
+    p.issue-desc {
+        color: #ddd;
+        font-size: 0.9rem;
+        text-transform: none;
+        margin-top: 10px;
+    }
+}
+
+@media (min-width: 800px) and (max-width: 1499px) {
     * {
         font-size: 25px;
     }
@@ -168,61 +254,99 @@ p.card-title-text {
     .location-info-cards {
         display: grid;
         grid-template-columns: 1fr 1fr 1fr 1fr;
-        grid-auto-rows: 1fr;
-        gap: 1vh;
+        gap: 10px;
         position: relative;
     }
     
     .location-info-cards .card {
-        min-height: 17vh;
         border-radius: var(--radius);
-        border: 1px solid black;
+        min-height: fit-content;
         padding: 15px;
         display: flex;
         flex-direction: column;
         gap: 10px;
     }
 
-    .card.hourly-forecast {
+    .location-info-cards .card.hourly-forecast {
         grid-column: span 4;
         order: 0;
     }
 
-    .card.daily-forecast {
-        grid-column: span 2;
+    .location-info-cards .card.daily-forecast {
+        grid-column: span 3;
         order: 1;
     }
 
-    .card.precipitation {
-        grid-column: span 2;
-        order: 2;
-    }
-
-    .card.wind {
-        grid-column: span 2;
+    .location-info-cards .card.feels-like {
+        grid-column: span 1;
+        grid-row: span 1;
         order: 3;
     }
 
-    .card.feels-like {
+    .location-info-cards .card.pressure {
+        grid-column: span 1;
+        grid-row: span 1;
         order: 4;
     }
 
-    .card.uv-index {
+    .location-info-cards .card.sunrise-sunset {
+        grid-column: span 1;
+        grid-row: span 1;
         order: 5;
     }
 
-    .card.humidity {
+    .location-info-cards .card.wind {
+        grid-column: span 3;
+        grid-row: span 1;
         order: 6;
     }
 
-    .card.sunset {
+    .location-info-cards .card.uv-index {
+        grid-column: span 1;
+        grid-row: span 1;
         order: 7;
+    }
+
+    .location-info-cards .card.precipitation {
+        grid-column: span 3;
+        order: 9;
+    }
+
+    .location-info-cards .card.report-issue {
+        grid-column: span 1;
+        grid-row: span 2;
+        order: 8;
+        display: grid;
+        grid-template-columns: 1fr;
+        padding: 20px;
+        gap: 20px;
+        text-align: center;
+    }
+
+    p.issue-title {
+        color: white;
+        font-size: 1rem;
+        text-transform: none;
+        margin-top: 10px;
+    }
+
+    p.issue-desc {
+        color: #ddd;
+        font-size: 0.9rem;
+        text-transform: none;
+        margin-top: 10px;
+    }
+}
+
+@media (min-width: 1100px) and (max-width: 1499px) {
+    * {
+        font-size: 23px;
     }
 }
 
 /* DESKTOP */
 
-@media (min-width: 1025px) {
+@media (min-width: 1500px) {
     * {
         font-size: 18px;
     }
@@ -293,16 +417,17 @@ p.card-title-text {
         grid-row: span 1;
         order: 9;
         min-height: 0;
-        display: flex;
-        flex-direction: row;
-        align-items: flex-start;
+        display: grid;
+        grid-template-columns: 1fr auto;
         gap: 15px;
         cursor: pointer;
+        padding: 20px;
     }
 
     .card.report-issue img {
-        height: 35px;
-        margin-top: 15px;
+        align-self: center;
+        transform: scale(2);
+        width: 50px;
     }
 
     p.issue-title {
