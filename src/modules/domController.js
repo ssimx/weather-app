@@ -11,7 +11,7 @@ import '../styles/wind-style.css';
 import '../styles/pressure-style.css';
 import '../styles/settings-style.css';
 import locations from './locations';
-import getLocationData, { getCoords, getSunriseSunset } from './weather';
+import getLocationData, { getCoords, getLocationName, getSunriseSunset } from './weather';
 import createTempBarElement from './tempBar';
 import formatDateTimezone from './timezoneFormatter';
 import pressureGauge from './pressureGauge';
@@ -42,8 +42,6 @@ import sunset from '../assets/icons/sunset.svg';
 import sunrise from '../assets/icons/sunrise.svg';
 import weatherCodes from '../assets/json/weatherCodes.json';
 import removeIcon from '../assets/icons/remove.svg';
-import reorderIcon from '../assets/icons/reorder.svg';
-import { getStorage } from './localStorage';
 
 const degreeIcon = '\u{000B0}';
 
@@ -442,7 +440,6 @@ const getWeatherInfo = async (location, systemType) => {
         systemType,
     ))[0];
 
-    console.log(locationData);
     updateBriefInfo(locationData);
     updateWeatherBackground(locationData);
     updateHourlyForecast(locationData);
@@ -473,7 +470,7 @@ const updateCardWeatherBackground = (locationData, card) => {
     }
 };
 
-const createSavedLocationsCards = async (systemType) => {
+const getSavedLocationsData = async (systemType) => {
     const savedLocations = locations().get();
     const cities = [];
     const latitudes = [];
@@ -489,14 +486,25 @@ const createSavedLocationsCards = async (systemType) => {
         timezones.push(location.timezone);
     });
 
-    const cardsContainer = document.querySelector('.saved-locations-cards');
-    cardsContainer.textContent = '';
-    const locationsData = await getLocationData(
-        cities, latitudes, longitudes, locationIDs, systemType);
+    const savedLocationsData = await getLocationData(
+        cities,
+        latitudes,
+        longitudes,
+        locationIDs,
+        systemType,
+    );
 
-    locationsData.forEach((location, index) => {
+    return savedLocationsData;
+};
+
+const createSavedLocationsCards = async (systemType) => {
+    const cardsContainer = document.querySelector('.saved-locations-cards');
+
+    const savedLocationsData = await getSavedLocationsData(systemType);
+
+    savedLocationsData.forEach((location, index) => {
         const locationDiv = document.createElement('div');
-        locationDiv.classList.add('location-container');
+        locationDiv.classList.add('location-container', 'saved-location');
         locationDiv.dataset.index = index;
 
         const cardDiv = document.createElement('div');
@@ -565,13 +573,112 @@ const createSavedLocationsCards = async (systemType) => {
     });
 };
 
-const getCardsInfo = (systemType) => {
+const getCurrentLocation = async () => {
+    const options = {
+        enableHighAccuracy: true,
+        maximumAge: 30000,
+        timeout: 27000,
+    };
+
+    const result = new Promise((resolve, reject) => {
+        navigator.geolocation.getCurrentPosition(resolve, reject, options);
+    });
+
+    return result;
+};
+
+const getCurrentLocationWeatherData = async (systemType) => {
+    const pos = await getCurrentLocation().catch((err) => console.log(err));
+
+    if (!pos) {
+        return undefined;
+    }
+
+    const currentLocationInfo = await getLocationName(
+        pos.coords.latitude,
+        pos.coords.longitude,
+    );
+    const currentLocationWeatherData = await getLocationData(
+        [currentLocationInfo.address_components[2].long_name],
+        [pos.coords.latitude],
+        [pos.coords.longitude],
+        [currentLocationInfo.place_id],
+        systemType,
+    );
+
+    return currentLocationWeatherData[0];
+};
+
+const createCurrentLocationCard = async (systemType) => {
+    const cardsContainer = document.querySelector('.saved-locations-cards');
+    cardsContainer.textContent = '';
+
+    const location = await getCurrentLocationWeatherData(systemType);
+
+    if (!location) {
+        return;
+    }
+
+    const locationDiv = document.createElement('div');
+    locationDiv.classList.add('location-container', 'current-location');
+    locationDiv.dataset.index = 'default';
+
+    const cardDiv = document.createElement('div');
+    cardDiv.classList.add('location-card');
+    updateCardWeatherBackground(location, cardDiv);
+
+    const cardLeftDiv = document.createElement('div');
+    cardLeftDiv.classList.add('location-card-left');
+    const city = document.createElement('p');
+    city.classList.add('city');
+    city.textContent = 'My location';
+
+    const time = document.createElement('p');
+    time.classList.add('time');
+    time.textContent = location.location.city;
+
+    const weather = document.createElement('p');
+    weather.classList.add('weather');
+    const weatherType = getWeatherType(
+        location.current.weatherCode,
+        location.current.isDay,
+    );
+    weather.textContent = weatherType.description;
+
+    const cardRightDiv = document.createElement('div');
+    cardRightDiv.classList.add('location-card-right');
+
+    const currentTemp = document.createElement('p');
+    currentTemp.classList.add('current-temp');
+    currentTemp.textContent = `${Math.round(location.current.temperature2m)}${degreeIcon}`;
+
+    const highMinTemp = document.createElement('div');
+    highMinTemp.classList.add('high-min-temp');
+
+    const highTemp = document.createElement('p');
+    highTemp.classList.add('high-temp');
+    highTemp.textContent = `L:${Math.round(location.daily.temperature2mMax[0])}`;
+
+    const minTemp = document.createElement('p');
+    minTemp.classList.add('min-temp');
+    minTemp.textContent = `L:${Math.round(location.daily.temperature2mMin[0])}`;
+
+    highMinTemp.append(highTemp, minTemp);
+    cardLeftDiv.append(city, time, weather);
+    cardRightDiv.append(currentTemp, highMinTemp);
+    cardDiv.append(cardLeftDiv, cardRightDiv);
+    locationDiv.append(cardDiv);
+    cardsContainer.append(locationDiv);
+};
+
+const getCardsInfo = async (systemType) => {
+    await createCurrentLocationCard(systemType);
     createSavedLocationsCards(systemType);
 };
 
 const toggleEditLocationsCards = () => {
     const cardsDiv = document.querySelector('.saved-locations-cards');
-    const locationContainers = cardsDiv.querySelectorAll('.location-container');
+    const locationContainers = cardsDiv.querySelectorAll('.saved-location');
 
     // for each container add remove/reorder elements and resize the card
     locationContainers.forEach((container) => {
@@ -579,15 +686,15 @@ const toggleEditLocationsCards = () => {
 
         // resize the card
         const locationCard = containerDiv.querySelector('.location-card');
-        locationCard.style.width === '' ? locationCard.style.width = '80%' : locationCard.style.width = '';
-        locationCard.style.height === '' ? locationCard.style.height = '7vh' : locationCard.style.height = '';
+        locationCard.style.width === '' ? locationCard.style.width = '90%' : locationCard.style.width = '';
+        locationCard.style.height === '' ? locationCard.style.height = '9vh' : locationCard.style.height = '';
         locationCard.style.borderRadius === '' ? locationCard.style.borderRadius = '20px' : locationCard.style.borderRadius = '';
         locationCard.style.padding === '' ? locationCard.style.padding = '0 5px' : locationCard.style.padding = '';
 
         const cardChildren = locationCard.childNodes;
         cardChildren.forEach((child) => {
             const elementChild = child;
-            elementChild.style.transform === '' ? elementChild.style.transform = 'scale(0.7)' : elementChild.style.transform = '';
+            elementChild.style.transform === '' ? elementChild.style.transform = 'scale(0.8)' : elementChild.style.transform = '';
         });
 
         // remove element
@@ -601,19 +708,6 @@ const toggleEditLocationsCards = () => {
             removeBtn.append(removeIcn);
 
             locationCard.insertAdjacentElement('beforebegin', removeBtn);
-        }
-
-        // reorder element
-        if (containerDiv.querySelector('.reorder-card-btn')) {
-            containerDiv.querySelector('.reorder-card-btn').remove();
-        } else {
-            const reorderBtn = document.createElement('button');
-            reorderBtn.classList.add('reorder-card-btn');
-            const reorderIcn = document.createElement('img');
-            reorderIcn.setAttribute('src', `${reorderIcon}`);
-            reorderBtn.append(reorderIcn);
-
-            locationCard.insertAdjacentElement('afterend', reorderBtn);
         }
     });
 };
@@ -647,4 +741,4 @@ const enableEditLocationsCards = () => {
     window.addEventListener('mouseup', manageEditLocationsCards);
 };
 
-export { getWeatherInfo, getCardsInfo, enableEditLocationsCards };
+export { getCurrentLocation, getWeatherInfo, getCardsInfo, enableEditLocationsCards };

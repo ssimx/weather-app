@@ -111,11 +111,12 @@
     gap: 1vh;
  }
 
- .location-container {
+ .location-container,
+ .current-location-container {
     width: 100%;
     display: flex;
     justify-content: center;
-    gap: 5px;
+    gap: 10px;
  }
 
  .location-card {

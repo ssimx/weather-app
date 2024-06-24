@@ -3,9 +3,9 @@
 import 'normalize.css';
 import './index-style.css';
 import './styles/saved-locations-style.css';
-import { getWeatherInfo, getCardsInfo, enableEditLocationsCards } from './modules/domController';
+import { getCurrentLocation, getWeatherInfo, getCardsInfo, enableEditLocationsCards } from './modules/domController';
 import locations from './modules/locations';
-import { getCoords } from './modules/weather';
+import { getCoords, getLocationName } from './modules/weather';
 import { setStorage, getStorage } from './modules/localStorage';
 import checkIcon from './assets/icons/check.svg';
 
@@ -34,7 +34,18 @@ if (getStorage('systemType') === null) {
 // create or get saved locations list,
 // render the first location and render menu cards of all saved locations in the background
 locations();
-getWeatherInfo(locations().get()[0].city, systemType);
+
+// get current position if possible
+const currentLocation = getCurrentLocation().catch((err) => console.log(err));
+let currentLocationName;
+currentLocation.then(async (res) => {
+    if (res) {
+        currentLocationName = await getLocationName(res.coords.latitude, res.coords.longitude);
+        getWeatherInfo(currentLocationName.address_components[2].long_name, systemType);
+    } else {
+        getWeatherInfo(locations().get()[0].city, systemType);
+    }
+});
 getCardsInfo(systemType);
 
 // ADD SYLE FOR SEARCH INPUT
@@ -77,7 +88,12 @@ const handleSearchClick = async (event) => {
 const handleCardClick = (event) => {
     if (event.target.closest('.location-card')) {
         const cardLocationIndex = event.target.closest('.location-container').dataset.index;
-        getWeatherInfo(locations().get()[cardLocationIndex].city, systemType);
+
+        if (cardLocationIndex === 'default') {
+            getWeatherInfo(currentLocationName.address_components[2].long_name, systemType);
+        } else {
+            getWeatherInfo(locations().get()[cardLocationIndex].city, systemType);
+        }
 
         savedLocationsDiv.style.display = 'none';
         savedLocationsDiv.classList.toggle('visible');

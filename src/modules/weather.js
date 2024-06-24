@@ -17,6 +17,18 @@ const getCoords = async (location) => {
     }
 };
 
+const getLocationName = async (latitude, longitude) => {
+    try {
+        const response = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=AIzaSyDqnHb0ScTTw8WWCAH2NabxjSqDTjkV-cY`, { mode: 'cors' });
+
+        const data = await response.json();
+
+        return data.results[0];
+    } catch (err) {
+        return err;
+    }
+};
+
 const getSunriseSunset = async (latitude, longitude, timezone) => {
     try {
         let tomorrow = new Date();
@@ -112,4 +124,4 @@ export default async function getLocationData(cityArray, latitudeArray, longitud
     return weatherData;
 }
 
-export { getCoords, getSunriseSunset };
+export { getCoords, getLocationName, getSunriseSunset };
