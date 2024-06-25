@@ -131,9 +131,6 @@ hr {
     grid-column: span 2;
 }
 
-.card.pressure {
-}
-
 .card.report-issue {
     display: none;
 }
@@ -155,6 +152,16 @@ p.card-title-text {
     font-size: 0.75rem;
     letter-spacing: 0.5px;
     line-height: 0;
+}
+
+button#saved-locations-btn,
+button#cancel-btn,
+button#save-btn,
+button.settings-btn,
+button.remove-card-btn,
+div.location-card,
+div.settings-option {
+    cursor: pointer;
 }
 
 

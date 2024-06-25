@@ -3,7 +3,12 @@
 import 'normalize.css';
 import './index-style.css';
 import './styles/saved-locations-style.css';
-import { getCurrentLocation, getWeatherInfo, getCardsInfo, enableEditLocationsCards } from './modules/domController';
+import {
+    getCurrentLocation,
+    getWeatherInfo,
+    getCardsInfo,
+    enableEditLocationsCards,
+} from './modules/domController';
 import locations from './modules/locations';
 import { getCoords, getLocationName } from './modules/weather';
 import { setStorage, getStorage } from './modules/localStorage';
@@ -150,25 +155,28 @@ const handleHeaderBtnClick = (event) => {
 
 // EVENT LISTENER FUNCTION: FOR SETTINGS MENU ITEMS
 const handleSettingsMenuClick = (event) => {
+    const menuItem = event.target.closest('.settings-option');
     settingsMenu.classList.toggle('hidden-menu');
     window.removeEventListener('mouseup', handleSettingsMenuClick);
 
     if (event.target.closest('.settings-option')) {
-        const menuItem = event.target.closest('.settings-option');
         if (menuItem.classList.contains('edit-list')) {
-            enableEditLocationsCards();
+            const savedLocationsCount = locations().get().length;
+
+            if (savedLocationsCount !== 0) {
+                enableEditLocationsCards();
+            }
         } else if (menuItem.classList.contains('metric')) {
             if (systemType === 1) {
                 systemType = 0;
                 setStorage('systemType', systemType);
-                getWeatherInfo(locations().get()[0].city, systemType);
                 getCardsInfo(systemType);
             }
         } else if (menuItem.classList.contains('imperial')) {
             if (systemType === 0) {
                 systemType = 1;
                 setStorage('systemType', systemType);
-                getWeatherInfo(locations().get()[0].city, systemType);
+                console.log('test');
                 getCardsInfo(systemType);
             }
         }
@@ -189,6 +197,19 @@ const handleSettingsBtn = () => {
         metricCheckIcon.src = checkIcon;
     } else {
         imperialCheckIcon.src = checkIcon;
+    }
+
+    const menuItem = settingsMenu.querySelector('.edit-list');
+    const savedLocationsCount = locations().get().length;
+
+    if (savedLocationsCount === 0) {
+        menuItem.style.backgroundColor = 'rgb(53 53 53)';
+        menuItem.style.filter = 'blur(1px)';
+        menuItem.style.cursor = 'not-allowed';
+    } else {
+        menuItem.style.backgroundColor = '';
+        menuItem.style.filter = '';
+        menuItem.style.cursor = 'pointer';
     }
 
     // EVENT LISTENER FOR MENU BUTTONS AND BACKGROUND

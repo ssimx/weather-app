@@ -725,16 +725,16 @@ const toggleEditLocationsCards = () => {
 };
 
 const manageEditLocationsCards = (event) => {
-    if (event.target.closest('.location-container')) {
+    if (event.target.closest('.saved-location')) {
         let cardsDiv = document.querySelector('.saved-locations-cards');
-        const containerIndex = event.target.closest('.location-container').dataset.index;
+        const containerIndex = event.target.closest('.saved-location').dataset.index;
         if (event.target.closest('.remove-card-btn')) {
             locations().remove(containerIndex);
-            cardsDiv.removeChild(event.target.closest('.location-container'));
+            cardsDiv.removeChild(event.target.closest('.saved-location'));
 
             // update card indexes
             cardsDiv = document.querySelector('.saved-locations-cards');
-            const containers = cardsDiv.querySelectorAll('.location-container');
+            const containers = cardsDiv.querySelectorAll('.saved-location');
             containers.forEach((container, index) => {
                 const containerDiv = container;
                 containerDiv.dataset.index = index;

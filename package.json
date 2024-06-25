@@ -69,7 +69,8 @@
             "webpack.*.js"
           ]
         }
-      ]
+      ],
+      "no-console": "off"
     }
   }
 }

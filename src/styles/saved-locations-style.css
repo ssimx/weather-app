@@ -111,6 +111,7 @@
  .pac-item {
     border: 0;
     margin-bottom: 5px;
+    cursor: pointer;
  }
 
  .pac-item span, span.pac-matched {
