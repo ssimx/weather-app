@@ -164,6 +164,10 @@ div.settings-option {
     cursor: pointer;
 }
 
+.header-buttons button {
+    text-shadow: 2px 2px 5px rgba(62, 61, 61, 0.8), 0px 0px 2px rgba(104, 104, 104, 0.8);
+}
+
 
 /* MEDIA QUERIES */
 /* TABLET */
