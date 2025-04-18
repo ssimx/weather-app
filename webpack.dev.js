@@ -14,6 +14,7 @@ module.exports = merge(common, {
         assetModuleFilename: '[name][ext]',
     },
     optimization: {
+        minimize: false,
         splitChunks: {
             cacheGroups: {
                 styles: {

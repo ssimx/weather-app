@@ -453,9 +453,9 @@ const updatePressure = (locationData) => {
 const getWeatherInfo = async (location, systemType) => {
     const locationCoords = await getCoords([location]);
     const locationData = (await getLocationData(
-        [locationCoords.address_components[0].long_name],
-        [locationCoords.geometry.location.lat],
-        [locationCoords.geometry.location.lng],
+        [locationCoords.city],
+        [locationCoords.lat],
+        [locationCoords.lon],
         [locationCoords.place_id],
         systemType,
     ))[0];
@@ -610,8 +610,9 @@ const getCurrentLocationWeatherData = async (systemType) => {
         pos.coords.latitude,
         pos.coords.longitude,
     );
+
     const currentLocationWeatherData = await getLocationData(
-        [currentLocationInfo.address_components[2].long_name],
+        [currentLocationInfo.city],
         [pos.coords.latitude],
         [pos.coords.longitude],
         [currentLocationInfo.place_id],

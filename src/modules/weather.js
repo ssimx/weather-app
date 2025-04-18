@@ -3,11 +3,14 @@
 import { fetchWeatherApi } from 'openmeteo';
 import formatDateTimezone from './timezoneFormatter';
 
-const range = require('lodash.range');
+const _ = require('lodash');
 
 const getCoords = async (location) => {
     try {
-        const response = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${location}&key=AIzaSyDqnHb0ScTTw8WWCAH2NabxjSqDTjkV-cY`, { mode: 'cors' });
+        const response = await fetch(
+            `https://api.geoapify.com/v1/geocode/search?text=${location}&format=json&apiKey=${process.env.GEO_API_KEY}`,
+            { mode: 'cors' },
+        );
 
         const data = await response.json();
 
@@ -19,7 +22,10 @@ const getCoords = async (location) => {
 
 const getLocationName = async (latitude, longitude) => {
     try {
-        const response = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=AIzaSyDqnHb0ScTTw8WWCAH2NabxjSqDTjkV-cY`, { mode: 'cors' });
+        const response = await fetch(
+            `https://api.geoapify.com/v1/geocode/reverse?lat=${latitude}&lon=${longitude}&format=json&apiKey=${process.env.GEO_API_KEY}`,
+            { mode: 'cors' },
+        );
 
         const data = await response.json();
 
@@ -75,8 +81,6 @@ export default async function getLocationData(cityArray, latitudeArray, longitud
         const hourly = response.hourly();
         const daily = response.daily();
 
-        // Get sunrise and sunset data
-
         // Note: The order of weather variables in the URL query and the indices below need to match
         weatherData.push({
             location: {
@@ -100,9 +104,8 @@ export default async function getLocationData(cityArray, latitudeArray, longitud
                 pressureMsl: current.variables(9).value(),
             },
             hourly: {
-                time: range(Number(hourly.time()), Number(hourly.timeEnd()), hourly.interval()).map(
-                    (t) => formatDateTimezone(timezone, new Date(t * 1000)),
-                ),
+                time: _.range(Number(hourly.time()), Number(hourly.timeEnd()), hourly.interval())
+                    .map((t) => formatDateTimezone(timezone, new Date(t * 1000))),
                 temperature2m: hourly.variables(0).valuesArray(),
                 precipitation: hourly.variables(1).valuesArray(),
                 weatherCode: hourly.variables(2).valuesArray(),
@@ -110,7 +113,7 @@ export default async function getLocationData(cityArray, latitudeArray, longitud
                 isDay: hourly.variables(4).valuesArray(),
             },
             daily: {
-                time: range(Number(daily.time()), Number(daily.timeEnd()), daily.interval()).map(
+                time: _.range(Number(daily.time()), Number(daily.timeEnd()), daily.interval()).map(
                     (t) => formatDateTimezone(timezone, new Date(t * 1000)),
                 ),
                 weatherCode: daily.variables(0).valuesArray(),
@@ -121,6 +124,7 @@ export default async function getLocationData(cityArray, latitudeArray, longitud
 
         });
     });
+
     return weatherData;
 }
 

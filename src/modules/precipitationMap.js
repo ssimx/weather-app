@@ -7,7 +7,7 @@ import * as maptilersdk from '@maptiler/sdk';
 import { PrecipitationLayer } from '@maptiler/weather';
 
 export default function renderPrecipitationMap(locationData) {
-    maptilersdk.config.apiKey = 'isqsMvkUWov0oDM3nzWX';
+    maptilersdk.config.apiKey = process.env.MAPTILER_API_KEY;
 
     const map = new maptilersdk.Map({
         container: 'map', // container's id or the HTML element to render the map

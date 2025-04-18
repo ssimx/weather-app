@@ -1,5 +1,9 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
+const webpack = require('webpack');
+const dotenv = require('dotenv');
+
+dotenv.config();
 
 module.exports = {
     entry: {
@@ -13,14 +17,24 @@ module.exports = {
             },
         ],
     },
+    resolve: {
+        fallback: {
+            os: require.resolve('os-browserify/browser'),
+            path: require.resolve('path-browserify'),
+            crypto: require.resolve('crypto-browserify'),
+            buffer: require.resolve('buffer/'),
+            stream: require.resolve('stream-browserify'),
+            vm: require.resolve('vm-browserify'),
+        },
+    },
     plugins: [
-        new HtmlWebpackPlugin(
-            {
-                title: 'Weather App',
-                template: '/src/index.html',
-                filename: 'index.html',
-                searchApi: `${process.env.WEATHER_APP_SEARCH_AUTOCOMPLETE_KEY}`,
-            },
-        ),
+        new HtmlWebpackPlugin({
+            title: 'Weather App',
+            template: '/src/index.html',
+            filename: 'index.html',
+        }),
+        new webpack.DefinePlugin({
+            'process.env': JSON.stringify(process.env),
+        }),
     ],
 };
