@@ -7,6 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <script type="module" src="https://unpkg.com/@googlemaps/extended-component-library@0.6"></script>
     <title>
         Weather App
     </title>
@@ -14,7 +15,7 @@
 
 <body>
 
-    <div id="location" class="visible" style="">
+    <div id="location" class="visible" >
         <div class="header-buttons">
             <button id="saved-locations-btn">
                 <svg width="30px" height="30px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
@@ -56,7 +57,7 @@
         <div class="location-info-cards">
             <div class="card hourly-forecast">
                 <div class="card-title">
-                    <img src="../src/assets/icons/clock.svg" alt="Clock" class="card-title-icon">
+                    <img src="clock.svg" alt="Clock" class="card-title-icon">
                     <p class="card-title-text">Hourly forecast</p>
                 </div>
                 <hr>
@@ -66,7 +67,7 @@
             </div>
             <div class="card daily-forecast">
                 <div class="card-title">
-                    <img src="../src/assets/icons/calendar.svg" alt="Calendar icon" class="card-title-icon">
+                    <img src="calendar.svg" alt="Calendar icon" class="card-title-icon">
                     <p class="card-title-text">10-day forecast</p>
                 </div>
                 <hr>
@@ -76,7 +77,7 @@
             </div>
             <div class="card precipitation">
                 <div class="card-title">
-                    <img src="../src/assets/icons/umbrella.svg" alt="Umbrella icon" class="card-title-icon">
+                    <img src="umbrella.svg" alt="Umbrella icon" class="card-title-icon">
                     <p class="card-title-text">Precipitation</p>
                 </div>
                 <div class="card-content">
@@ -85,7 +86,7 @@
             </div>
             <div class="card feels-like">
                 <div class="card-title">
-                    <img src="../src/assets/icons/temperature.svg" alt="Wind icon" class="card-title-icon">
+                    <img src="temperature.svg" alt="Wind icon" class="card-title-icon">
                     <p class="card-title-text">Feels like</p>
                 </div>
                 <div class="card-content">
@@ -94,7 +95,7 @@
             </div>
             <div class="card uv-index">
                 <div class="card-title">
-                    <img src="../src/assets/icons/sun.svg" alt="Sun icon" class="card-title-icon">
+                    <img src="sun.svg" alt="Sun icon" class="card-title-icon">
                     <p class="card-title-text">UV-index</p>
                 </div>
                 <div class="card-content">
@@ -103,7 +104,7 @@
             </div>
             <div class="card wind">
                 <div class="card-title">
-                    <img src="../src/assets/icons/wind.svg" alt="Wind icon" class="card-title-icon">
+                    <img src="wind.svg" alt="Wind icon" class="card-title-icon">
                     <p class="card-title-text">Wind</p>
                 </div>
                 <div class="card-content">
@@ -127,15 +128,15 @@
                     <div class="wind-direction">
                         <div class="circle">
                             <div class="direction"><p class="direction-text"></p></div>
-                            <img src="../src/assets/imgs/compass.png" alt="">
-                            <img src="../src/assets/imgs/arrow.png" alt="" class="arrow">
+                            <img src="compass.png" alt="">
+                            <img src="arrow.png" alt="" class="arrow">
                         </div>
                     </div>
                 </div>
             </div>
             <div class="card pressure">
                 <div class="card-title">
-                    <img src="../src/assets/icons/pressure.svg" alt="Wind icon" class="card-title-icon">
+                    <img src="pressure.svg" alt="Wind icon" class="card-title-icon">
                     <p class="card-title-text">Pressure</p>
                 </div>
                 <div class="card-content">
@@ -149,7 +150,7 @@
             </div>
             <div class="card sunrise-sunset">
                 <div class="card-title">
-                    <img src="" alt="" class="card-title-icon">
+                    <img src="sunrise.svg" alt="" class="card-title-icon">
                     <p class="card-title-text">Wind</p>
                 </div>
                 <div class="card-content">
@@ -157,7 +158,7 @@
                 </div>
             </div>
             <div class="card report-issue">
-                <img src="../src/assets/icons/report.svg" alt="Wind icon" class="card-title-icon">
+                <img src="report.svg" alt="Wind icon" class="card-title-icon">
                 <div class="card-content">
                     <p class="issue-title">Report an Issue</p>
                     <p class="issue-desc">You can describe the current conditions at your location to help improve forecasts.</p>
@@ -201,7 +202,7 @@
                 </div>
                 <hr>
                 <div class="settings-option metric">
-                    <img src="" alt="Check icon" class="check-icon">
+                    <img src="check.svg" alt="Check icon" class="check-icon">
                     <p>Metric</p>
                     <svg fill="#ffffff" width="16px" height="16px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     
@@ -220,7 +221,7 @@
                 </div>
                 <hr>
                 <div class="settings-option imperial">
-                    <img src="" alt="Check icon" class="check-icon">
+                    <img src="check.svg" alt="Check icon" class="check-icon">
                     <p>Imperial</p>
                     <svg fill="#ffffff" width="16px" height="16px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     
@@ -243,7 +244,7 @@
         <div class="search">
             <p>Weather</p>
 
-            <gmpx-api-loader key="AIzaSyDqnHb0ScTTw8WWCAH2NabxjSqDTjkV-cY" solution-channel="GMP_GCC_placepicker_v1"></gmpx-api-loader>
+            <gmpx-api-loader key="AIzaSyA1bB4PRd-fh6WdRgHYzZFm8O7D5XCFUQ4" solution-channel="GMP_GCC_placepicker_v1"></gmpx-api-loader>
             <div id="place-picker-box">
                 <div id="place-picker-container">
                     <gmpx-place-picker placeholder="Search for a city" type="(cities)"></gmpx-place-picker>

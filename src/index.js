@@ -61,6 +61,7 @@ function initApp() {
     const gmpx = document.querySelector('gmpx-place-picker');
     const style = document.createElement('style');
     style.innerHTML = '.pac-target-input { border-radius: 10px; border: none; font-size: 1rem; } .pac-target-input:focus { outline: none; } .icon { transform: scale(1.5); color: #757575; }';
+    gmpx.shadowRoot.appendChild(style);
 
     // FUNCTION FOR TOGGLING HEADER BUTTONS BUTTONS (MENU/CLOSE/SAVE)
     const toggleHeaderButtons = () => {
