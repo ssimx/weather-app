@@ -100,7 +100,7 @@ function initApp() {
 
             if (cardLocationIndex === 'default') {
                 getWeatherInfo(
-                    currentLocationName.address_components[2].long_name,
+                    currentLocationName.city,
                     systemType,
                 );
             } else {
