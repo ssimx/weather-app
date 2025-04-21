@@ -3,7 +3,7 @@
 ### Website: https://dazzling-cendol-9e6bec.netlify.app/
 
 ### Description:
-Weather app is a modern front-end only application that replicates Apple's weather app (formerly known as Twitter) core functionality.
+Weather app is a modern front-end application that replicates Apple's weather app core functionality.
 
 
 ## Technical Stack
