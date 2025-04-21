@@ -145,13 +145,13 @@ function initApp() {
         // If not, save it and toggle header buttons to show menu again
             if (!locations().exists(searchLocation.place_id)) {
                 locations().add(
-                    searchLocation.address_components[0].long_name,
-                    searchLocation.geometry.location.lat,
-                    searchLocation.geometry.location.lng,
+                    searchLocation.city,
+                    searchLocation.lat,
+                    searchLocation.lon,
                     searchLocation.place_id,
                 );
 
-                getWeatherInfo(searchLocation.address_components[0].long_name, 0);
+                getWeatherInfo(searchLocation.city, 0);
                 getCardsInfo(0);
                 toggleHeaderButtons();
             } else {
